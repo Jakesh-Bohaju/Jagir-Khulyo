@@ -40,29 +40,38 @@
             </div>
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
-                    <li class="menu-active"><a href="index.html">Home</a></li>
-                    <li class="menu-has-children"><a href="">Job Seeker</a>
-                        <ul>
-                            <li><a href="elements.html">Browse Jobs</a></li>
-                            <li><a href="search.html">Browse Categories</a></li>
-                            <li><a href="single.html">Sign In</a></li>
 
-                        </ul>
-                    </li>
-                    <li class="menu-has-children"><a href="">Company</a>
-                        <ul>
-                            <li><a href="elements.html">Post Job</a></li>
-                            <li><a href="search.html">Sign In</a></li>
+                    <li class="menu-active"><a href="{% url 'home:index' %}">Home</a></li>
+                    {% if request.user.is_authenticated and request.user.role == 'job_seeker'%}
+                        <li class="menu-has-children"><a href="">Job Seeker</a>
+                            <ul>
+                                <li><a href="elements.html">Browse Jobs</a></li>
+                                <li><a href="search.html">Browse Categories</a></li>
 
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
+                        <li><a href="blog-home.html">Blog</a></li>
+                        <li><a href="contact.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a class="ticker-btn" href="{% url 'custom_auth:logout' %}">Logout</a></li>
+                    {% elif request.user.is_authenticated and request.user.role == 'company'%}
+                        <li class="menu-has-children"><a href="">Company</a>
+                            <ul>
+                                <li><a href="{% url 'company:job_post' %}">Post Job</a></li>
 
-                    <li><a href="blog-home.html">Blog</a></li>
-                    <li><a href="contact.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-
-                    <li><a class="ticker-btn" href="#">Signup</a></li>
-                    <li><a class="ticker-btn" href="#">Login</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="blog-home.html">Blog</a></li>
+                        <li><a href="contact.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a class="ticker-btn" href="{% url 'custom_auth:logout' %}">Logout</a></li>
+                    {% else %}
+                        <li><a href="blog-home.html">Blog</a></li>
+                        <li><a href="contact.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a class="ticker-btn" href="{% url 'custom_auth:register' %}">Signup</a></li>
+                        <li><a class="ticker-btn" href="{% url 'custom_auth:login' %}">Login</a></li>
+                    {% endif %}
                 </ul>
             </nav><!-- #nav-menu-container -->
         </div>

@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 
 
 class JobListView(TemplateView):
-    template_name = 'seeker_register.html'
+    template_name = 'seeker_detail.html'
 
 
 class CategoryListView(TemplateView):

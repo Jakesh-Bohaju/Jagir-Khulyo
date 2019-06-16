@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'cms.apps.CmsConfig',
     'company.apps.CompanyConfig',
     'job_seeker.apps.JobSeekerConfig',
+    'custom_auth.apps.CustomAuthConfig',
+    'crispy_forms'
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,3 +125,5 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+AUTH_USER_MODEL = 'custom_auth.User'
