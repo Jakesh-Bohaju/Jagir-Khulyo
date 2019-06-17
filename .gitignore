@@ -3,5 +3,4 @@
 venv/
 db.sqlite3
 __pycache__
-ecommerce/migrations/__pycache__/
-cms/migrations/__pycache__/
+media
