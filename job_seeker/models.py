@@ -13,5 +13,8 @@ class SeekerDetail(models.Model):
     gender = models.ForeignKey(Gender, on_delete=models.CASCADE)
     phone_no = models.IntegerField()
     education = models.ForeignKey(Education, on_delete=models.CASCADE)
-    resume = models.FileField()
+    resume = models.FileField(upload_to='resume/', verbose_name="")
+
+    def __str__(self):
+        return self.name + ": " + str(self.resume)
 

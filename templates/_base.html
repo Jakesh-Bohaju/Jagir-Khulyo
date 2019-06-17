@@ -45,8 +45,8 @@
                     {% if request.user.is_authenticated and request.user.role == 'job_seeker'%}
                         <li class="menu-has-children"><a href="">Job Seeker</a>
                             <ul>
-                                <li><a href="elements.html">Browse Jobs</a></li>
-                                <li><a href="search.html">Browse Categories</a></li>
+                                <li><a href="{% url 'job_seeker:job_list' %}">Browse Jobs</a></li>
+                                <li><a href="{% url 'job_seeker:category_list' %}">Browse Categories</a></li>
 
                             </ul>
                         </li>
