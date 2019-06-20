@@ -16,5 +16,5 @@ class SeekerDetail(models.Model):
     resume = models.FileField(upload_to='resume/', verbose_name="")
 
     def __str__(self):
-        return self.name + ": " + str(self.resume)
+        return self.name
 

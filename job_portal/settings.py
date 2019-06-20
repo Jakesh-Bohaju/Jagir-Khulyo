@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'company.apps.CompanyConfig',
     'job_seeker.apps.JobSeekerConfig',
     'custom_auth.apps.CustomAuthConfig',
+    'blog.apps.BlogConfig',
     'crispy_forms'
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

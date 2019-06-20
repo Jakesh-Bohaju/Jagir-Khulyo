@@ -1,0 +1,31 @@
+<form  action="{% url 'home:search_job' %}" class="serach-form-area">
+                        <div class="row justify-content-center form-wrap">
+                            <div class="col-lg-4 form-cols">
+                                <input type="text" class="form-control" name='title'
+                                       placeholder="what are you looging for?">
+                            </div>
+                            <div class="col-lg-3 form-cols">
+                                <input type="text" class="form-control" name="location"
+                                       placeholder="which location?">
+                        </div>
+                        <div class="col-lg-3 form-cols">
+                             <input type="text" class="form-control" name="category"
+                                       placeholder="what category?">
+{#                            <div class="default-select" id="category" name="category">#}
+{#                                <select>#}
+{#                                    <option value="1">All Category</option>#}
+{#                                    <option value="2">Medical</option>#}
+{#                                    <option value="3">Technology</option>#}
+{#                                    <option value="4">Goverment</option>#}
+{#                                    <option value="5">Development</option>#}
+{#                                </select>#}
+{#                            </div>#}
+                        </div>
+                        <div class="col-lg-2 form-cols">
+                            <button type="submit" class="btn btn-info">
+                                <span class="lnr lnr-magnifier"></span> Search
+                            </button>
+{#                            <input type="submit" value="Search">#}
+                        </div>
+                </div>
+                </form>
