@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'job_seeker.apps.JobSeekerConfig',
     'custom_auth.apps.CustomAuthConfig',
     'blog.apps.BlogConfig',
-    'crispy_forms'
+    'crispy_forms',
+    'ckeditor',
+    'sorl.thumbnail'
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

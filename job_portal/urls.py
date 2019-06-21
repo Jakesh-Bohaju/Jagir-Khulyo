@@ -25,5 +25,5 @@ urlpatterns = [
                   path('cms/', include('cms.urls')),
                   path('company/', include('company.urls')),
                   path('jobs/', include('job_seeker.urls')),
-                  path('blog/', include('job_seeker.urls')),
+                  path('blog/', include('blog.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -9,11 +9,23 @@ from company.models import JobPost, Category
 
 class IndexView(TemplateView):
     template_name = 'index.html'
+    model = JobPost
+    paginate_by = 2
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['jobs'] = JobPost.objects.all()
+        context['categories'] = Category.objects.all()
+        context['top_jobs'] = JobPost.objects.all().order_by('?')
+        context['latest_jobs'] = JobPost.objects.all().order_by('-id')
+
+        return context
 
 
 class SearchView(ListView):
     template_name = 'search_result.html'
     model = JobPost
+    paginate_by = 2
 
     def get(self, request, *args, **kwargs):
         title = request.GET.get('title')

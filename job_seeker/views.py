@@ -13,7 +13,7 @@ from company.models import *
 class JobListView(ListView):
     template_name = 'job_list.html'
     model = JobPost
-    paginate_by = 1
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

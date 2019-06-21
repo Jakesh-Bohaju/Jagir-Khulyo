@@ -24,7 +24,7 @@ class Category(models.Model):
     slug = models.SlugField()
 
     def __str__(self):
-        return self.category
+        return self.slug
 
     def save(self, *args, **kwargs):
         value = self.category
