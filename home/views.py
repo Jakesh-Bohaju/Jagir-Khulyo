@@ -7,14 +7,14 @@ from django.views.generic import TemplateView, ListView
 from company.models import JobPost, Category
 
 
-class IndexView(TemplateView):
+class IndexView(ListView):
     template_name = 'index.html'
     model = JobPost
     paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['jobs'] = JobPost.objects.all()
+        # context['jobs'] = JobPost.objects.all()
         context['categories'] = Category.objects.all()
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['latest_jobs'] = JobPost.objects.all().order_by('-id')
