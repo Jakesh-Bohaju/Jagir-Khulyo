@@ -25,7 +25,7 @@ class JobPostView(CreateView):
 
             job_post = form.save(commit=False)
             category = request.POST.get('cate')
-            education = request.POST.get('educ')
+            education = request.POST.get('ed')
             cat = Category.objects.get(category=category)
             edu = Education.objects.get(education=education)
             job_post.category_id = cat.id

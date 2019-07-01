@@ -1,4 +1,5 @@
 {% extends '_base.html' %}
+{% load thumbnail %}
 {% block content %}
 
     <!-- start banner Area -->
@@ -25,58 +26,25 @@
             <div class="row">
                 <div class="col-lg-8 post-list blog-post-list">
                     <div class="single-post">
-                        <img class="img-fluid" src="img/blog/p1.jpg" alt="">
+
+                        <a href="#">
+                            <h1>
+                                {{ blog.title | safe }}
+                            </h1>
+                        </a>
+                        {% thumbnail blog.image "670x312" crop="center" as im %}
+                            <img class="img-fluid" src="{{ im.url }}">
+                        {% endthumbnail %}
+
                         <ul class="tags">
                             <li><a href="#">Art</a></li>
                             <li><a href="#">Technology</a></li>
                             <li><a href="#">Fashion</a></li>
                         </ul>
-                        <a href="#">
-                            <h1>
-                                Cartridge Is Better Than Ever
-                                A Discount Toner
-                            </h1>
-                        </a>
+
                         <div class="content-wrap">
                             <p>
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand
-                                why you should have to spend money on boot camp when you can get the MCSE study
-                                materials yourself at a fraction of the camp price. However, who has the willpower to
-                                actually sit through a self-imposed MCSE training. who has the willpower to actually sit
-                                through a self-imposed MCSE training.
-                            </p>
-
-                            <p>
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand
-                                why you should have to spend money on boot camp when you can get the MCSE study
-                                materials yourself at a fraction of the camp price. However, who has the willpower to
-                                actually sit through a self-imposed MCSE training. who has the willpower to actually sit
-                                through a self-imposed MCSE training.
-                            </p>
-
-                            <blockquote class="generic-blockquote">
-                                “Recently, the US Federal government banned online casinos from operating in America by
-                                making it illegal to transfer money to them through any US bank or payment system. As a
-                                result of this law, most of the popular online casino networks such as Party Gaming and
-                                PlayTech left the United States. Overnight, online casino players found themselves being
-                                chased by the Federal government.banking”
-                            </blockquote>
-
-                            <p>
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand
-                                why you should have to spend money on boot camp when you can get the MCSE study
-                                materials yourself at a fraction of the camp price. However, who has the willpower to
-                                actually sit through a self-imposed MCSE training. who has the willpower to actually sit
-                                through a self-imposed MCSE training.
-                            </p>
-
-                            <p>
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand
-                                why you should have to spend money on boot camp when you can get the MCSE study
-                                materials yourself at a fraction of the camp price. However, who has the willpower to
-                                actually sit through a self-imposed MCSE training. who has the willpower to actually sit
-                                through a self-imposed MCSE training.
-                            </p>
+                                {{ blog.content | safe }}
 
 
                         </div>
@@ -133,101 +101,98 @@
                                 <div class="row flex-column">
                                     <h5 class="text-uppercase pb-80">05 Comments</h5>
                                     <br>
-                                    <div class="comment-list">
-                                        <div class="single-comment justify-content-between d-flex">
-                                            <div class="user justify-content-between d-flex">
-                                                <div class="thumb">
-                                                    <img src="img/blog/c1.jpg" alt="">
-                                                </div>
-                                                <div class="desc">
-                                                    <h5><a href="#">Emilly Blunt</a></h5>
-                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                    <p class="comment">
-                                                        Never say goodbye till the end comes!
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="reply-btn">
-                                                <a href="" class="btn-reply text-uppercase">reply</a>
-                                            </div>
+                                    <h1>COMMENTS</h1>
+                                    {% for c in comments %}
+                                        <div class="comments-container">
+
+
+                                            <ul id="comments-list" class="comments-list">
+                                                <li>
+                                                    <div class="comment-main-level">
+                                                        <!-- Avatar -->
+                                                        <div class="comment-avatar"><img
+                                                                src="https://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg"
+                                                                alt=""></div>
+                                                        <!-- Contenedor del Comentario -->
+                                                        <div class="comment-box">
+                                                            <div class="comment-head">
+                                                                <h6 class="comment-name by-author"><a
+                                                                        href="http://creaticode.com/blog">{{ c.comment_user }}</a>
+                                                                </h6>
+                                                                <span>{{ c.comment_date }}</span>
+                                                                <i class="fa fa-reply"></i>
+                                                                <i class="fa fa-heart"></i>
+                                                            </div>
+                                                            <div class="comment-content">
+                                                                {{ c.answer }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Respuestas de los comentarios -->
+                                                    <ul class="comments-list reply-list">
+                                                        {% for r in reply %}
+                                                            {% if c.id == r.parent_id %}
+
+                                                                <li>
+                                                                    <!-- Avatar -->
+                                                                    <div class="comment-avatar"><img
+                                                                            src="https://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg"
+                                                                            alt=""></div>
+                                                                    <!-- Contenedor del Comentario -->
+                                                                    <div class="comment-box">
+                                                                        <div class="comment-head">
+                                                                            <h6 class="comment-name"><a
+                                                                                    href="http://creaticode.com/blog">{{ r.comment_user }}</a>
+                                                                            </h6>
+                                                                            <span>{{ r.comment_date }}</span>
+                                                                            <i class="fa fa-reply"></i>
+                                                                            <i class="fa fa-heart"></i>
+                                                                        </div>
+                                                                        <div class="comment-content">
+                                                                            {{ r.answer }}
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+
+
+                                                            {% endif %}
+                                                        {% endfor %}
+
+                                                        <div class="row flex-row d-flex">
+
+                                                            <div class="col-lg-12 col-md-6">
+                                                                <form method="post">
+                                                                    {% csrf_token %}
+                                                                    <div class="row">
+                                                                        <div class="col-lg-8">
+                                                                    <textarea class="form-control mb-10" name="answer"
+                                                                              placeholder="Messege"
+                                                                              id="answer"
+                                                                              onfocus="this.placeholder = ''"
+                                                                              onblur="this.placeholder = 'Messege'"
+                                                                              required=""></textarea>
+
+                                                                            <input type="hidden" name="comment_id"
+                                                                                   value="{{ c.id }}">
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <input type="submit"
+                                                                                   value="Reply">
+
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+
+                                                    </ul>
+                                                </li>
+
+
+                                            </ul>
                                         </div>
-                                    </div>
-                                    <div class="comment-list left-padding">
-                                        <div class="single-comment justify-content-between d-flex">
-                                            <div class="user justify-content-between d-flex">
-                                                <div class="thumb">
-                                                    <img src="img/blog/c2.jpg" alt="">
-                                                </div>
-                                                <div class="desc">
-                                                    <h5><a href="#">Emilly Blunt</a></h5>
-                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                    <p class="comment">
-                                                        Never say goodbye till the end comes!
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="reply-btn">
-                                                <a href="" class="btn-reply text-uppercase">reply</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="comment-list left-padding">
-                                        <div class="single-comment justify-content-between d-flex">
-                                            <div class="user justify-content-between d-flex">
-                                                <div class="thumb">
-                                                    <img src="img/blog/c3.jpg" alt="">
-                                                </div>
-                                                <div class="desc">
-                                                    <h5><a href="#">Emilly Blunt</a></h5>
-                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                    <p class="comment">
-                                                        Never say goodbye till the end comes!
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="reply-btn">
-                                                <a href="" class="btn-reply text-uppercase">reply</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="comment-list">
-                                        <div class="single-comment justify-content-between d-flex">
-                                            <div class="user justify-content-between d-flex">
-                                                <div class="thumb">
-                                                    <img src="img/blog/c4.jpg" alt="">
-                                                </div>
-                                                <div class="desc">
-                                                    <h5><a href="#">Emilly Blunt</a></h5>
-                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                    <p class="comment">
-                                                        Never say goodbye till the end comes!
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="reply-btn">
-                                                <a href="" class="btn-reply text-uppercase">reply</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="comment-list">
-                                        <div class="single-comment justify-content-between d-flex">
-                                            <div class="user justify-content-between d-flex">
-                                                <div class="thumb">
-                                                    <img src="img/blog/c5.jpg" alt="">
-                                                </div>
-                                                <div class="desc">
-                                                    <h5><a href="#">Emilly Blunt</a></h5>
-                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                    <p class="comment">
-                                                        Never say goodbye till the end comes!
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="reply-btn">
-                                                <a href="" class="btn-reply text-uppercase">reply</a>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                    {% endfor %}
                                 </div>
                             </div>
                         </section>
@@ -236,28 +201,25 @@
                         <!-- Start commentform Area -->
                         <section class="commentform-area pt-80">
                             <div class="container">
-                                <h5 class="pb-50">Leave a Reply</h5>
-                                <div class="row flex-row d-flex">
-                                    <div class="col-lg-4 col-md-6">
-                                        <input name="name" placeholder="Enter your name" onfocus="this.placeholder = ''"
-                                               onblur="this.placeholder = 'Enter your name'"
-                                               class="common-input mb-20 form-control" required="" type="text">
-                                        <input name="email" placeholder="Enter your email"
-                                               onfocus="this.placeholder = ''"
-                                               onblur="this.placeholder = 'Enter your email'"
-                                               class="common-input mb-20 form-control" required="" type="email">
-                                        <input name="Subject" placeholder="Subject" onfocus="this.placeholder = ''"
-                                               onblur="this.placeholder = 'Enter your Subject'"
-                                               class="common-input mb-20 form-control" required="" type="text">
+                                <h5 class="pb-50">Leave yor comment baby!!!!!</h5>
 
-                                    </div>
+                                <div class="row flex-row d-flex">
+
                                     <div class="col-lg-8 col-md-6">
-                                        <textarea class="form-control mb-10" name="message" placeholder="Messege"
-                                                  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'"
-                                                  required=""></textarea>
-                                        <a class="primary-btn mt-20" href="#">Comment</a>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <textarea class="form-control mb-10" name="answer" placeholder="Messege"
+                                                      id="answer"
+                                                      onfocus="this.placeholder = ''"
+                                                      onblur="this.placeholder = 'Messege'"
+                                                      required=""></textarea>
+
+                                            <input class="primary-btn mt-20" type="submit" value="comment">
+
+                                        </form>
                                     </div>
                                 </div>
+
                             </div>
                         </section>
                         <!-- End commentform Area -->
@@ -419,4 +381,5 @@
         </div>
     </section>
     <!-- End blog-posts Area -->
+
 {% endblock %}

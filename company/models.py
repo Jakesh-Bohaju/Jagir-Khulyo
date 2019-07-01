@@ -34,7 +34,7 @@ class JobPost(models.Model):
     slug = models.SlugField()
 
     def __str__(self):
-        return self.slug
+        return self.slug+'-'+self.company
 
     def save(self, *args, **kwargs):
         value = self.title
