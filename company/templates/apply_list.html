@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+{% block content %}
+    <table>
+    <tr>
+        <th>Name</th>
+        <th>Job Title</th>
+        <th>Resume</th>
+    </tr>
+    {% for a in job_apply %}
+    <tr>
+        <td>{{ a.applicant_name.user }}</td>
+        <td>{{ a.job_title }}</td>
+        <td>{{ a.applicant_name.resume }}</td>
+    </tr>
+
+    {% endfor %}
+</table>
+{% endblock %}

@@ -9,4 +9,5 @@ urlpatterns = [
     path('category', CategoryListView.as_view(), name='category_list'),
     path('', SeekerDetailView.as_view(), name='seeker_detail'),
     path('<slug:slug>/', JobDetailView.as_view(), name='single_job_detail'),
+    path('apply/', AppliedView.as_view(), name = 'apply_for_job'),
 ]

@@ -34,7 +34,7 @@ class JobPost(models.Model):
     slug = models.SlugField()
 
     def __str__(self):
-        return self.slug+'-'+self.company
+        return self.slug + '-' + self.company
 
     def save(self, *args, **kwargs):
         value = self.title
@@ -46,4 +46,5 @@ class ReceivedResume(models.Model):
     job_title = models.ForeignKey(JobPost, on_delete=models.CASCADE)
     applicant_name = models.ForeignKey(SeekerDetail, on_delete=models.CASCADE)
 
-
+    def __str__(self):
+        return self.applicant_name

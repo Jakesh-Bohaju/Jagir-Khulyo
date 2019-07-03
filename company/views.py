@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.views.generic import TemplateView, CreateView
 
-from company.models import JobPost, CompanyDetail
+from company.models import *
 from home.models import Category, Education
 
 
@@ -54,3 +54,32 @@ class CompanyDetailView(CreateView):
             detail.save()
             return redirect('company:job_post')
         return redirect('company:company_detail')
+
+
+class AppliedListView(CreateView):
+    model = ReceivedResume
+    fields = ['job_title']
+    template_name = 'apply_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['job_apply'] = ReceivedResume.objects.all()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+
+        if form.is_valid():
+            a = form.save(commit=False)
+            b = request.user.id
+            jobsek = SeekerDetail.objects.all()
+            for i in jobsek:
+                if i.user_id == b:
+                    a.applicant_name_id = i.id
+
+            a.save()
+
+            return redirect('/')
+
+        return redirect('/custom/login')
+

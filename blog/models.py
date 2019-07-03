@@ -14,7 +14,7 @@ class Blog(models.Model):
     slug = models.SlugField()
 
     def __str__(self):
-        return self.title
+        return self.slug
 
     def save(self, *args, **kwargs):
         value = self.title

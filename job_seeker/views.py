@@ -82,3 +82,26 @@ class SeekerDetailView(CreateView):
             print(form.errors)
 
         return redirect('job_seeker:seeker_detail')
+
+
+class AppliedView(CreateView):
+    model = ReceivedResume
+    fields = ['job_title']
+    template_name = 'single_job.html'
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+
+        if form.is_valid():
+            a = form.save(commit=False)
+            b = request.user.id
+            jobsek = SeekerDetail.objects.all()
+            for i in jobsek:
+                if i.user_id == b:
+                    a.applicant_name_id = i.id
+
+            a.save()
+
+            return redirect('job_seeker:single_job_detail')
+
+        return redirect('job_seeker:job_list')

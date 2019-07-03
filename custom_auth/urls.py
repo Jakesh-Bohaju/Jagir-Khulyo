@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout/', CustomLogoutView.as_view(), name='logout'),
     path('register/', RegistrationView.as_view(), name='register'),
 
+
 ]
