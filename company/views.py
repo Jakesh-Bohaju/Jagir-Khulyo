@@ -1,7 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
 from company.models import *
 from home.models import Category, Education
@@ -63,10 +64,9 @@ class AppliedListView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['job_apply'] = ReceivedResume.objects.all()
-        user = self.request.user.id
+        user = self.request.user
+        context['apply_title'] = JobPost.objects.filter(company__user_id=user)
         context['apply_list'] = ReceivedResume.objects.filter(job_title__company__user_id=user)
-
 
         return context
 
@@ -88,3 +88,52 @@ class AppliedListView(CreateView):
             return redirect('job_seeker:job_list')
 
         return redirect('job_seeker:job_list')
+
+
+# class JobPostUpdateView(UpdateView):
+#     template_name = 'jobpost.html'
+#     model = JobPost
+#     fields = ['title', 'job_level', 'vacancy_no', 'experience', 'salary', 'description', 'deadline']
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['categories'] = Category.objects.all()
+#         context['education'] = Education.objects.all()
+#         return context
+#
+#     # def post(self, request, *args, **kwargs):
+#     #
+#     #     form = self.get_form()
+#     #     if form.is_valid():
+#     #
+#     #         job_post = form.save(commit=False)
+#     #         category = request.POST.get('cate')
+#     #         education = request.POST.get('ed')
+#     #         cat = Category.objects.get(category=category)
+#     #         edu = Education.objects.get(education=education)
+#     #         job_post.category_id = cat.id
+#     #         job_post.education_id = edu.id
+#     #         user = request.user
+#     #         company = CompanyDetail.objects.all()
+#     #         for i in company:
+#     #             if user.id == i.user_id:
+#     #                 job_post.company_id = i.id
+#     #         job_post.save()
+#     #         return redirect('home:index')
+#     #   return redirect('company:job_post')
+#
+#     def form_valid(self, form):
+#         job_post = form.save(commit=False)
+#         category = self.request.POST.get('cate')
+#         education = self.request.POST.get('ed')
+#         cat = Category.objects.get(category=category)
+#         edu = Education.objects.get(education=education)
+#         job_post.category_id = cat.id
+#         job_post.education_id = edu.id
+#         user = self.request.user
+#         company = CompanyDetail.objects.all()
+#         for i in company:
+#             if user.id == i.user_id:
+#                 job_post.company_id = i.id
+#         self.job_post = form.save()
+#         return super().form_valid(form)
