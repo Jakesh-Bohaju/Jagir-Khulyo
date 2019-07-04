@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import CreateView
 
 from company.models import *
 from home.models import Category, Education
@@ -36,9 +36,9 @@ class JobPostView(CreateView):
                 if user.id == i.user_id:
                     job_post.company_id = i.id
             job_post.save()
-            return redirect('company:job_post')
+            return redirect('home:index')
 
-        return redirect('home:index')
+        return redirect('company:job_post')
 
 
 class CompanyDetailView(CreateView):
@@ -59,17 +59,23 @@ class CompanyDetailView(CreateView):
 class AppliedListView(CreateView):
     model = ReceivedResume
     fields = ['job_title']
-    template_name = 'apply_list.html'
+    template_name = 'job_apply_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['job_apply'] = ReceivedResume.objects.all()
+        user = self.request.user.id
+        context['apply_list'] = ReceivedResume.objects.filter(job_title__company__user_id=user)
+
+
         return context
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
+        print("before form validate")
 
         if form.is_valid():
+            print("after form validation")
             a = form.save(commit=False)
             b = request.user.id
             jobsek = SeekerDetail.objects.all()
@@ -79,7 +85,6 @@ class AppliedListView(CreateView):
 
             a.save()
 
-            return redirect('/')
+            return redirect('job_seeker:job_list')
 
-        return redirect('/custom/login')
-
+        return redirect('job_seeker:job_list')

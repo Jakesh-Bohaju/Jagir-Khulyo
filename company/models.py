@@ -1,3 +1,5 @@
+import random
+
 from django.utils.text import slugify
 
 from custom_auth.models import User
@@ -34,10 +36,11 @@ class JobPost(models.Model):
     slug = models.SlugField()
 
     def __str__(self):
-        return self.slug + '-' + self.company
+        return self.slug
 
     def save(self, *args, **kwargs):
-        value = self.title
+        random_number = random.randint(1000, 1000000)
+        value = self.company.company_name + self.title + str(random_number)
         self.slug = slugify(value, allow_unicode=True)
         super().save(*args, **kwargs)
 

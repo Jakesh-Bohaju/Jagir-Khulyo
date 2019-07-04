@@ -40,18 +40,14 @@
                         <div class="details">
                             <div class="title d-flex flex-row justify-content-between">
                                 <div class="titles">
-                                    <a href="#"><h4>{{ job.title }}</h4></a>
+                                    <a href=""><h4>{{ job.title }}</h4></a>
                                     <h6>{{ job.company.company_name }}</h6>
                                 </div>
                                 <ul class="btns">
                                     <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
                                     <li>
-                                        <form method="post" action="">
-                                            {% csrf_token %}
-                                            <input name="job_title" value="{{ job.id }}" type="hidden">
+                                        {% include 'partials/job_apply.html' %}
 
-                                            <button type="submit">apply</button>
-                                        </form>
                                     </li>
 
                                 </ul>

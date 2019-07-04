@@ -85,7 +85,7 @@
                                     </div>
                                     <ul class="btns">
                                         <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                                        <li><a href="#">Apply</a></li>
+                                        <li><a href="{% url 'job_seeker:single_job_detail' job %}">View Detail</a></li>
                                     </ul>
                                 </div>
                                 <p>
@@ -130,7 +130,7 @@
                             {% for job in top_jobs %}
                             <div class="single-rated">
                                 <img class="img-fluid" src="img/r1.jpg" alt="">
-                                <a href="single.html"><h4>{{ job.title }}</h4></a>
+                                <a href=""><h4>{{ job.title }}</h4></a>
                                 <h6>{{ job.category }}</h6>
                                 <p>
                                     {{ job.description }}

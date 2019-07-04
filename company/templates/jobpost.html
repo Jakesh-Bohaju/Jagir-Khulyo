@@ -38,7 +38,7 @@
                 <div class="col-md-12 col-lg-8 mb-5">
 
 
-                    <form method="POST" action="#" class="p-5 bg-white">
+                    <form method="post" action="{% url 'company:job_post' %}" class="p-5 bg-white">
                         {% csrf_token %}
                         {#                            {{ form.as_p }}#}
 
@@ -46,7 +46,7 @@
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="font-weight-bold" for="fullname">Job Title</label>
                                 <input type="text" id="title" class="form-control"
-                                       placeholder="eg. Full Stack Frontend" name="job_title">
+                                       placeholder="eg. Full Stack Frontend" name="title">
                             </div>
                         </div>
 
@@ -126,7 +126,7 @@
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="font-weight-bold" for="fullname">No of vacancy</label>
                                 <input type="number" id="vacancy_no" class="form-control"
-                                       placeholder="2" name="vacancy">
+                                       placeholder="2" name="vacancy_no">
                             </div>
                         </div>
 
