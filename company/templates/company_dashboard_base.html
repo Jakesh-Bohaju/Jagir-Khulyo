@@ -1,0 +1,31 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/demo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/light-bootstrap-dashboard.css' %}">
+
+    <!-- start banner Area -->
+    <section class="banner-area relative" id="home">
+        <div class="overlay overlay-bg"></div>
+        <div class="container">
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="about-content col-lg-12">
+                    <h1 class="text-white">
+                        Job Detail
+                    </h1>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End banner Area -->
+
+    {% block contents %}
+    {% endblock %}
+
+
+    <script src="{% static 'js/demo.js' %}"></script>
+    <script src="{% static 'js/light-bootstrap-dashboard.js' %}"></script>
+
+
+{% endblock %}
