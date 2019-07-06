@@ -2,6 +2,8 @@ import random
 
 from django.utils.text import slugify
 
+from sorl.thumbnail import ImageField
+
 from custom_auth.models import User
 from django.db import models
 
@@ -15,10 +17,17 @@ class CompanyDetail(models.Model):
     address = models.CharField(max_length=50)
     company_type = models.CharField(max_length=100)
     phone_no = models.IntegerField()
+    company_image = ImageField(upload_to='company/', verbose_name="")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    slug = models.SlugField()
 
     def __str__(self):
-        return self.company_name
+        return self.slug
+
+    def save(self, *args, **kwargs):
+        value = self.company_name
+        self.slug = slugify(value, allow_unicode=True)
+        super().save(*args, **kwargs)
 
 
 class JobPost(models.Model):
@@ -40,7 +49,7 @@ class JobPost(models.Model):
 
     def save(self, *args, **kwargs):
         random_number = random.randint(1000, 1000000)
-        value = self.company.company_name + self.title + str(random_number)
+        value = self.company.company_name + ' ' + self.title + ' ' + str(random_number)
         self.slug = slugify(value, allow_unicode=True)
         super().save(*args, **kwargs)
 

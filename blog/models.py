@@ -28,6 +28,15 @@ class Comment(models.Model):
     parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE)
     comment_user = models.ForeignKey(User, on_delete=models.CASCADE)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    slug = models.SlugField()
+
+    def __str__(self):
+        return self.slug
+
+    def save(self, *args, **kwargs):
+        value = self.comment_user.username + ' ' + self.answer
+        self.slug = slugify(value, allow_unicode=True)
+        super().save(*args, **kwargs)
 
 
 #

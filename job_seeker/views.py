@@ -52,7 +52,7 @@ class JobDetailView(DetailView):
 class SeekerDetailView(CreateView):
     template_name = 'seeker_detail.html'
     model = SeekerDetail
-    # fields = ['name', 'address', 'date_of_birth', 'phone_no','resume']
+    # fields = ['name', 'address', 'date_of_birth', 'phone_no','resume','image']
     form_class = ResumeForm
 
     def get_context_data(self, **kwargs):

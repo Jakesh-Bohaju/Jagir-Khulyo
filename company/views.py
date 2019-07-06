@@ -46,7 +46,7 @@ class JobPostView(CreateView):
 class CompanyDetailView(CreateView):
     template_name = 'company_detail.html'
     model = CompanyDetail
-    fields = ['company_name', 'address', 'company_type', 'phone_no']
+    fields = ['company_name', 'address', 'company_type', 'phone_no', 'company_image']
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()

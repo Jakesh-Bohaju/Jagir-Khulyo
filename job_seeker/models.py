@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 from home.models import *
+from sorl.thumbnail import ImageField
 
 
 class SeekerDetail(models.Model):
@@ -14,7 +15,14 @@ class SeekerDetail(models.Model):
     phone_no = models.IntegerField()
     education = models.ForeignKey(Education, on_delete=models.CASCADE)
     resume = models.FileField(upload_to='resume/', verbose_name="")
+    image = ImageField(upload_to='job_seeker/', verbose_name="")
+    slug = models.SlugField()
 
     def __str__(self):
-        return self.name
+        return self.slug
+
+    def save(self, *args, **kwargs):
+        value = self.name
+        self.slug = slugify(value, allow_unicode=True)
+        super().save(*args, **kwargs)
 
