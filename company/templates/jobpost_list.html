@@ -1,84 +1,115 @@
-{% extends '_base.html' %}
-{% block content %}
+{% extends '_company_dashboard_base.html' %}
+{% block company_dashboard %}
 
 
+     <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Job List</li>
+        </ol>
 
-    <!-- start banner Area -->
-    <section class="banner-area relative" id="home">
-        <div class="overlay overlay-bg"></div>
-        <div class="container">
-            <div class="row fullscreen d-flex align-items-center justify-content-center">
-                <div class="banner-content col-lg-12">
-                    <h1 class="text-white">
-                        <span>1500+</span> Jobs posted last week
-                    </h1>
-                    {% include 'partials/search.html' %}
-                    <p class="text-white"><span>Search by tags:</span> Tecnology, Business, Consulting, IT Company,
-                        Design,
-                        Development</p>
+<!-- Icon Cards-->
+        <div class="row">
+          <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-primary o-hidden h-100">
+              <div class="card-body">
+                <div class="card-body-icon">
+                  <i class="fas fa-fw fa-comments"></i>
                 </div>
+                <div class="mr-5">26 New Messages!</div>
+              </div>
+              <a class="card-footer text-white clearfix small z-1" href="#">
+                <span class="float-left">View Details</span>
+                <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+              </a>
             </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-warning o-hidden h-100">
+              <div class="card-body">
+                <div class="card-body-icon">
+                  <i class="fas fa-fw fa-list"></i>
+                </div>
+                <div class="mr-5">11 New Tasks!</div>
+              </div>
+              <a class="card-footer text-white clearfix small z-1" href="#">
+                <span class="float-left">View Details</span>
+                <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-success o-hidden h-100">
+              <div class="card-body">
+                <div class="card-body-icon">
+                  <i class="fas fa-fw fa-shopping-cart"></i>
+                </div>
+                <div class="mr-5">123 New Orders!</div>
+              </div>
+              <a class="card-footer text-white clearfix small z-1" href="#">
+                <span class="float-left">View Details</span>
+                <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-danger o-hidden h-100">
+              <div class="card-body">
+                <div class="card-body-icon">
+                  <i class="fas fa-fw fa-life-ring"></i>
+                </div>
+                <div class="mr-5">13 New Tickets!</div>
+              </div>
+              <a class="card-footer text-white clearfix small z-1" href="#">
+                <span class="float-left">View Details</span>
+                <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+              </a>
+            </div>
+          </div>
         </div>
-    </section>
-    <!-- End banner Area -->
 
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Data Table Example
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center">Job Title</th>
+                        <th style="text-align: center">Job Level</th>
+                        <th style="text-align: center">No of vacancy</th>
+                        <th style="text-align: center">Published Date</th>
+                        <th style="text-align: center">Deadline</th>
+                        <th colspan="2" style="text-align: center">Menu</th>
 
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for job in joblists %}
+                        <tr>
+                            <td>{{ job.title }}</td>
+                            <td>{{ job.job_level }}</td>
+                            <td>{{ job.vacancy_no }}</td>
+                            <td>{{ job.pub_date }}</td>
+                            <td>{{ job.deadline }}</td>
+                            <td><a href="{% url 'company:job_post_update' job %}"><input type="submit" name="edit" value="Edit"></a></td>
+                            <td><a data-toggle="modal" data-target="#myModal"><input type="submit" name="delete" value="Delete"></a></td>
+                        </tr>
 
-
-
-    <!-- Start post Area -->
-    <section class="post-area section-gap">
-        <div class="container">
-            <div class="row justify-content-center d-flex">
-                <div class="col-lg-8 post-list">
-                    <ul class="cat-list">
-                        <li><a href="#">Recent</a></li>
-                        <li><a href="#">Full Time</a></li>
-                        <li><a href="#">Intern</a></li>
-                        <li><a href="#">part Time</a></li>
-                    </ul>
-
-                    {% for job in object_list %}
-                        <div class="single-post d-flex flex-row">
-                            <div class="thumb">
-                                <img src="img/post.png" alt="">
-                                <ul class="tags">
-                                    <li>
-                                        <a href="#">Art</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Media</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Design</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="details">
-                                <div class="title d-flex flex-row justify-content-between">
-                                    <div class="titles">
-                                        <a href="{% url 'job_seeker:single_job_detail' job %}"><h4>{{ job.title }}</h4>
-                                        </a>
-                                        <h6>{{ job.category }}</h6>
-                                    </div>
-                                    <ul class="btns">
-                                        <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                                        <li><a href="{% url 'job_seeker:single_job_detail' job %}">View Detail</a></li>
-                                        <li><a href="{% url 'company:job_post_update' job %}">Edit</a></li>
-                                        <li><a  data-toggle="modal" data-target="#myModal">Delete</a></li>
-
-
-                                    </ul>
-                                </div>
-                                <p>
-                                    {{ job.description }}
-                                </p>
-                                <h5>Deadline : {{ job.deadline }}</h5>
-                                <p class="address"><span class="lnr lnr-map"></span>No of vacancy : {{ job.vacancy_no }}
-                                </p>
-                                <p class="address"><span class="lnr lnr-database"></span>Salary : {{ job.salary }}</p>
-                            </div>
-                        </div>
                         <!-- Delete Popup Modal -->
                         <div id="myModal" class="modal fade" role="dialog">
                             <div class="modal-dialog">
@@ -116,120 +147,15 @@
                         </div>
                         <!-- End popup modal -->
                     {% endfor %}
-
-                    {% include 'snippets/pagination.html' %}
-                    {#                    <a class="text-uppercase loadmore-btn mx-auto d-block" href="category.html">Load More job Posts</a>#}
-
-                </div>
-                <div class="col-lg-4 sidebar">
-                    <div class="single-slidebar">
-                        <h4>Jobs by Location</h4>
-                        <ul class="cat-list">
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>New York</p>
-                                <span>37</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Park Montana</p><span>57</span></a>
-                            </li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Atlanta</p>
-                                <span>33</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Arizona</p>
-                                <span>36</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Florida</p>
-                                <span>47</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Rocky Beach</p><span>27</span></a>
-                            </li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Chicago</p>
-                                <span>17</span></a></li>
-                        </ul>
-                    </div>
-
-                    <div class="single-slidebar">
-                        <h4>Top rated job posts</h4>
-                        <div class="active-relatedjob-carusel">
-                            {% for job in top_jobs %}
-                                <div class="single-rated">
-                                    <img class="img-fluid" src="img/r1.jpg" alt="">
-                                    <a href=""><h4>{{ job.title }}</h4></a>
-                                    <h6>{{ job.category }}</h6>
-                                    <p>
-                                        {{ job.description }}
-                                    </p>
-                                    <h5>Job Level: {{ job.job_level }}</h5>
-                                    <p class="address"><span class="lnr lnr-map"></span> {{ job.deadline }}
-                                    </p>
-                                    <p class="address"><span class="lnr lnr-database"></span> {{ job.salary }}</p>
-                                    <a href="#" class="btns text-uppercase">Apply job</a>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-
-                    <div class="single-slidebar">
-                        <h4>Jobs by Category</h4>
-                        <ul class="cat-list">
-                            {% for category in categories %}
-                                <li><a class="justify-content-between d-flex" href="category.html">
-                                    <p>{{ category.category }}</p>
-                                    <span>37</span></a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-
-                    <div class="single-slidebar">
-                        <h4>Carrer Advice Blog</h4>
-                        <div class="blog-list">
-                            <div class="single-blog " style="background:#000 url(img/blog1.jpg);">
-                                <a href="single.html"><h4>Home Audio Recording <br>
-                                    For Everyone</h4></a>
-                                <div class="meta justify-content-between d-flex">
-                                    <p>
-                                        02 Hours ago
-                                    </p>
-                                    <p>
-                                        <span class="lnr lnr-heart"></span>
-                                        06
-                                        <span class="lnr lnr-bubble"></span>
-                                        02
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="single-blog " style="background:#000 url(img/blog2.jpg);">
-                                <a href="single.html"><h4>Home Audio Recording <br>
-                                    For Everyone</h4></a>
-                                <div class="meta justify-content-between d-flex">
-                                    <p>
-                                        02 Hours ago
-                                    </p>
-                                    <p>
-                                        <span class="lnr lnr-heart"></span>
-                                        06
-                                        <span class="lnr lnr-bubble"></span>
-                                        02
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="single-blog " style="background:#000 url(img/blog1.jpg);">
-                                <a href="single.html"><h4>Home Audio Recording <br>
-                                    For Everyone</h4></a>
-                                <div class="meta justify-content-between d-flex">
-                                    <p>
-                                        02 Hours ago
-                                    </p>
-                                    <p>
-                                        <span class="lnr lnr-heart"></span>
-                                        06
-                                        <span class="lnr lnr-bubble"></span>
-                                        02
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </section>
-    <!-- End post Area -->
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>
+
+
+
 
 
 

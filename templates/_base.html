@@ -34,17 +34,17 @@
 </head>
 <body>
 
-<header id="header" id="home">
+<header id="header" id="home" >
     <div class="container">
-        <div class="row align-items-center justify-content-between d-flex">
+        <div class="row align-items-center justify-content-between d-flex" >
             <div id="logo">
                 <a href="index.html"><img src="img/logo.png" alt="" title=""/></a>
             </div>
-            <nav id="nav-menu-container">
+            <nav id="nav-menu-container" >
                 <ul class="nav-menu">
 
                     <li class="menu-active"><a href="{% url 'home:index' %}">Home</a></li>
-                    {% if request.user.is_authenticated and request.user.role == 'job_seeker'%}
+                    {% if request.user.is_authenticated and request.user.role == 'job_seeker' %}
                         <li class="menu-has-children"><a href="">Job Seeker</a>
                             <ul>
                                 <li><a href="{% url 'job_seeker:job_list' %}">Browse Jobs</a></li>
@@ -56,7 +56,7 @@
                         <li><a href="contact.html">About Us</a></li>
                         <li><a href="contact.html">Contact</a></li>
                         <li><a class="ticker-btn" href="{% url 'custom_auth:logout' %}">Logout</a></li>
-                    {% elif request.user.is_authenticated and request.user.role == 'company'%}
+                    {% elif request.user.is_authenticated and request.user.role == 'company' %}
                         <li class="menu-has-children"><a href="">Company</a>
                             <ul>
                                 <li><a href="{% url 'company:job_post' %}">Post Job</a></li>
@@ -75,7 +75,7 @@
                         <li><a class="ticker-btn" href="{% url 'custom_auth:login' %}">Login</a></li>
                     {% endif %}
                 </ul>
-            </nav><!-- #nav-menu-container -->
+                </nav><!-- #nav-menu-container -->
         </div>
     </div>
 </header><!-- #header -->
