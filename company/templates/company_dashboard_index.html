@@ -1,0 +1,10 @@
+{% extends '_company_dashboard_base.html' %}
+{% load sorl_thumbnail %}
+{% block company_dashboard %}
+
+<h1>Welcom {{ user.company_name }}</h1>
+    {% thumbnail user.company_image "100x100" crop="center" as im %}
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+{% endthumbnail %}
+
+{% endblock %}

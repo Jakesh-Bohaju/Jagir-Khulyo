@@ -18,6 +18,7 @@
     <title>Job Listing</title>
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--
     CSS
     ============================================= -->
@@ -34,13 +35,13 @@
 </head>
 <body>
 
-<header id="header" id="home" >
+<header id="header" id="home">
     <div class="container">
-        <div class="row align-items-center justify-content-between d-flex" >
+        <div class="row align-items-center justify-content-between d-flex">
             <div id="logo">
                 <a href="index.html"><img src="img/logo.png" alt="" title=""/></a>
             </div>
-            <nav id="nav-menu-container" >
+            <nav id="nav-menu-container">
                 <ul class="nav-menu">
 
                     <li class="menu-active"><a href="{% url 'home:index' %}">Home</a></li>
@@ -75,7 +76,7 @@
                         <li><a class="ticker-btn" href="{% url 'custom_auth:login' %}">Login</a></li>
                     {% endif %}
                 </ul>
-                </nav><!-- #nav-menu-container -->
+            </nav><!-- #nav-menu-container -->
         </div>
     </div>
 </header><!-- #header -->

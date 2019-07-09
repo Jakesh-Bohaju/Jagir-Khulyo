@@ -1,0 +1,12 @@
+{% extends '_company_dashboard_base.html' %}
+{% load crispy_forms_tags %}
+{% block company_dashboard %}
+
+
+    <form method="post">{% csrf_token %}
+        {{ form | crispy }}
+        <input type="submit" value="Update">
+    </form>
+
+
+{% endblock %}

@@ -3,13 +3,39 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView
 
 from company.models import *
 from home.models import Category, Education
 
 
-class JobPostView(CreateView):
+class CompanyDashboardBaseView(TemplateView):
+    template_name = '_company_dashboard_base.html'
+    model = CompanyDetail
+    success_url = reverse_lazy('company:company_dashboard_index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        try:
+            context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
+        return context
+
+
+class CompanyDashboardIndexView(TemplateView):
+    template_name = 'company_dashboard_index.html'
+    model = CompanyDetail
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context['user'] = CompanyDetail.objects.get(user_id=user)
+        return context
+
+
+class JobPostView(LoginRequiredMixin, CreateView):
     template_name = 'jobpost.html'
     model = JobPost
     fields = ['title', 'job_level', 'vacancy_no', 'experience', 'salary', 'description', 'deadline']
@@ -18,6 +44,9 @@ class JobPostView(CreateView):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         context['education'] = Education.objects.all()
+        user = self.request.user
+        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -58,7 +87,7 @@ class CompanyDetailView(CreateView):
         return redirect('company:company_detail')
 
 
-class AppliedListView(CreateView):
+class AppliedListView(LoginRequiredMixin, CreateView):
     model = ReceivedResume
     fields = ['job_title']
     template_name = 'job_apply_list.html'
@@ -68,6 +97,7 @@ class AppliedListView(CreateView):
         user = self.request.user
         context['apply_title'] = JobPost.objects.filter(company__user_id=user)
         context['apply_list'] = ReceivedResume.objects.filter(job_title__company__user_id=user)
+        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
 
         return context
 
@@ -91,7 +121,7 @@ class AppliedListView(CreateView):
         return redirect('job_seeker:job_list')
 
 
-class JobPostListView(ListView):
+class JobPostListView(LoginRequiredMixin, ListView):
     template_name = 'jobpost_list.html'
     model = JobPost
     paginate_by = 2
@@ -100,6 +130,8 @@ class JobPostListView(ListView):
         context = super().get_context_data(**kwargs)
         user = self.request.user.id
         context['joblists'] = JobPost.objects.filter(company__user_id=user)
+        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+
         return context
 
 
@@ -109,6 +141,13 @@ class JobDetailUpdateView(UpdateView):
               'deadline']
     template_name = 'jobpost_update_form.html'
     success_url = reverse_lazy('company:jobpost_list')
+
+
+class CompanyUpdateView(UpdateView):
+    model = CompanyDetail
+    fields = ['company_name', 'address', 'company_type', 'phone_no', 'company_image']
+    template_name = 'company_update_form.html'
+    success_url = reverse_lazy('company:company_dashboard')
 
 
 class JobPostDeleteView(DeleteView):

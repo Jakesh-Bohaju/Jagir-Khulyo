@@ -27,7 +27,7 @@ class CustomLoginView(LoginView):
         user = self.request.user
 
         if user.role == 'company':
-            return reverse('company:job_post')
+            return reverse('company:company_dashboard_index')
 
         else:
             return reverse('job_seeker:seeker_detail')
@@ -37,4 +37,4 @@ class CustomLogoutView(LogoutView):
     template_name = 'index.html'
 
     def get(self, request, *args, **kwargs):
-        return redirect('home:index')
+        return redirect('custom_auth:login')

@@ -107,7 +107,7 @@
                             <th style="text-align: center">Address</th>
                             <th style="text-align: center">Gender</th>
                             <th style="text-align: center">Phone No</th>
-                            <th style="text-align: center">Resume</th>
+                            <th colspan="2" style="text-align: center">Resume</th>
 
                         </tr>
                         </thead>
@@ -120,6 +120,7 @@
                                     <td>{{ title_wise_application.applicant_name.gender }}</td>
                                     <td>{{ title_wise_application.applicant_name.phone_no }}</td>
                                     <td>{{ title_wise_application.applicant_name.resume }}</td>
+                                <td><i class="fa fa-download"></i></td>
                                 </tr>
 
                             {% endif %}
