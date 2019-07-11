@@ -1,12 +1,54 @@
 {% extends '_company_dashboard_base.html' %}
+{% load thumbnail %}
 {% load crispy_forms_tags %}
 {% block company_dashboard %}
 
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Edit Profile</li>
+    </ol>
 
-    <form method="post">{% csrf_token %}
-        {{ form | crispy }}
-        <input type="submit" value="Update">
-    </form>
+    <div class="row">
+        <div class="col-lg-8">
+            <form method="post">{% csrf_token %}
+                {{ form | crispy }}
+                <input type="submit" value="Update">
+            </form>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="p-4 mb-3 bg-white">
+                <h3 class="h5 text-black mb-3">Company Profile</h3>
+                <div class="justify-content-center">
+                        {% thumbnail menu_option.company_image "100x100" crop="center" as im %}
+                            <img class="rounded" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                        {% endthumbnail %}
+                    </div>
+                <p class="mb-0 font-weight-bold">Name</p>
+                <p class="mb-4">{{ menu_option.company_name }}</p>
+
+                <p class="mb-0 font-weight-bold">Address</p>
+                <p class="mb-4">{{ menu_option.address }}</p>
+
+                <p class="mb-0 font-weight-bold">Company Type</p>
+                <p class="mb-4">{{ menu_option.company_type }}</p>
+
+
+                <p class="mb-0 font-weight-bold">Phone</p>
+                <p class="mb-4"><a href="#">{{ menu_option.phone_no }}</a></p>
+
+                <p class="mb-0 font-weight-bold">Email Address</p>
+                <p class="mb-0"><a href="#">{{ menu_option.user.email }}</a></p>
+
+            </div>
+
+
+
+        </div>
+    </div>
 
 
 {% endblock %}

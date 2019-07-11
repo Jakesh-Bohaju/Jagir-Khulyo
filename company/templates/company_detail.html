@@ -1,6 +1,14 @@
 {% extends '_company_dashboard_base.html' %}
 {% block company_dashboard %}
 
+    <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Complete Your Profile</li>
+        </ol>
+
 
     <!-- Content -->
     <div class="page-content bg-white">
@@ -42,10 +50,10 @@
 
                         <div class="form-group">
                         <label>Company Photo</label>
-                        <div class="custom-file">
+
                             <input type="file" class="site-button" id="company_image" name="company_image" accept="image/x-png, image/jpeg">
                         </div>
-                    </div>
+
 
 
                         <input type="submit" class="site-button" value="submit">

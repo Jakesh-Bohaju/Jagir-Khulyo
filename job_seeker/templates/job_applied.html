@@ -1,0 +1,58 @@
+{% extends '_job_seeker_dashboard_base.html' %}
+{% block seeker_content %}
+<div class="navbar-wrapper">
+    <a class="navbar-brand" href="{% url 'job_seeker:seeker_dashboard_index' %}">Dashboard</a> | Job Applied
+          </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h4 class="card-title ">Job Applied</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class=" text-primary">
+                                            <th>
+                                                Job Title
+                                            </th>
+                                            <th>
+                                                Company Name
+                                            </th>
+                                            <th>
+                                                Job Level
+                                            </th>
+                                            <th>
+                                                Applied Date
+                                            </th>
+
+                                            </thead>
+                                            <tbody>
+                                            {% for i in applied_list %}
+                                                <tr>
+                                                    <td>
+                                                        {{ i.job_title.title }}
+                                                    </td>
+                                                    <td>
+                                                        {{ i.job_title.company.company_name }}
+                                                    </td>
+                                                    <td>
+                                                        {{ i.job_title.job_level }}
+                                                    </td>
+                                                    <td>
+                                                        {{ i.applied_date }}
+                                                    </td>
+
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+{% endblock %}

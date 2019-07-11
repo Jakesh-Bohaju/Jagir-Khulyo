@@ -1,0 +1,50 @@
+{% extends '_job_seeker_dashboard_base.html' %}
+{% load crispy_forms_tags %}
+{% load thumbnail %}
+{% block seeker_content %}
+    <hr>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="content-block">
+                <h5>Edit your profile</h5>
+                <hr>
+                <!-- Submit Resume -->
+                <div class="section-full bg-light submit-resume content-inner-2">
+                    <div class="container">
+                        <form method="post" action="" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                            <input type="submit" class="site-button" \ value="submit">
+
+                        </form>
+                    </div>
+                </div>
+                <!-- Submit Resume END -->
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="content-block">
+
+                <h5>Profile Detail</h5>
+                <ul>
+                    <div class="justify-content-center">
+                        {% thumbnail seeker.image "100x100" crop="center" as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                        {% endthumbnail %}
+                    </div>
+
+                        <li>Name : {{ seeker.name }}</li>
+                        <li>Address : {{ seeker.address }}</li>
+                        <li>Gender : {{ seeker.gender }}</li>
+                        <li>Date of Birth : {{ seeker.date_of_birth }}</li>
+                        <li>Education : {{ seeker.education }}</li>
+                        <li>Phone No. :{{ seeker.phone_no }}</li>
+                        <li>Email : {{ seeker.user.email }}</li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

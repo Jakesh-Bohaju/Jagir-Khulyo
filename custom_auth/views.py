@@ -30,7 +30,7 @@ class CustomLoginView(LoginView):
             return reverse('company:company_dashboard_index')
 
         else:
-            return reverse('job_seeker:seeker_detail')
+            return reverse('job_seeker:seeker_dashboard_index')
 
 
 class CustomLogoutView(LogoutView):

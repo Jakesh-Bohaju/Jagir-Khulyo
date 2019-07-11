@@ -1,0 +1,15 @@
+{% extends '_job_seeker_dashboard_base.html' %}
+{% load thumbnail %}
+{% block seeker_content %}
+
+<div class="row">
+<div class="offset-1 col-lg-3">
+    {% thumbnail user.image "200x500" as im %}
+    <img class="rounded" src="{{ im.url }}">
+    {% endthumbnail %}
+</div>
+<div class="col-lg-7">
+    <h1>Welcome <em style="color: navajowhite">{{ user.name }} </em></h1>
+</div>
+</div>
+{% endblock %}

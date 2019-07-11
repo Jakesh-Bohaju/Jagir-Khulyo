@@ -57,6 +57,7 @@ class JobPost(models.Model):
 class ReceivedResume(models.Model):
     job_title = models.ForeignKey(JobPost, on_delete=models.CASCADE)
     applicant_name = models.ForeignKey(SeekerDetail, on_delete=models.CASCADE)
+    applied_date = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.applicant_name

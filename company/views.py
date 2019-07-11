@@ -32,6 +32,8 @@ class CompanyDashboardIndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         context['user'] = CompanyDetail.objects.get(user_id=user)
+        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+
         return context
 
 
@@ -142,6 +144,13 @@ class JobDetailUpdateView(UpdateView):
     template_name = 'jobpost_update_form.html'
     success_url = reverse_lazy('company:jobpost_list')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+
+        return context
+
 
 class CompanyUpdateView(UpdateView):
     model = CompanyDetail
@@ -149,7 +158,21 @@ class CompanyUpdateView(UpdateView):
     template_name = 'company_update_form.html'
     success_url = reverse_lazy('company:company_dashboard')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+
+        return context
+
 
 class JobPostDeleteView(DeleteView):
     model = JobPost
     success_url = reverse_lazy('company:job_post')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+
+        return context

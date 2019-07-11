@@ -56,6 +56,8 @@
                         <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
                         <li><a href="contact.html">About Us</a></li>
                         <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{% url 'job_seeker:seeker_dashboard_index' %}">Setting</a></li>
+
                         <li><a class="ticker-btn" href="{% url 'custom_auth:logout' %}">Logout</a></li>
                     {% elif request.user.is_authenticated and request.user.role == 'company' %}
                         <li class="menu-has-children"><a href="">Company</a>
@@ -67,6 +69,7 @@
                         <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
                         <li><a href="contact.html">About Us</a></li>
                         <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{% url 'company:company_dashboard_index' %}">Setting</a></li>
                         <li><a class="ticker-btn" href="{% url 'custom_auth:logout' %}">Logout</a></li>
                     {% else %}
                         <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>

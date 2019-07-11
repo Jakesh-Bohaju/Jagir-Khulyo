@@ -1,20 +1,6 @@
-{% extends '_base.html' %}
-{% block content %}
-    <!-- start banner Area -->
-    <section class="banner-area relative" id="home">
-        <div class="overlay overlay-bg"></div>
-        <div class="container">
-            <div class="row d-flex align-items-center justify-content-center">
-                <div class="about-content col-lg-12">
-                    <h1 class="text-white">
-                        Your Detail
-                    </h1>
-
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End banner Area -->
+{% extends '_job_seeker_dashboard_base.html' %}
+{% block seeker_content %}
+ <div class="page-content bg-white">
     <div class="content-block">
         <!-- Submit Resume -->
         <div class="section-full bg-white submit-resume content-inner-2">
@@ -63,18 +49,14 @@
 
                     <div class="form-group">
                         <label>Profile Photo</label>
-                        <div class="custom-file">
                             <input type="file" class="site-button" id="image" name="image" accept="image/x-png, image/jpeg">
-                        </div>
                     </div>
 
                     <div class="form-group">
                         <label>Resume / CV</label>
-                        <div class="custom-file">
-                            <input type="file" class="site-button" id="resume" name="resume" accept="application/pdf">
-                        </div>
-                    </div>
 
+                            <input type="file" class="site-button" id="resume" name="resume" accept="application/pdf">
+                    </div>
 
                     <input type="submit" class="site-button" value="submit">
                 </form>
@@ -82,4 +64,5 @@
         </div>
         <!-- Submit Resume END -->
     </div>
+ </div>
 {% endblock %}
