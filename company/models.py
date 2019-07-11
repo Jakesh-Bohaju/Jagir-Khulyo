@@ -1,3 +1,4 @@
+import os
 import random
 
 from django.utils.text import slugify
@@ -61,3 +62,4 @@ class ReceivedResume(models.Model):
 
     def __str__(self):
         return self.applicant_name
+

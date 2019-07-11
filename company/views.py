@@ -1,12 +1,17 @@
+import os
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.http import FileResponse
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView
+from django.views.generic.detail import BaseDetailView
 
 from company.models import *
 from home.models import Category, Education
+from job_portal import settings
 
 
 class CompanyDashboardBaseView(TemplateView):
@@ -100,7 +105,6 @@ class AppliedListView(LoginRequiredMixin, CreateView):
         context['apply_title'] = JobPost.objects.filter(company__user_id=user)
         context['apply_list'] = ReceivedResume.objects.filter(job_title__company__user_id=user)
         context['menu_option'] = CompanyDetail.objects.get(user_id=user)
-
         return context
 
     def post(self, request, *args, **kwargs):

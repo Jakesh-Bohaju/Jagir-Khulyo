@@ -1,4 +1,5 @@
 {% extends '_company_dashboard_base.html' %}
+
 {% block company_dashboard %}
 
 
@@ -119,8 +120,8 @@
                                     <td>{{ title_wise_application.applicant_name.address }}</td>
                                     <td>{{ title_wise_application.applicant_name.gender }}</td>
                                     <td>{{ title_wise_application.applicant_name.phone_no }}</td>
-                                    <td>{{ title_wise_application.applicant_name.resume }}</td>
-                                <td><i class="fa fa-download"></i></td>
+                                    <td><a href="{{ title_wise_application.applicant_name.resume.url }}">{{ title_wise_application.applicant_name.resume }}</a></td>
+                                <td><a href="{{ title_wise_application.applicant_name.resume.url }}"><i class="fa fa-download"></i></a></td>
                                 </tr>
 
                             {% endif %}
