@@ -36,7 +36,19 @@ class SearchView(ListView):
         if request.GET.get('title') and request.GET.get('location') and request.GET.get('category'):
             search_set = search_set.filter(title__icontains=title, company__address__icontains=location,
                                            category__category__icontains=category)
-            # b.append(search_set)
+
+        elif request.GET.get('title') and request.GET.get('location') or request.GET.get('category'):
+            search_set = search_set.filter(title__icontains=title, company__address__icontains=location,
+                                           category__category__icontains=category)
+
+        elif request.GET.get('title') or request.GET.get('location') and request.GET.get('category'):
+            search_set = search_set.filter(title__icontains=title, company__address__icontains=location,
+                                           category__category__icontains=category)
+        elif request.GET.get('title') or request.GET.get('location') or request.GET.get('category'):
+            search_set = search_set.filter(title__icontains=title, company__address__icontains=location,
+                                           category__category__icontains=category)
+
+
 
         # print(b)
         template_context = {

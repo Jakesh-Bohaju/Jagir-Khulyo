@@ -10,8 +10,8 @@
                     <h1 class="text-white">
                         Blog Posts
                     </h1>
-                    <p class="text-white link-nav"><a href="index.html">Home </a> <span
-                            class="lnr lnr-arrow-right"></span> <a href="blog-home.html"> Blog Posts</a></p>
+                    <p class="text-white link-nav"><a href="{% url 'home:index' %}">Home </a> <span
+                            class="lnr lnr-arrow-right"></span> <a href="{% url 'blog:blog_list' %}"> Blog Posts</a></p>
                 </div>
             </div>
         </div>

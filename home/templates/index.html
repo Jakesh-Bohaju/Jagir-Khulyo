@@ -6,7 +6,10 @@
     <!-- start banner Area -->
     <section class="banner-area relative" id="home">
         <div class="overlay overlay-bg"></div>
+        {#                            <div id="particles-js"><canvas class="particles-js-canvas-el" width="1409" height="319" style="width: 100%; height: 100%;"></canvas></div>#}
+
         <div class="container">
+
             <div class="row fullscreen d-flex align-items-center justify-content-center">
                 <div class="banner-content col-lg-12">
                     <h1 class="text-white">
@@ -146,12 +149,13 @@
                             <div class="details">
                                 <div class="title d-flex flex-row justify-content-between">
                                     <div class="titles">
-                                        <a href="{% url 'job_seeker:single_job_detail' job %}"><h4>{{ job.title }}</h4></a>
+                                        <a href="{% url 'job_seeker:single_job_detail' job %}"><h4>{{ job.title }}</h4>
+                                        </a>
                                         <h6>{{ job.company.company_name }}</h6>
                                     </div>
                                     <ul class="btns">
                                         <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                                        <li><a href="{%  url 'job_seeker:single_job_detail' job %}">View Detail</a></li>
+                                        <li><a href="{% url 'job_seeker:single_job_detail' job %}">View Detail</a></li>
                                     </ul>
                                 </div>
                                 <p>
@@ -163,8 +167,8 @@
                             </div>
                         </div>
                     {% endfor %}
-                {% include 'snippets/pagination.html' %}
-{#                    <a class="text-uppercase loadmore-btn mx-auto d-block" href="category.html">Load More job Posts</a>#}
+                    {% include 'snippets/pagination.html' %}
+                    {#                    <a class="text-uppercase loadmore-btn mx-auto d-block" href="category.html">Load More job Posts</a>#}
 
                 </div>
                 <div class="col-lg-4 sidebar">
@@ -192,19 +196,19 @@
                         <h4>Top rated job posts</h4>
                         <div class="active-relatedjob-carusel">
                             {% for t_job in top_jobs %}
-                            <div class="single-rated">
-                                <img class="img-fluid" src="img/r1.jpg" alt="">
-                                <a href="single.html"><h4>{{ t_job.title }}</h4></a>
-                                <h6>{{ t_job.company.company_name }}</h6>
-                                <p>
-                                    {{ t_job.description }}
-                                </p>
-                                <h5>{{ t_job.job_level }}</h5>
-                                <p class="address"><span class="lnr lnr-map"></span> {{ t_job.company.address }}
-                                </p>
-                                <p class="address"><span class="lnr lnr-database"></span>{{ t_job.salary }}</p>
-                                <a href="#" class="btns text-uppercase">Apply job</a>
-                            </div>
+                                <div class="single-rated">
+                                    <img class="img-fluid" src="img/r1.jpg" alt="">
+                                    <a href="single.html"><h4>{{ t_job.title }}</h4></a>
+                                    <h6>{{ t_job.company.company_name }}</h6>
+                                    <p>
+                                        {{ t_job.description }}
+                                    </p>
+                                    <h5>{{ t_job.job_level }}</h5>
+                                    <p class="address"><span class="lnr lnr-map"></span> {{ t_job.company.address }}
+                                    </p>
+                                    <p class="address"><span class="lnr lnr-database"></span>{{ t_job.salary }}</p>
+                                    <a href="#" class="btns text-uppercase">Apply job</a>
+                                </div>
                             {% endfor %}
 
                         </div>

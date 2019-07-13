@@ -1,0 +1,142 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block content %}
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="{% static 'css/about_us.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animated_banner.css' %}">
+    {#    <div class="aboutus-banner">#}
+    {#        <img src="https://www.aar.org/wp-content/uploads/2017/12/Hands-Shaking-1024x683.jpg" alt="">#}
+    {#    </div>#}
+
+    <div class='particle-network-animation'>
+    </div>
+
+
+    <div class="container demo">
+        <div class="content">
+            <div class="aboutus-section">
+
+
+                <div class="container">
+
+                    <div class="row">
+
+
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="aboutus">
+                                <h2 class="aboutus-title">About Us</h2>
+                                <p class="aboutus-text">Hello. Welcome to Jagir Khulyo. So glad you’re here.
+
+                                <p class="aboutus-text"> We’re Jakesh & Rajan, the founders and developers of Jagir
+                                    Khulyo. We are providing the simple, easy and best way of searching jobs and
+                                    applying with the individual dashboard. </p>
+
+                                <p class="aboutus-text">All the clients are satisfy with us with our services and with
+                                    our journey. We maintain unique style, unique design and unique solution of every
+                                    problems because of these we are able to build the simplified and transparency
+                                    between seeker and the companies.</p>
+
+                                <p class="aboutus-text">Thanks for using our services. Hoping for your
+                                    feedback.<br>🙂🙂🙂Happy life Happy journey!!!</p>
+                                {#                            <a class="aboutus-more" href="#">read more</a>#}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                            <div class="feature">
+                                <div class="feature-box">
+                                    <div class="clearfix">
+                                        <div class="iconset">
+                                            <span class="glyphicon glyphicon-cog icon"></span>
+                                        </div>
+                                        <div class="feature-content">
+                                            <h4>Friendly Interface</h4>
+                                            <p>Jagir Khulyo is providing simple and transparency UI with the great and
+                                                amazing connection between client and founders.</p>
+                                        </div>
+                                    </div>
+                                </div><br>
+                                <div class="feature-box">
+                                    <div class="clearfix">
+                                        <div class="iconset">
+                                            <span class="glyphicon glyphicon-cog icon"></span>
+                                        </div>
+                                        <div class="feature-content">
+                                            <h4>Reliable services</h4>
+                                            <p>Donec vitae sapien ut libero venenatis faucibu. Nullam quis ante.
+                                                Etiam sit
+                                                amet orci eget eros faucibus tincidunt</p>
+                                        </div>
+                                    </div>
+                                </div><br>
+                                <div class="feature-box">
+                                    <div class="clearfix">
+                                        <div class="iconset">
+                                            <span class="glyphicon glyphicon-cog icon"></span>
+                                        </div>
+                                        <div class="feature-content">
+                                            <h4>Great support</h4>
+                                            <p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor
+                                                eu, consequat
+                                                vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="aboutus">
+                            <h2 class="aboutus-title">Team Member</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-1 col-lg-4 col-sm-4 col-xs-10">
+                            <div class="card border-0 shadow">
+                                <img src="{% static 'img/rajan_team_member.jpg' %}" class="card-img-top"
+                                     alt="..." height="250">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0"><u>Team Member</u></h5>
+                                    <div class="card-text text-black-50" style="font-size: larger;"><b><font
+                                            color="maroon">Rajan
+                                        Khayamali</font> </b></div>
+
+
+                                    <div class="card-text text-black-50">Django Developer</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="offset-2 col-lg-4 col-sm-4 col-xs-10">
+                            <div class="card border-0 shadow">
+                                <img src="{% static 'img/jakesh_team_member.jpg' %}" class="card-img-top"
+                                     alt="..."
+                                     height="250">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0"><u>Team Member</u></h5>
+                                    <div class="card-text text-black-50" style="font-size: larger;"><b><font
+                                            color="maroon">Jakesh
+                                        Bohaju</font></b></div>
+                                    <div class="card-text text-black-50">Django Developer</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="{% static 'js/animated_banner.js' %}"></script>
+
+{% endblock %}

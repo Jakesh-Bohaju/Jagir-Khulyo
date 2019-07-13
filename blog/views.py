@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, DetailView
 
@@ -47,9 +48,9 @@ class BlogDetailView(CreateView):
 
             a.blog_id = aaa.id
             a.save()
-
-            return redirect('blog:single_blog')
-        return redirect('blog:single_blog')
+                # return to same page
+            return HttpResponseRedirect(self.request.path_info)
+        return HttpResponseRedirect(self.request.path_info)
 
 
 

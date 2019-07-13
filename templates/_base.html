@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+    <link rel="stylesheet" href="{% static 'css/particle_animation.css' %}">
+
 </head>
 <body>
 
@@ -54,8 +56,8 @@
                             </ul>
                         </li>
                         <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
-                        <li><a href="contact.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{% url 'cms:about_us' %}">About Us</a></li>
+                        <li><a href="{% url 'cms:contact_us' %}">Contact</a></li>
                         <li><a href="{% url 'job_seeker:seeker_dashboard_index' %}">Setting</a></li>
 
                         <li><a class="ticker-btn" href="{% url 'custom_auth:logout' %}">Logout</a></li>
@@ -67,14 +69,14 @@
                             </ul>
                         </li>
                         <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
-                        <li><a href="contact.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{% url 'cms:about_us' %}">About Us</a></li>
+                        <li><a href="{% url 'cms:contact_us' %}">Contact</a></li>
                         <li><a href="{% url 'company:company_dashboard_index' %}">Setting</a></li>
                         <li><a class="ticker-btn" href="{% url 'custom_auth:logout' %}">Logout</a></li>
                     {% else %}
                         <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
-                        <li><a href="contact.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{% url 'cms:about_us' %}">About Us</a></li>
+                        <li><a href="{% url 'cms:contact_us' %}">Contact</a></li>
                         <li><a class="ticker-btn" href="{% url 'custom_auth:register' %}">Signup</a></li>
                         <li><a class="ticker-btn" href="{% url 'custom_auth:login' %}">Login</a></li>
                     {% endif %}
@@ -152,15 +154,19 @@
             <p class="col-lg-8 col-sm-12 footer-text m-0 text-white">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                    href="https://colorlib.com" target="_blank">Colorlib</a>
+                All rights reserved | Developed by <a href="https://www.sunrosetech.com" target="_blank">SunRose Tech
+                Pvt Ltd</a>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
             <div class="col-lg-4 col-sm-12 footer-social">
                 <a href="#"><i class="fa fa-facebook"></i></a>
                 <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-dribbble"></i></a>
-                <a href="#"><i class="fa fa-behance"></i></a>
+                <a href="#"><i class="fa fa-google-plus"></i></a>
+                <a href="#"><i class="fa fa-stack-overflow"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-quora"></i></a>
+
+
             </div>
         </div>
     </div>
@@ -185,6 +191,8 @@
 <script src="{% static 'js/parallax.min.js' %}"></script>
 <script src="{% static 'js/mail-script.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/particle_animation.js' %}"></script>
+
 </body>
 </html>
 
