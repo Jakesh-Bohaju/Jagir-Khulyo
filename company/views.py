@@ -36,9 +36,11 @@ class CompanyDashboardIndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        context['user'] = CompanyDetail.objects.get(user_id=user)
-        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
-
+        try:
+            context['user'] = CompanyDetail.objects.get(user_id=user)
+            context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
 
 
