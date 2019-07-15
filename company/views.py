@@ -45,10 +45,11 @@ class JobPostView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        context['education'] = Education.objects.all()
+
         user = self.request.user
         try:
+            context['categories'] = Category.objects.all()
+            context['education'] = Education.objects.all()
             context['menu_option'] = CompanyDetail.objects.get(user_id=user)
         except Exception as e:
             print(e)
@@ -100,9 +101,10 @@ class AppliedListView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        context['apply_title'] = JobPost.objects.filter(company__user_id=user)
-        context['apply_list'] = ReceivedResume.objects.filter(job_title__company__user_id=user)
+
         try:
+            context['apply_title'] = JobPost.objects.filter(company__user_id=user)
+            context['apply_list'] = ReceivedResume.objects.filter(job_title__company__user_id=user)
             context['menu_option'] = CompanyDetail.objects.get(user_id=user)
         except Exception as e:
             print(e)
@@ -136,8 +138,9 @@ class JobPostListView(LoginRequiredMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user.id
-        context['joblists'] = JobPost.objects.filter(company__user_id=user)
+
         try:
+            context['joblists'] = JobPost.objects.filter(company__user_id=user)
             context['menu_option'] = CompanyDetail.objects.get(user_id=user)
         except Exception as e:
             print(e)
