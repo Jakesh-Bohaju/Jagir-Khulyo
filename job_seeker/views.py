@@ -51,7 +51,10 @@ class JobListView(ListView):
         context = super().get_context_data(**kwargs)
         # context['jobs'] = JobPost.objects.all()
         user = self.request.user
-        context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        try:
+            context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         context['categories'] = Category.objects.all()
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['latest_jobs'] = JobPost.objects.all().order_by('-id')
@@ -68,7 +71,10 @@ class CategoryListView(ListView):
         context = super().get_context_data(**kwargs)
         # context['categories'] = Category.objects.all()
         user = self.request.user
-        context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        try:
+            context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         context['freq_categories'] = Category.objects.all().order_by('?')
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         return context
@@ -83,7 +89,10 @@ class JobDetailView(DetailView):
         slug = self.kwargs['slug']
         context['job'] = JobPost.objects.get(slug=slug)
         user = self.request.user
-        context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        try:
+            context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
 
 
@@ -98,7 +107,10 @@ class SeekerDetailView(CreateView):
         context['genders'] = Gender.objects.all()
         context['education'] = Education.objects.all()
         user = self.request.user
-        context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        try:
+            context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -133,8 +145,10 @@ class SeekerUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        context['seeker'] = SeekerDetail.objects.get(user_id=user)
-
+        try:
+            context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
 
 
@@ -146,6 +160,8 @@ class SeekerAppliedView(ListView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         context['applied_list'] = ReceivedResume.objects.filter(applicant_name__user=user)
-        context['seeker'] = SeekerDetail.objects.get(user_id=user)
-
+        try:
+            context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
