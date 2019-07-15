@@ -1,17 +1,11 @@
-import os
-
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import FileResponse
-from django.shortcuts import render, redirect, get_object_or_404
-
+from django.shortcuts import redirect
 # Create your views here.
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView
-from django.views.generic.detail import BaseDetailView
 
 from company.models import *
 from home.models import Category, Education
-from job_portal import settings
 
 
 class CompanyDashboardBaseView(TemplateView):
@@ -54,8 +48,10 @@ class JobPostView(LoginRequiredMixin, CreateView):
         context['categories'] = Category.objects.all()
         context['education'] = Education.objects.all()
         user = self.request.user
-        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
-
+        try:
+            context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -106,7 +102,10 @@ class AppliedListView(LoginRequiredMixin, CreateView):
         user = self.request.user
         context['apply_title'] = JobPost.objects.filter(company__user_id=user)
         context['apply_list'] = ReceivedResume.objects.filter(job_title__company__user_id=user)
-        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+        try:
+            context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -138,8 +137,10 @@ class JobPostListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         user = self.request.user.id
         context['joblists'] = JobPost.objects.filter(company__user_id=user)
-        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
-
+        try:
+            context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
 
 
@@ -153,8 +154,10 @@ class JobDetailUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
-
+        try:
+            context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
 
 
@@ -167,8 +170,10 @@ class CompanyUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
-
+        try:
+            context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
 
 
@@ -179,6 +184,8 @@ class JobPostDeleteView(DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        context['menu_option'] = CompanyDetail.objects.get(user_id=user)
-
+        try:
+            context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
