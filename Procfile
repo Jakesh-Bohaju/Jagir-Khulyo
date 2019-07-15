@@ -1,0 +1,1 @@
+web: gunicorn jagir-khulyo.wsgi --log-file -
