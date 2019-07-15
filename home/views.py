@@ -3,8 +3,11 @@ from django.shortcuts import render
 # Create your views here.
 from django.views import View
 from django.views.generic import TemplateView, ListView
+from rest_framework import generics, serializers
 
-from company.models import JobPost, Category
+from blog.models import Blog, Comment
+from company.models import JobPost, Category, CompanyDetail
+from custom_auth.models import User
 
 
 class IndexView(ListView):
@@ -18,6 +21,9 @@ class IndexView(ListView):
         context['categories'] = Category.objects.all()
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['latest_jobs'] = JobPost.objects.all().order_by('-id')
+        context['blogs'] = Blog.objects.all().order_by('?')[:3]
+        context['job_by_locations'] = JobPost.objects.all()
+        context['companies'] = CompanyDetail.objects.all()
 
         return context
 
@@ -48,8 +54,6 @@ class SearchView(ListView):
             search_set = search_set.filter(title__icontains=title, company__address__icontains=location,
                                            category__category__icontains=category)
 
-
-
         # print(b)
         template_context = {
             'filtered_jobs': search_set,
@@ -58,3 +62,5 @@ class SearchView(ListView):
             'freq_categories': Category.objects.all().order_by('?')[:6],
         }
         return render(request, 'search_result.html', template_context)
+
+

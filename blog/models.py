@@ -25,8 +25,8 @@ class Blog(models.Model):
 class Comment(models.Model):
     answer = RichTextField()
     comment_date = models.DateField(auto_now=True)
-    parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE)
-    comment_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', blank=True, null=True, related_name='sub_comments', on_delete=models.CASCADE)
+    comment_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     slug = models.SlugField()
 
