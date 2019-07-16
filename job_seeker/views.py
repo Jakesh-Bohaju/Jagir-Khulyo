@@ -51,15 +51,11 @@ class JobListView(ListView):
         context = super().get_context_data(**kwargs)
         # context['jobs'] = JobPost.objects.all()
         user = self.request.user
-        try:
-            context['seeker'] = SeekerDetail.objects.get(user_id=user)
-            context['categories'] = Category.objects.all()
-            context['top_jobs'] = JobPost.objects.all().order_by('?')
-            context['latest_jobs'] = JobPost.objects.all().order_by('-id')
-            context['freq_categories'] = Category.objects.all().order_by('?')
-        except Exception as e:
-            print(e)
-
+        context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        context['categories'] = Category.objects.all()
+        context['top_jobs'] = JobPost.objects.all().order_by('?')
+        context['latest_jobs'] = JobPost.objects.all().order_by('-id')
+        context['freq_categories'] = Category.objects.all().order_by('?')
         return context
 
 
@@ -72,13 +68,9 @@ class CategoryListView(ListView):
         context = super().get_context_data(**kwargs)
         # context['categories'] = Category.objects.all()
         user = self.request.user
-        try:
-            context['seeker'] = SeekerDetail.objects.get(user_id=user)
-            context['freq_categories'] = Category.objects.all().order_by('?')
-            context['top_jobs'] = JobPost.objects.all().order_by('?')
-        except Exception as e:
-            print(e)
-
+        context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        context['freq_categories'] = Category.objects.all().order_by('?')
+        context['top_jobs'] = JobPost.objects.all().order_by('?')
         return context
 
 
@@ -91,10 +83,8 @@ class JobDetailView(DetailView):
         slug = self.kwargs['slug']
         context['job'] = JobPost.objects.get(slug=slug)
         user = self.request.user
-        try:
-            context['seeker'] = SeekerDetail.objects.get(user_id=user)
-        except Exception as e:
-            print(e)
+        context['seeker'] = SeekerDetail.objects.get(user_id=user)
+
         return context
 
 
@@ -109,11 +99,8 @@ class SeekerDetailView(CreateView):
         context['genders'] = Gender.objects.all()
         context['education'] = Education.objects.all()
         user = self.request.user
-        try:
+        context['seeker'] = SeekerDetail.objects.get(user_id=user)
 
-            context['seeker'] = SeekerDetail.objects.get(user_id=user)
-        except Exception as e:
-            print(e)
         return context
 
     def post(self, request, *args, **kwargs):
