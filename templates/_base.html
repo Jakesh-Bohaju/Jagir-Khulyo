@@ -130,7 +130,7 @@
                         <li><a href="{% url 'custom_auth:register' %}">Register</a></li>
                         <li><a href="{% url 'custom_auth:login' %}">Login</a></li>
                         <li>
-                            <a href="{% if request.user.role == 'company' %} {% url 'company:job_post' %} {% else %} {% url 'home:404error' %} {% endif %}">Post
+                            <a href="{% if request.user.is_authenticated  and request.user.role == 'company' %} {% url 'company:job_post' %} {% else %} {% url 'home:404error' %} {% endif %}">Post
                                 Job</a></li>
                         <li>
                             <a href="{% if request.user.role == 'company' %} {% url 'company:apply' %} {% else %} {% url 'home:404error' %} {% endif %}">Applied
