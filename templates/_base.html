@@ -116,9 +116,9 @@
                         <li><a href="{% url 'custom_auth:register' %}">Register</a></li>
                         <li><a href="{% url 'custom_auth:login' %}">Login</a></li>
                         <li><a href="{% url 'home:index' %}">Search Job</a></li>
-                        <li>
-                            <a href="{% if request.user.role == 'job_seeker' %} {% url 'job_seeker:job_list' %} {% else %} {% url 'home:404error' %} {% endif %}">Apply
-                                Job</a></li>
+{#                        <li>#}
+{#                            <a href="{% if request.user.role == 'job_seeker' %} {% url 'job_seeker:job_list' %} {% else %} {% url 'home:404error' %} {% endif %}">Apply#}
+{#                                Job</a></li>#}
 
                     </ul>
                 </div>
