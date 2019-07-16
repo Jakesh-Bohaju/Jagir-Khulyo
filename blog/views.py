@@ -7,6 +7,9 @@ from blog.models import *
 
 
 # Create your views here.
+from company.models import JobPost
+
+
 class BlogListView(ListView):
     template_name = 'blog-home.html'
     model = Blog
@@ -15,6 +18,10 @@ class BlogListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         # context['blogs'] = Blog.objects.all()
+        context['blogs'] = Blog.objects.all().order_by('?')[:3]
+        context['job_by_locations'] = JobPost.objects.all()
+        context['top_jobs'] = JobPost.objects.all().order_by('?')
+
         return context
 
 
