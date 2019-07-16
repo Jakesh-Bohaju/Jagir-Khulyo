@@ -57,13 +57,14 @@ class SearchView(ListView):
         # print(b)
         template_context = {
             'filtered_jobs': search_set,
-            'top_jobs': JobPost.objects.all().order_by('?')[:6],
+            'top_jobs': JobPost.objects.all().order_by('?'),
             'latest_jobs': JobPost.objects.all().order_by('-id')[:6],
             'freq_categories': Category.objects.all().order_by('?')[:6],
+            'blogs': Blog.objects.all().order_by('?')[:3],
+            'job_by_locations': JobPost.objects.all(),
         }
         return render(request, 'search_result.html', template_context)
 
 
 class Error404(TemplateView):
     template_name = 'error_404.html'
-

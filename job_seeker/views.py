@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
 
+from blog.models import Blog
 from job_seeker.forms import ResumeForm
 from job_seeker.models import SeekerDetail
 from home.models import Gender, Education
@@ -60,6 +61,8 @@ class JobListView(ListView):
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['latest_jobs'] = JobPost.objects.all().order_by('-id')
         context['freq_categories'] = Category.objects.all().order_by('?')
+        context['blogs'] = Blog.objects.all().order_by('?')[:3]
+        context['job_by_locations'] = JobPost.objects.all()
         return context
 
 
@@ -74,6 +77,8 @@ class CategoryListView(ListView):
         user = self.request.user
         context['seeker'] = SeekerDetail.objects.get(user_id=user)
         context['freq_categories'] = Category.objects.all().order_by('?')
+        context['blogs'] = Blog.objects.all().order_by('?')[:3]
+        context['job_by_locations'] = JobPost.objects.all()
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         return context
 
@@ -86,6 +91,9 @@ class JobDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         slug = self.kwargs['slug']
         context['job'] = JobPost.objects.get(slug=slug)
+        context['blogs'] = Blog.objects.all().order_by('?')[:3]
+        context['job_by_locations'] = JobPost.objects.all()
+        context['top_jobs'] = JobPost.objects.all().order_by('?')
         user = self.request.user
         try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)
