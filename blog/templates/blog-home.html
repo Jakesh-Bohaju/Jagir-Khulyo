@@ -27,11 +27,7 @@
                         <div class="single-post">
 {#                            <img class="img-fluid" src="img/blog/p1.jpg" alt="">#}
 
-                            <ul class="tags">
-                                <li><a href="#">Art, </a></li>
-                                <li><a href="#">Technology, </a></li>
-                                <li><a href="#">Fashion</a></li>
-                            </ul>
+
                             <a href="{% url 'blog:single_blog' blog %}">
                                 <h1>
                                     {{ blog.title }}
@@ -80,61 +76,7 @@
                         </form>
                     </div>
 
-                    <div class="single-slidebar">
-                        <h4>Jobs by Location</h4>
-                        <ul class="cat-list">
-                            {% for i in job_by_locations %}
-                                <li><a class="justify-content-between d-flex" href="">
-                                    <p>{{ i.company.address }}</p>
-                                    <span>37</span></a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-
-                    <div class="single-slidebar">
-                        <h4>Top rated job posts</h4>
-                        <div class="active-relatedjob-carusel">
-                            {% for t_job in top_jobs %}
-                                <div class="single-rated">
-                                    <img class="img-fluid" src="img/r1.jpg" alt="">
-                                    <a href="{% url 'job_seeker:single_job_detail' t_job %}"><h4>{{ t_job.title }}</h4></a>
-                                    <h6>{{ t_job.company.company_name }}</h6>
-                                    <p>
-                                        {{ t_job.description |truncatewords:15}}
-                                    </p>
-                                    <h5>{{ t_job.job_level }}</h5>
-                                    <p class="address"><span class="lnr lnr-map"></span> {{ t_job.company.address }}
-                                    </p>
-                                    <p class="address"><span class="lnr lnr-database"></span>{{ t_job.salary }}</p>
-                                    <a href="{% url 'job_seeker:single_job_detail' t_job %}" class="btns text-uppercase">View Detail</a>
-                                </div>
-                            {% endfor %}
-
-                        </div>
-                    </div>
-
-
-                    <div class="single-slidebar">
-                        <h4>Popular Blog</h4>
-                        <div class="blog-list">
-                            {% for blog in blogs %}
-                                <div class="single-blog " style="background:#000 url(img/blog1.jpg);">
-                                    <a href="{% url 'blog:single_blog' blog %}"><h4>{{ blog.title }}</h4></a>
-                                    <div class="meta justify-content-between d-flex">
-                                        <p>
-                                            {{ blog.published_date }}
-                                        </p>
-                                        <p>
-                                            <span class="lnr lnr-heart"></span>
-                                            06
-                                            <span class="lnr lnr-bubble"></span>
-                                            02
-                                        </p>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
+                    {% include 'snippets/sidebar.html' %}
 
 
                 </div>
