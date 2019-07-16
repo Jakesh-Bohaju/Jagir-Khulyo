@@ -35,7 +35,9 @@ class BlogDetailView(CreateView):
         context = super().get_context_data(**kwargs)
         aaa = Blog.objects.get(slug=slug)
         context['blog'] = aaa
-        print(aaa.image)
+        context['blogs'] = Blog.objects.all().order_by('?')[:3]
+        context['job_by_locations'] = JobPost.objects.all()
+        context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['comments'] = Comment.objects.filter(parent_id=None, blog_id=aaa.id)
         context['reply'] = Comment.objects.filter(blog_id=aaa.id)
 

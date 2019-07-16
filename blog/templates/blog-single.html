@@ -235,146 +235,65 @@
                         </form>
                     </div>
 
-                    <div class="single-widget protfolio-widget">
-                        <img src="img/blog/user2.jpg" alt="">
-                        <a href="#"><h4>Adele Gonzalez</h4></a>
-                        <p>
-                            MCSE boot camps have its supporters and
-                            its detractors. Some people do not understand why you should have to spend money
-                            on boot camp when you can get.
-                        </p>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+
+                    <div class="single-slidebar">
+                        <h4>Jobs by Location</h4>
+                        <ul class="cat-list">
+                            {% for i in job_by_locations %}
+                                <li><a class="justify-content-between d-flex" href="">
+                                    <p>{{ i.company.address }}</p>
+                                    <span>37</span></a></li>
+                            {% endfor %}
                         </ul>
                     </div>
 
-                    <div class="single-widget category-widget">
-                        <h4 class="title">Post Categories</h4>
-                        <ul>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>
-                                Techlology</h6> <span>37</span></a></li>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>Lifestyle</h6>
-                                <span>24</span></a></li>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>Fashion</h6>
-                                <span>59</span></a></li>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>Art</h6>
-                                <span>29</span></a></li>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>Food</h6>
-                                <span>15</span></a></li>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>
-                                Architecture</h6> <span>09</span></a></li>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>Adventure</h6>
-                                <span>44</span></a></li>
-                        </ul>
-                    </div>
+                    <div class="single-slidebar">
+                        <h4>Top rated job posts</h4>
+                        <div class="active-relatedjob-carusel">
+                            {% for t_job in top_jobs %}
+                                <div class="single-rated">
+                                    <img class="img-fluid" src="img/r1.jpg" alt="">
+                                    <a href="{% url 'job_seeker:single_job_detail' t_job %}"><h4>{{ t_job.title }}</h4>
+                                    </a>
+                                    <h6>{{ t_job.company.company_name }}</h6>
+                                    <p>
+                                        {{ t_job.description |truncatewords:15 }}
+                                    </p>
+                                    <h5>{{ t_job.job_level }}</h5>
+                                    <p class="address"><span class="lnr lnr-map"></span> {{ t_job.company.address }}
+                                    </p>
+                                    <p class="address"><span class="lnr lnr-database"></span>{{ t_job.salary }}</p>
+                                    <a href="{% url 'job_seeker:single_job_detail' t_job %}"
+                                       class="btns text-uppercase">View Detail</a>
+                                </div>
+                            {% endfor %}
 
-                    <div class="single-widget recent-posts-widget">
-                        <h4 class="title">Recent Posts</h4>
-                        <div class="blog-list ">
-                            <div class="single-recent-post d-flex flex-row">
-                                <div class="recent-thumb">
-                                    <img class="img-fluid" src="img/blog/r1.jpg" alt="">
-                                </div>
-                                <div class="recent-details">
-                                    <a href="blog-single.html">
-                                        <h4>
-                                            Home Audio Recording
-                                            For Everyone
-                                        </h4>
-                                    </a>
-                                    <p>
-                                        02 hours ago
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="single-recent-post d-flex flex-row">
-                                <div class="recent-thumb">
-                                    <img class="img-fluid" src="img/blog/r2.jpg" alt="">
-                                </div>
-                                <div class="recent-details">
-                                    <a href="blog-single.html">
-                                        <h4>
-                                            Home Audio Recording
-                                            For Everyone
-                                        </h4>
-                                    </a>
-                                    <p>
-                                        02 hours ago
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="single-recent-post d-flex flex-row">
-                                <div class="recent-thumb">
-                                    <img class="img-fluid" src="img/blog/r3.jpg" alt="">
-                                </div>
-                                <div class="recent-details">
-                                    <a href="blog-single.html">
-                                        <h4>
-                                            Home Audio Recording
-                                            For Everyone
-                                        </h4>
-                                    </a>
-                                    <p>
-                                        02 hours ago
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="single-recent-post d-flex flex-row">
-                                <div class="recent-thumb">
-                                    <img class="img-fluid" src="img/blog/r4.jpg" alt="">
-                                </div>
-                                <div class="recent-details">
-                                    <a href="blog-single.html">
-                                        <h4>
-                                            Home Audio Recording
-                                            For Everyone
-                                        </h4>
-                                    </a>
-                                    <p>
-                                        02 hours ago
-                                    </p>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
-                    <div class="single-widget category-widget">
-                        <h4 class="title">Post Archive</h4>
-                        <ul>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>Dec '17</h6>
-                                <span>37</span></a></li>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>Nov '17</h6>
-                                <span>24</span></a></li>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>Oct '17</h6>
-                                <span>59</span></a></li>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>Sep '17</h6>
-                                <span>29</span></a></li>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>Aug '17</h6>
-                                <span>15</span></a></li>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>Jul '17</h6>
-                                <span>09</span></a></li>
-                            <li><a href="#" class="justify-content-between align-items-center d-flex"><h6>Jun '17</h6>
-                                <span>44</span></a></li>
-                        </ul>
+
+                    <div class="single-slidebar">
+                        <h4>Popular Blog</h4>
+                        <div class="blog-list">
+                            {% for blog in blogs %}
+                                <div class="single-blog " style="background:#000 url(img/blog1.jpg);">
+                                    <a href="{% url 'blog:single_blog' blog %}"><h4>{{ blog.title }}</h4></a>
+                                    <div class="meta justify-content-between d-flex">
+                                        <p>
+                                            {{ blog.published_date }}
+                                        </p>
+                                        <p>
+                                            <span class="lnr lnr-heart"></span>
+                                            06
+                                            <span class="lnr lnr-bubble"></span>
+                                            02
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
 
-                    <div class="single-widget tags-widget">
-                        <h4 class="title">Tag Clouds</h4>
-                        <ul>
-                            <li><a href="#">Lifestyle</a></li>
-                            <li><a href="#">Art</a></li>
-                            <li><a href="#">Adventure</a></li>
-                            <li><a href="#">Food</a></li>
-                            <li><a href="#">Techlology</a></li>
-                            <li><a href="#">Fashion</a></li>
-                            <li><a href="#">Architecture</a></li>
-                            <li><a href="#">Food</a></li>
-                            <li><a href="#">Technology</a></li>
-                        </ul>
-                    </div>
 
                 </div>
             </div>
