@@ -51,7 +51,11 @@ class JobListView(ListView):
         context = super().get_context_data(**kwargs)
         # context['jobs'] = JobPost.objects.all()
         user = self.request.user
-        context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        try:
+            context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
+
         context['categories'] = Category.objects.all()
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['latest_jobs'] = JobPost.objects.all().order_by('-id')
@@ -99,8 +103,10 @@ class SeekerDetailView(CreateView):
         context['genders'] = Gender.objects.all()
         context['education'] = Education.objects.all()
         user = self.request.user
-        context['seeker'] = SeekerDetail.objects.get(user_id=user)
-
+        try:
+            context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
 
     def post(self, request, *args, **kwargs):
