@@ -34,7 +34,7 @@
                     <div class="single-feature">
                         <h4>Searching</h4>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing.
+                            Search the jobs on the basis of job title, location and job type.
                         </p>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                     <div class="single-feature">
                         <h4>Applying</h4>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing.
+                            Simple and easy to apply for job. You are a bit away just click on the apply for applying.
                         </p>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                     <div class="single-feature">
                         <h4>Security</h4>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing.
+                            We are not sharing your private data to public. Agree with our privacy policy.
                         </p>
                     </div>
                 </div>
@@ -58,7 +58,8 @@
                     <div class="single-feature">
                         <h4>Notifications</h4>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing.
+                            We will notify you whenever new job posted as per your interest and all detail on applied
+                            jobs.
                         </p>
                     </div>
                 </div>
@@ -75,14 +76,17 @@
                     {% for l_job in latest_jobs %}
                         <div class="single-popular-post d-flex flex-row">
                             <div class="thumb">
-                                <img class="img-fluid" src="img/p1.png" alt="">
-                                <a class="btns text-uppercase" href="#">view job post</a>
+                                {% thumbnail l_job.company.company_image "80x120" as im %}
+                                    <img class="rounded" src="{{ im.url }}" width="{{ im.width }}"
+                                         height="{{ im.height }}">
+                                {% endthumbnail %}
+                                {#                                <a class="btns text-uppercase" href="">view job post</a>#}
                             </div>
                             <div class="details">
-                                <a href="#"><h4>{{ l_job.title }}</h4></a>
+                                <a href="{% url 'job_seeker:single_job_detail' l_job %}"><h4>{{ l_job.title }}</h4></a>
                                 <h6>{{ l_job.company.address }}</h6>
                                 <p>
-                                    {{ l_job.description }}
+                                    {{ l_job.description | truncatewords:6}}
                                 </p>
                             </div>
                         </div>
@@ -108,9 +112,9 @@
                 {% for category in categories %}
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="single-fcat">
-                            <a href="category.html">
-                                <img src="img/o1.png" alt="">
-                            </a>
+                            {#                            <a href="category.html">#}
+                            {#                                <img src="img/o1.png" alt="">#}
+                            {#                            </a>#}
                             <p>{{ category.category }}</p>
                         </div>
                     </div>
@@ -126,41 +130,51 @@
             <div class="row justify-content-center d-flex">
                 <div class="col-lg-8 post-list">
                     <ul class="cat-list">
-                        <li><a href="#">Recent</a></li>
-                        <li><a href="#">Full Time</a></li>
-                        <li><a href="#">Intern</a></li>
-                        <li><a href="#">part Time</a></li>
+                        <li><a href="">Recent</a></li>
+                        <li><a href="">Full Time</a></li>
+                        <li><a href="">Intern</a></li>
+                        <li><a href="">part Time</a></li>
                     </ul>
                     {% for job in object_list %}
                         <div class="single-post d-flex flex-row">
-                            <div class="thumb">
-                                <img src="img/post.png" alt="">
-                                <ul class="tags">
-                                    <li>
-                                        <a href="#">Art</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Media</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Design</a>
-                                    </li>
-                                </ul>
+                            <div class="col-2">
+                                <div class="thumb">
+
+
+                                    {% thumbnail job.company.company_image "80x120" as im %}
+                                        <img class="rounded" src="{{ im.url }}" width="{{ im.width }}"
+                                             height="{{ im.height }}">
+                                    {% endthumbnail %}
+
+                                    <ul class="tags">
+                                        <li>
+                                            <a href="#">Art</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Media</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Design</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
                             </div>
                             <div class="details">
                                 <div class="title d-flex flex-row justify-content-between">
+
                                     <div class="titles">
                                         <a href="{% url 'job_seeker:single_job_detail' job %}"><h4>{{ job.title }}</h4>
                                         </a>
                                         <h6>{{ job.company.company_name }}</h6>
                                     </div>
                                     <ul class="btns">
-                                        <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
+                                        <li><a href=""><span class="lnr lnr-heart"></span></a></li>
                                         <li><a href="{% url 'job_seeker:single_job_detail' job %}">View Detail</a></li>
                                     </ul>
                                 </div>
                                 <p>
-                                    {{ job.description }}
+                                    {{ job.description | truncatewords:50 }}
                                 </p>
                                 <h5>{{ job.job_level }}</h5>
                                 <p class="address"><span class="lnr lnr-map"></span>{{ job.company.address }}</p>
@@ -177,7 +191,7 @@
                         <h4>Jobs by Location</h4>
                         <ul class="cat-list">
                             {% for i in job_by_locations %}
-                                <li><a class="justify-content-between d-flex" href="category.html">
+                                <li><a class="justify-content-between d-flex" href="">
                                     <p>{{ i.company.address }}</p>
                                     <span>37</span></a></li>
                             {% endfor %}
@@ -190,16 +204,16 @@
                             {% for t_job in top_jobs %}
                                 <div class="single-rated">
                                     <img class="img-fluid" src="img/r1.jpg" alt="">
-                                    <a href="single.html"><h4>{{ t_job.title }}</h4></a>
+                                    <a href="{% url 'job_seeker:single_job_detail' t_job %}"><h4>{{ t_job.title }}</h4></a>
                                     <h6>{{ t_job.company.company_name }}</h6>
                                     <p>
-                                        {{ t_job.description }}
+                                        {{ t_job.description |truncatewords:15}}
                                     </p>
                                     <h5>{{ t_job.job_level }}</h5>
                                     <p class="address"><span class="lnr lnr-map"></span> {{ t_job.company.address }}
                                     </p>
                                     <p class="address"><span class="lnr lnr-database"></span>{{ t_job.salary }}</p>
-                                    <a href="#" class="btns text-uppercase">Apply job</a>
+                                    <a href="{% url 'job_seeker:single_job_detail' t_job %}" class="btns text-uppercase">View Detail</a>
                                 </div>
                             {% endfor %}
 
@@ -261,7 +275,7 @@
             <div class="row">
                 {% for company in companies %}
                     {% thumbnail company.company_image "200x500" as im %}
-                        <img class="rounded" src="{{ im.url }}" alt="{{ company.company_name }}">
+                        <img class="rounded-circle" src="{{ im.url }}" alt="{{ company.company_name }}">
                     {% endthumbnail %}
 
 

@@ -64,3 +64,5 @@ class SearchView(ListView):
         return render(request, 'search_result.html', template_context)
 
 
+class Error404(TemplateView):
+    template_name = '404_error.html'
