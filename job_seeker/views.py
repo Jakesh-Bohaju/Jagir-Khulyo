@@ -87,8 +87,10 @@ class JobDetailView(DetailView):
         slug = self.kwargs['slug']
         context['job'] = JobPost.objects.get(slug=slug)
         user = self.request.user
-        context['seeker'] = SeekerDetail.objects.get(user_id=user)
-
+        try:
+            context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
 
 

@@ -1,68 +1,72 @@
 {% extends '_job_seeker_dashboard_base.html' %}
 {% block seeker_content %}
- <div class="page-content bg-white">
-    <div class="content-block">
-        <!-- Submit Resume -->
-        <div class="section-full bg-white submit-resume content-inner-2">
-            <div class="container">
-                <form method="post" action="" enctype="multipart/form-data">
-                {% csrf_token %}
-                    <div class="form-group">
-                        <label>Full name</label>
-                        <input type="text" class="form-control" placeholder="Your Full Name" id="name" name="name">
-                    </div>
+    <div class="page-content bg-white">
+        <div class="content-block">
+            <!-- Submit Resume -->
+            <div class="section-full bg-white submit-resume content-inner-2">
+                <div class="container">
+                    <form method="post" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>Full name</label>
+                            <input type="text" class="form-control" placeholder="Your Full Name" id="name" name="name">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Address</label>
-                        <input type="text" class="form-control" placeholder="Your Full Address" id="address" name="address">
-                    </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" class="form-control" placeholder="Your Full Address" id="address"
+                                   name="address">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Date of Birth</label>
-                        <input type="date" class="form-control" placeholder="01-30-1999" id="date_of_birth" name="date_of_birth">
-                    </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" class="form-control" placeholder="01-30-1999" id="date_of_birth"
+                                   name="date_of_birth">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Gender</label>
+                        <div class="form-group">
+                            <label>Gender</label>
 
-                        <select name="gend">
-                            {% for gender in genders %}
-                                <option value="{{ gender.gender }}">{{ gender.gender }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                            <select name="gend">
+                                {% for gender in genders %}
+                                    <option value="{{ gender.gender }}">{{ gender.gender }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label>Phone No</label>
-                        <input type="number" class="form-control" placeholder="98xxxxxxxx" id="phone_no" name="phone_no">
-                    </div>
+                        <div class="form-group">
+                            <label>Phone No</label>
+                            <input type="number" class="form-control" placeholder="98xxxxxxxx" id="phone_no"
+                                   name="phone_no">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Education</label>
+                        <div class="form-group">
+                            <label>Education</label>
 
-                        <select name="educ">
-                            {% for edu in education %}
-                                <option value="{{ edu.education }}">{{ edu.education }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                            <select name="educ">
+                                {% for edu in education %}
+                                    <option value="{{ edu.education }}">{{ edu.education }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label>Profile Photo</label>
-                            <input type="file"  id="image" name="image" accept="image/x-png, image/jpeg">
-                    </div>
 
-                    <div class="form-group">
-                        <label>Resume / CV</label>
+                        <div class="form-group">
+                            <label>Resume / CV</label>
 
                             <input type="file" class="site-button" id="resume" name="resume" accept="application/pdf">
-                    </div>
+                        </div>
 
-                    <input type="submit" class="site-button" value="submit">
-                </form>
+                        <div class="form-group">
+                            <label>Profile Photo</label>
+                            <input type="file" id="image" name="image" accept="image/x-png, image/jpeg">
+                        </div>
+
+                        <input type="submit" class="site-button" value="submit">
+                    </form>
+                </div>
             </div>
+            <!-- Submit Resume END -->
         </div>
-        <!-- Submit Resume END -->
     </div>
- </div>
 {% endblock %}

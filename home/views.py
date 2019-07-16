@@ -65,5 +65,5 @@ class SearchView(ListView):
 
 
 class Error404(TemplateView):
-    template_name = '404_error.html'
+    template_name = 'error_404.html'
 

@@ -70,7 +70,7 @@
                         </li>
                         <li><a href="{% url 'job_seeker:seeker_dashboard_index' %}">Setting</a></li>
 
-                        <li><a class="ticker-btn" href="{% url 'custom_auth:logout' %}">Logout</a></li>
+                        <li><a href="{% url 'custom_auth:logout' %}">Logout</a></li>
                     {% elif request.user.is_authenticated and request.user.role == 'company' %}
                         <li class="menu-has-children"><a href="">Company</a>
                             <ul>
@@ -88,13 +88,13 @@
                             {% endthumbnail %}
                         </li>
                         <li><a href="{% url 'company:company_dashboard_index' %}">Setting</a></li>
-                        <li><a class="ticker-btn" href="{% url 'custom_auth:logout' %}">Logout</a></li>
+                        <li><a href="{% url 'custom_auth:logout' %}">Logout</a></li>
                     {% else %}
                         <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
                         <li><a href="{% url 'cms:about_us' %}">About Us</a></li>
                         <li><a href="{% url 'cms:contact_us' %}">Contact</a></li>
-                        <li><a class="ticker-btn" href="{% url 'custom_auth:register' %}">Signup</a></li>
-                        <li><a class="ticker-btn" href="{% url 'custom_auth:login' %}">Login</a></li>
+                        <li><a href="{% url 'custom_auth:register' %}">Signup</a></li>
+                        <li><a href="{% url 'custom_auth:login' %}">Login</a></li>
                     {% endif %}
                 </ul>
             </nav><!-- #nav-menu-container -->
@@ -116,9 +116,9 @@
                         <li><a href="{% url 'custom_auth:register' %}">Register</a></li>
                         <li><a href="{% url 'custom_auth:login' %}">Login</a></li>
                         <li><a href="{% url 'home:index' %}">Search Job</a></li>
-{#                        <li>#}
-{#                            <a href="{% if request.user.role == 'job_seeker' %} {% url 'job_seeker:job_list' %} {% else %} {% url 'home:404error' %} {% endif %}">Apply#}
-{#                                Job</a></li>#}
+                        <li>
+                            <a href="{% if request.user.role == 'job_seeker' %} {% url 'job_seeker:job_list' %} {% else %} {% url 'home:error_page' %} {% endif %}">Apply
+                                Job</a></li>
 
                     </ul>
                 </div>
@@ -129,13 +129,13 @@
                     <ul class="footer-nav">
                         <li><a href="{% url 'custom_auth:register' %}">Register</a></li>
                         <li><a href="{% url 'custom_auth:login' %}">Login</a></li>
-{#                        <li>#}
-{#                            <a href="{% if request.user.is_authenticated  and request.user.role == 'company' %} {% url 'company:job_post' %} {% else %} {% url 'home:404error' %} {% endif %}">Post#}
-{#                                Job</a></li>#}
-{#                        <li>#}
-{#                            <a href="{% if request.user.role == 'company' %} {% url 'company:apply' %} {% else %} {% url 'home:404error' %} {% endif %}">Applied#}
-{#                                Job</a>#}
-{#                        </li>#}
+                        <li>
+                            <a href="{% if request.user.role == 'company' %} {% url 'company:job_post' %} {% else %} {% url 'home:error_page' %} {% endif %}">Post
+                                Job</a></li>
+                        <li>
+                            <a href="{% if request.user.role == 'company' %} {% url 'company:apply' %} {% else %} {% url 'home:error_page' %} {% endif %}">Applied
+                                Job</a>
+                        </li>
 
                     </ul>
                 </div>
