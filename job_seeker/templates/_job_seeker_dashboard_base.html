@@ -13,6 +13,19 @@
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143932049-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-143932049-1');
+    </script>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css"
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
@@ -20,8 +33,8 @@
     <!-- CSS Files -->
     <link href="{% static 'css/material-dashboard.css' %}" rel="stylesheet"/>
     <!-- CSS Just for demo purpose, don't include it in your project -->
-{#    <link href="{% static 'css/demo.css' %}" rel="stylesheet"/>#}
-        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    {#    <link href="{% static 'css/demo.css' %}" rel="stylesheet"/>#}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 
 </head>
 
@@ -30,15 +43,15 @@
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
 
         <div class="logo">
-        <div class="simple-text logo-normal">
+            <div class="simple-text logo-normal">
                 {{ seeker.name }}
             </div>
-        <div class="simple-text logo-normal">
+            <div class="simple-text logo-normal">
                 {% thumbnail seeker.image "100x100" crop="center" as im %}
                     <img class="rounded-circle" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
                 {% endthumbnail %}
 
-        </div>
+            </div>
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
@@ -51,6 +64,7 @@
 
                 <li class="nav-item ">
                     <a class="nav-link" href="
+
 
 
 

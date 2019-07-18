@@ -13,6 +13,19 @@
     <meta name="author" content="">
 
     <title>Jk Company Dashboard</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143932049-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-143932049-1');
+    </script>
 
     <!-- Custom fonts for this template-->
     <link href="{% static 'css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -24,7 +37,7 @@
     <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
 
 </head>
@@ -109,20 +122,20 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="{% if menu_option.user_id == request.user.id %} {% url 'company:company_update' menu_option.slug %} {% else %} {% url 'company:company_detail' %} {% endif %}">
+            <a class="nav-link"
+               href="{% if menu_option.user_id == request.user.id %} {% url 'company:company_update' menu_option.slug %} {% else %} {% url 'company:company_detail' %} {% endif %}">
                 <i class="fa fa-fw fa-male"></i>
                 <span>Profile</span>
             </a>
         </li>
 
 
-
         <li class="nav-item">
             <a class="nav-link"
                href="{% url 'company:job_post' %}">
-                       <i class="fa fa-fw fa-keyboard"></i>
-                       <span>Job Post</span></a>
-                   </li>
+                <i class="fa fa-fw fa-keyboard"></i>
+                <span>Job Post</span></a>
+        </li>
 
 
         <li class="nav-item">
@@ -136,13 +149,13 @@
                 <span>Job Apply List</span></a>
         </li>
 
-    <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link" href="">
                 <i class="fa fa-fw fa-bell"></i>
                 <span>Notification</span></a>
         </li>
 
-     <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link" href="{% url 'custom_auth:logout' %}">
                 <i class="fa fa-fw fa-lock"></i>
                 <span>Log Out</span></a>
