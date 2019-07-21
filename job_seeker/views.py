@@ -14,7 +14,7 @@ from company.models import *
 
 
 class SeekerDashboardBaseView(TemplateView):
-    template_name = '_job_seeker_dashboard_base.html'
+    template_name = '_job_seeker_dashboard_base_2.html'
     model = SeekerDetail
     success_url = reverse_lazy('job_seeker:seeker_dashboard_index')
 
