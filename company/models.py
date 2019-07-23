@@ -11,13 +11,16 @@ from django.db import models
 # Create your models here.
 from home.models import *
 from job_seeker.models import SeekerDetail
+from home.validator import *
 
 
 class CompanyDetail(models.Model):
     company_name = models.CharField(max_length=100)
     address = models.CharField(max_length=50)
     company_type = models.CharField(max_length=100)
-    phone_no = models.IntegerField()
+    phone_no = models.CharField(blank=True, max_length=9, validators=[phone_no_validation])
+    mobile_no = models.CharField(blank=True, null=True, max_length=10, validators=[mobile_no_validation])
+    company_registration_date = models.DateField(blank=True, null=True)
     company_image = ImageField(upload_to='company/', verbose_name="")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField()

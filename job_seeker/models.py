@@ -5,14 +5,17 @@ from django.db import models
 from home.models import *
 from sorl.thumbnail import ImageField
 
+from home.validator import *
+
 
 class SeekerDetail(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, validators=[name_validation])
     address = models.CharField(max_length=100)
     date_of_birth = models.DateField()
     gender = models.ForeignKey(Gender, on_delete=models.CASCADE)
-    phone_no = models.IntegerField()
+    phone_no = models.CharField(blank=True, max_length=9, validators=[phone_no_validation])
+    mobile_no = models.CharField(blank=True, null=True, max_length=10,  validators=[mobile_no_validation])
     education = models.ForeignKey(Education, on_delete=models.CASCADE)
     resume = models.FileField(upload_to='resume/', verbose_name="")
     image = ImageField(upload_to='job_seeker/', verbose_name="")

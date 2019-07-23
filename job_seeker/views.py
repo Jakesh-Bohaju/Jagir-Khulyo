@@ -144,7 +144,7 @@ class SeekerDetailView(CreateView):
 
 class SeekerUpdateView(UpdateView):
     model = SeekerDetail
-    fields = ['name', 'address', 'date_of_birth', 'gender', 'phone_no', 'education', 'resume', 'image']
+    fields = ['name', 'address', 'date_of_birth', 'gender', 'phone_no', 'mobile_no', 'education', 'resume', 'image']
     template_name = 'seeker_update_form.html'
     success_url = reverse_lazy('job_seeker:seeker_dashboard_index')
 

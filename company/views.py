@@ -81,7 +81,7 @@ class JobPostView(LoginRequiredMixin, CreateView):
 class CompanyDetailView(CreateView):
     template_name = 'company_detail.html'
     model = CompanyDetail
-    fields = ['company_name', 'address', 'company_type', 'phone_no', 'company_image']
+    fields = ['company_name', 'address', 'company_type', 'phone_no', 'mobile_no', 'company_registration_date', 'company_image']
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -90,6 +90,7 @@ class CompanyDetailView(CreateView):
             detail.user = request.user
             detail.save()
             return redirect('company:job_post')
+
         return redirect('company:company_detail')
 
 
@@ -166,9 +167,9 @@ class JobDetailUpdateView(UpdateView):
 
 class CompanyUpdateView(UpdateView):
     model = CompanyDetail
-    fields = ['company_name', 'address', 'company_type', 'phone_no', 'company_image']
+    fields = ['company_name', 'address', 'company_type', 'phone_no', 'mobile_no', 'company_registration_date', 'company_image']
     template_name = 'company_update_form.html'
-    success_url = reverse_lazy('company:company_dashboard')
+    success_url = reverse_lazy('company:company_dashboard_index')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

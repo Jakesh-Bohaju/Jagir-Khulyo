@@ -46,7 +46,8 @@
 
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">Jagir Khulyo</a>
+    <a class="navbar-brand mr-1" href="{% url 'home:index' %}"><img src="{% static 'img/jk_icon.jpg' %}"
+                                                                             height="30px" width="30px">&nbsp&nbspJagir Khulyo</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fa fa-bars"></i>
