@@ -20,7 +20,7 @@ class CompanyDetail(models.Model):
     company_type = models.CharField(max_length=100)
     phone_no = models.CharField(blank=True, max_length=9, validators=[phone_no_validation])
     mobile_no = models.CharField(blank=True, null=True, max_length=10, validators=[mobile_no_validation])
-    company_registration_date = models.DateField(blank=True, null=True)
+    company_registration_date = models.DateField(blank=True, null=True,  validators=[registration_date_validation])
     company_image = ImageField(upload_to='company/', verbose_name="")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField()
@@ -44,7 +44,7 @@ class JobPost(models.Model):
     salary = models.IntegerField()
     description = models.TextField()
     pub_date = models.DateField(auto_now=True)
-    deadline = models.DateField()
+    deadline = models.DateField(validators=[deadline_validation])
     company = models.ForeignKey(CompanyDetail, on_delete=models.CASCADE)
     slug = models.SlugField()
 
