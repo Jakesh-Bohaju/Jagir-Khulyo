@@ -1,6 +1,6 @@
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
 
 from custom_auth.forms import *
@@ -38,3 +38,6 @@ class CustomLogoutView(LogoutView):
 
     def get(self, request, *args, **kwargs):
         return redirect('custom_auth:login')
+
+
+

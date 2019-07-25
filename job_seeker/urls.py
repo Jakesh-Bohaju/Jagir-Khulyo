@@ -13,5 +13,6 @@ urlpatterns = [
     path('job_applied', SeekerAppliedView.as_view(), name='job_applied_list'),
     path('<slug:slug>/', JobDetailView.as_view(), name='single_job_detail'),
     path('profile/<slug:slug>/update', SeekerUpdateView.as_view(), name='seeker_update'),
+    path('password_change', ChangePasswordView.as_view(), name='password_change'),
 
 ]

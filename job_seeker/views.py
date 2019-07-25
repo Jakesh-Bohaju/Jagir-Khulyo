@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 
@@ -167,6 +168,20 @@ class SeekerAppliedView(ListView):
         user = self.request.user
         try:
             context['applied_list'] = ReceivedResume.objects.filter(applicant_name__user=user)
+            context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
+        return context
+
+
+class ChangePasswordView(PasswordChangeView):
+    template_name = 'password_change_form.html'
+    success_url = reverse_lazy('job_seeker:seeker_dashboard_index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)
         except Exception as e:
             print(e)

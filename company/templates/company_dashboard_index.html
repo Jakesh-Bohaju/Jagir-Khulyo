@@ -2,8 +2,8 @@
 {% load thumbnail %}
 {% block company_dashboard %}
 
-<h1>Welcom {{ user.company_name }}</h1>
-    {% thumbnail user.company_image "100x100" crop="center" as im %}
+<h1>Welcome {{ menu_option.company_name }}</h1>
+    {% thumbnail menu_option.company_image "100x100" crop="center" as im %}
     <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
     {% endthumbnail %}
 

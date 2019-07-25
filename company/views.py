@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import redirect
 # Create your views here.
 from django.urls import reverse_lazy
@@ -31,7 +32,7 @@ class CompanyDashboardIndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         try:
-            context['user'] = CompanyDetail.objects.get(user_id=user)
+            # context['user'] = CompanyDetail.objects.get(user_id=user)
             context['menu_option'] = CompanyDetail.objects.get(user_id=user)
         except Exception as e:
             print(e)
@@ -81,7 +82,8 @@ class JobPostView(LoginRequiredMixin, CreateView):
 class CompanyDetailView(CreateView):
     template_name = 'company_detail.html'
     model = CompanyDetail
-    fields = ['company_name', 'address', 'company_type', 'phone_no', 'mobile_no', 'company_registration_date', 'company_image']
+    fields = ['company_name', 'address', 'company_type', 'phone_no', 'mobile_no', 'company_registration_date',
+              'company_image']
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -167,7 +169,8 @@ class JobDetailUpdateView(UpdateView):
 
 class CompanyUpdateView(UpdateView):
     model = CompanyDetail
-    fields = ['company_name', 'address', 'company_type', 'phone_no', 'mobile_no', 'company_registration_date', 'company_image']
+    fields = ['company_name', 'address', 'company_type', 'phone_no', 'mobile_no', 'company_registration_date',
+              'company_image']
     template_name = 'company_update_form.html'
     success_url = reverse_lazy('company:company_dashboard_index')
 
@@ -184,6 +187,20 @@ class CompanyUpdateView(UpdateView):
 class JobPostDeleteView(DeleteView):
     model = JobPost
     success_url = reverse_lazy('company:job_post')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        try:
+            context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
+        return context
+
+
+class CompanyChangePasswordView(PasswordChangeView):
+    template_name = 'company_password_change_form.html'
+    success_url = reverse_lazy('company:company_dashboard_index')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

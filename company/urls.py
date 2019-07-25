@@ -15,5 +15,6 @@ urlpatterns = [
 
     path('profile/<slug:slug>/update', CompanyUpdateView.as_view(), name='company_update'),
     path('jobpost/<slug:slug>/delete', JobPostDeleteView.as_view(), name='job_post_delete'),
+    path('password_change', CompanyChangePasswordView.as_view(), name='password_change'),
 
 ]
