@@ -34,8 +34,7 @@
             <input type="password" class="form-control" name="password" placeholder="Password">
         </div>
         <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            <a>Not account yet?&nbsp<a href="{% url 'custom_auth:register' %}" ><span>Create Account</span></a>&nbsp&nbsp|&nbsp&nbsp<a href="{% url 'custom_auth:password_reset' %}" ><span>Forget Password</span></a></label>
         </div>
         <button type="submit" class="btn btn-primary">Log In</button>
 

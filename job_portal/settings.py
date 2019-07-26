@@ -134,3 +134,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'custom_auth.User'
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+# not working____________________________________________
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'jagirkhulyo019@gmail.com'
+EMAIL_HOST_PASSWORD = 'jagirkhulyo@9721231068'
+
+# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+# EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+
+# SENDGRID_API_KEY = os.getenv('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')
+#
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_HOST_USER = 'apikey'
+# EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True

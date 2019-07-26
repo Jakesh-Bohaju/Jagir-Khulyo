@@ -1,4 +1,5 @@
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordResetView, \
+    PasswordResetDoneView, PasswordResetConfirmView
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
@@ -40,4 +41,18 @@ class CustomLogoutView(LogoutView):
         return redirect('custom_auth:login')
 
 
+class UserPasswordResetView(PasswordResetView):
+    template_name = 'password_reset_form.html'
+    success_url = reverse_lazy('custom_auth:password_reset_done')
+    subject_template_name = 'password_reset_subject.txt'
+    email_template_name = 'password_reset_email.html'
 
+
+class UserPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'password_reset_done.html'
+
+
+class UserPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'password_reset_confirm.html'
+    success_url = reverse_lazy('home:index')
+    form_valid_message = "Your password was changed!"
