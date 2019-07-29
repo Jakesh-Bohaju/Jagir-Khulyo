@@ -1883,6 +1883,7 @@ h1, h2, h3, h4, h5, h6 {
   right: 0;
   transition: all 0.5s;
   z-index: 997;
+  background-color: #0b2e13;
 }
 
 #header.header-scrolled {
@@ -2191,7 +2192,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .section-gap {
-  padding: 50px 0;
+  padding: 100px 0;
 }
 
 .section-title {

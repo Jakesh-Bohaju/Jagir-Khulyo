@@ -136,12 +136,12 @@ AUTH_USER_MODEL = 'custom_auth.User'
 # STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'jagirkhulyo019@gmail.com'
-# EMAIL_HOST_PASSWORD = 'jagirkhulyo@9721231068'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'jagirkhulyo019@gmail.com'
+EMAIL_HOST_PASSWORD = 'jagirkhulyo@9721231068'
 
 
 ##for localhost only
@@ -149,12 +149,12 @@ AUTH_USER_MODEL = 'custom_auth.User'
 # EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 
-SENDGRID_API_KEY = os.getenv('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')
-
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+# SENDGRID_API_KEY = os.getenv('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')
+#
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_HOST_USER = 'apikey'
+# EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
 
 LOGIN_URL = '/users/login'
