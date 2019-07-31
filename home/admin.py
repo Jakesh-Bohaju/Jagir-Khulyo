@@ -5,3 +5,5 @@ from home.models import *
 admin.site.register(Gender)
 admin.site.register(Education)
 admin.site.register(Category)
+admin.site.register(District)
+admin.site.register(Province)

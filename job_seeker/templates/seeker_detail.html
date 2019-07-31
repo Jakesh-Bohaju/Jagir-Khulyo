@@ -15,9 +15,39 @@
 
                         <div class="form-group">
                             <label>Address</label>
-                            <input type="text" class="form-control" placeholder="Your Full Address" id="address"
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Province</label>
+
+                                        <select name="province">
+                                            {% for province in provinces %}
+                                                <option value="{{ province.province_name }}">{{ province.province_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>District</label>
+
+                                        <select name="district">
+                                            {% for district in districts %}
+                                                <option value="{{ district.district }}">{{ district.district }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>Place</label>
+                            <input type="text" class="form-control" placeholder="Your area/city" id="address"
                                    name="address" required>
                         </div>
+
 
                         <div class="form-group">
                             <label>Date of Birth</label>

@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create your models here.
 from django.utils.text import slugify
 
@@ -30,3 +29,19 @@ class Category(models.Model):
         value = self.category
         self.slug = slugify(value, allow_unicode=True)
         super().save(*args, **kwargs)
+
+
+class Province(models.Model):
+    province_name = models.CharField(max_length=100)
+    province_no = models.IntegerField()
+
+    def __str__(self):
+        return self.province_name
+
+
+class District(models.Model):
+    district = models.CharField(max_length=100)
+    province_no = models.ForeignKey(Province, related_name='district_wise_province_no', on_delete= models.CASCADE)
+
+    def __str__(self):
+        return self.district

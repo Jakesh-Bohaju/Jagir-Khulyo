@@ -72,9 +72,7 @@
                             <li><a href="{% url 'job_seeker:seeker_dashboard_index' %}"><i class="fa fa-home"></i> Home</a>
 
                             </li>
-                            <li><a href="
-
-                                    {% if request.user.id == seeker.user_id %}{% url 'job_seeker:seeker_update' seeker.slug %} {% else %} {% url 'job_seeker:seeker_detail' %} {% endif %}"><i
+                            <li><a href="{% if request.user.id == seeker.user_id %}{% url 'job_seeker:seeker_update' seeker.slug %} {% else %} {% url 'job_seeker:seeker_detail' %} {% endif %}"><i
                                     class="fa fa-user"></i> Profile </a>
 
                             </li>

@@ -113,6 +113,8 @@ class SeekerDetailView(CreateView):
         context = super().get_context_data(**kwargs)
         context['genders'] = Gender.objects.all()
         context['education'] = Education.objects.all()
+        context['provinces'] = Province.objects.all()
+        context['districts'] = District.objects.all()
         user = self.request.user
         try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)
@@ -129,10 +131,16 @@ class SeekerDetailView(CreateView):
             seeker_detail.user = request.user
             gender = request.POST.get('gend')
             education = request.POST.get('educ')
+            province = request.POST.get('province')
+            district = request.POST.get('district')
             gen = Gender.objects.get(gender=gender)
             edu = Education.objects.get(education=education)
+            prov = Province.objects.get(province_name=province)
+            dis = District.objects.get(district=district)
             seeker_detail.gender_id = gen.id
             seeker_detail.education_id = edu.id
+            seeker_detail.province_id = prov.id
+            seeker_detail.district_id = dis.id
             seeker_detail.save()
 
             return redirect('job_seeker:job_list')
@@ -145,7 +153,7 @@ class SeekerDetailView(CreateView):
 
 class SeekerUpdateView(UpdateView):
     model = SeekerDetail
-    fields = ['name', 'address', 'date_of_birth', 'gender', 'phone_no', 'mobile_no', 'education', 'resume', 'image']
+    fields = ['name', 'province', 'district', 'address', 'date_of_birth', 'gender', 'phone_no', 'mobile_no', 'education', 'resume', 'image']
     template_name = 'seeker_update_form.html'
     success_url = reverse_lazy('job_seeker:seeker_dashboard_index')
 

@@ -8,86 +8,183 @@
         <div class="container">
             <div class="row justify-content-center d-flex">
                 <div class="col-lg-8 post-list">
-                    <div class="single-post d-flex flex-row">
-                        <div class="thumb">
-                            <img src="img/post.png" alt="">
-                            <ul class="tags">
-                                <li>
-                                    <a href="#">Art</a>
-                                </li>
-                                <li>
-                                    <a href="#">Media</a>
-                                </li>
-                                <li>
-                                    <a href="#">Design</a>
-                                </li>
-                            </ul>
+                    {#                    <div class="single-post d-flex flex-row">#}
+                    {#                        <div class="thumb">#}
+                    {#                            <img src="img/post.png" alt="">#}
+                    {#                            <ul class="tags">#}
+                    {#                                <li>#}
+                    {#                                    <a href="#">Art</a>#}
+                    {#                                </li>#}
+                    {#                                <li>#}
+                    {#                                    <a href="#">Media</a>#}
+                    {#                                </li>#}
+                    {#                                <li>#}
+                    {#                                    <a href="#">Design</a>#}
+                    {#                                </li>#}
+                    {#                            </ul>#}
+                    {#                        </div>#}
+                    {#                        <div class="details">#}
+                    {#                            <div class="title d-flex flex-row justify-content-between">#}
+                    {#                                <div class="titles">#}
+                    {#                                    <a href=""><h4>{{ job.title }}</h4></a>#}
+                    {#                                    <h6>{{ job.company.company_name }}</h6>#}
+                    {#                                </div>#}
+                    {#                                <ul class="btns">#}
+                    {#                                    <li><a href="#"><span class="lnr lnr-heart"></span></a></li>#}
+                    {#                                    <li>#}
+                    {#                                        <form method="post"#}
+                    {#                                              action="{% if request.user.id == seeker.user.id %} {% url 'company:apply' %} {% endif %}">#}
+                    {#                                            {% csrf_token %}#}
+                    {#                                            <input name="job_title" value="{{ job.id }}" type="hidden">#}
+                    {##}
+                    {#                                            <button type="submit">Apply</button>#}
+                    {#                                        </form>#}
+                    {##}
+                    {##}
+                    {#                                    </li>#}
+                    {##}
+                    {#                                </ul>#}
+                    {#                            </div>#}
+                    {#                            <p>#}
+                    {#                                {{ job.category }}#}
+                    {#                            </p>#}
+                    {#                            <h5>{{ job.vacancy_no }}</h5>#}
+                    {#                            <p class="address"><span class="lnr lnr-map"></span> {{ job.company.company_type }}</p>#}
+                    {#                            <p class="address"><span class="lnr lnr-database"></span> {{ job.salary }}</p>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                    {#                    <div class="single-post job-details">#}
+                    {#                        <h4 class="single-title">Whom we are looking for</h4>#}
+                    {#                        <p>#}
+                    {#                            {{ job.description }}#}
+                    {#                        </p>#}
+                    {#                    </div>#}
+                    {#                    <div class="single-post job-experience">#}
+                    {#                        <h4 class="single-title">Experience Requirements</h4>#}
+                    {#                        <ul>#}
+                    {#                            <li>#}
+                    {#                                <img src="img/pages/list.jpg" alt="">#}
+                    {#                                <span>{{ job.experience }}</span>#}
+                    {#                            </li>#}
+                    {##}
+                    {#                        </ul>#}
+                    {#                    </div>#}
+                    {#                    <div class="single-post job-experience">#}
+                    {#                        <h4 class="single-title">Job Features & Overviews</h4>#}
+                    {#                        <ul>#}
+                    {#                            <li>#}
+                    {#                                <img src="img/pages/list.jpg" alt="">#}
+                    {#                                <span>{{ job.description }}</span>#}
+                    {#                            </li>#}
+                    {##}
+                    {#                        </ul>#}
+                    {#                    </div>#}
+                    {#                    <div class="single-post job-experience">#}
+                    {#                        <h4 class="single-title">Education Requirements</h4>#}
+                    {#                        <ul>#}
+                    {#                            <li>#}
+                    {#                                <img src="img/pages/list.jpg" alt="">#}
+                    {#                                <span>{{ job.education }}</span>#}
+                    {#                            </li>#}
+                    {#                        </ul>#}
+                    {#                    </div>#}
+
+                    <div class="row>">
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                help1
+                            </div>
+                            <div class="row">
+                                help2
+                            </div>
+
                         </div>
-                        <div class="details">
-                            <div class="title d-flex flex-row justify-content-between">
-                                <div class="titles">
-                                    <a href=""><h4>{{ job.title }}</h4></a>
-                                    <h6>{{ job.company.company_name }}</h6>
+                        <div class="col-lg-6">
+                            <div class="single-post d-flex flex-row">
+                                <div class="thumb">
+                                    <img src="img/post.png" alt="">
+                                    <ul class="tags">
+                                        <li>
+                                            <a href="#">Art</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Media</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Design</a>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <ul class="btns">
-                                    <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
+                                <div class="details">
+                                    <div class="title d-flex flex-row justify-content-between">
+                                        <div class="titles">
+                                            <a href=""><h4>{{ job.title }}</h4></a>
+                                            <h6>{{ job.company.company_name }}</h6>
+                                        </div>
+                                        <ul class="btns">
+                                            <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
+                                            <li>
+                                                <form method="post"
+                                                      action="{% if request.user.id == seeker.user.id %} {% url 'company:apply' %} {% endif %}">
+                                                    {% csrf_token %}
+                                                    <input name="job_title" value="{{ job.id }}" type="hidden">
+
+                                                    <button type="submit">Apply</button>
+                                                </form>
+
+
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <p>
+                                        {{ job.category }}
+                                    </p>
+                                    <h5>{{ job.vacancy_no }}</h5>
+                                    <p class="address"><span class="lnr lnr-map"></span> {{ job.company.company_type }}
+                                    </p>
+                                    <p class="address"><span class="lnr lnr-database"></span> {{ job.salary }}</p>
+                                </div>
+                            </div>
+                            <div class="single-post job-details">
+                                <h4 class="single-title">Whom we are looking for</h4>
+                                <p>
+                                    {{ job.description }}
+                                </p>
+                            </div>
+                            <div class="single-post job-experience">
+                                <h4 class="single-title">Experience Requirements</h4>
+                                <ul>
                                     <li>
-                                        <form method="post"
-                                              action="{% if request.user.id == seeker.user.id %} {% url 'company:apply' %} {% endif %}">
-                                            {% csrf_token %}
-                                            <input name="job_title" value="{{ job.id }}" type="hidden">
-
-                                            <button type="submit">Apply</button>
-                                        </form>
-
-
+                                        <img src="img/pages/list.jpg" alt="">
+                                        <span>{{ job.experience }}</span>
                                     </li>
 
                                 </ul>
                             </div>
-                            <p>
-                                {{ job.category }}
-                            </p>
-                            <h5>{{ job.vacancy_no }}</h5>
-                            <p class="address"><span class="lnr lnr-map"></span> {{ job.company.company_type }}</p>
-                            <p class="address"><span class="lnr lnr-database"></span> {{ job.salary }}</p>
+                            <div class="single-post job-experience">
+                                <h4 class="single-title">Job Features & Overviews</h4>
+                                <ul>
+                                    <li>
+                                        <img src="img/pages/list.jpg" alt="">
+                                        <span>{{ job.description }}</span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="single-post job-experience">
+                                <h4 class="single-title">Education Requirements</h4>
+                                <ul>
+                                    <li>
+                                        <img src="img/pages/list.jpg" alt="">
+                                        <span>{{ job.education }}</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="single-post job-details">
-                        <h4 class="single-title">Whom we are looking for</h4>
-                        <p>
-                            {{ job.description }}
-                        </p>
-                    </div>
-                    <div class="single-post job-experience">
-                        <h4 class="single-title">Experience Requirements</h4>
-                        <ul>
-                            <li>
-                                <img src="img/pages/list.jpg" alt="">
-                                <span>{{ job.experience }}</span>
-                            </li>
 
-                        </ul>
-                    </div>
-                    <div class="single-post job-experience">
-                        <h4 class="single-title">Job Features & Overviews</h4>
-                        <ul>
-                            <li>
-                                <img src="img/pages/list.jpg" alt="">
-                                <span>{{ job.description }}</span>
-                            </li>
-
-                        </ul>
-                    </div>
-                    <div class="single-post job-experience">
-                        <h4 class="single-title">Education Requirements</h4>
-                        <ul>
-                            <li>
-                                <img src="img/pages/list.jpg" alt="">
-                                <span>{{ job.education }}</span>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="col-lg-4 sidebar">
                     {% include 'partials/sidebar.html' %}

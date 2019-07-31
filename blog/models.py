@@ -27,7 +27,7 @@ class Comment(models.Model):
     comment_date = models.DateField(auto_now=True)
     parent = models.ForeignKey('self', blank=True, null=True, related_name='sub_comments', on_delete=models.CASCADE)
     comment_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, related_name='comment_blog', on_delete=models.CASCADE)
     slug = models.SlugField()
 
     def __str__(self):
