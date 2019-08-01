@@ -41,7 +41,21 @@ class Province(models.Model):
 
 class District(models.Model):
     district = models.CharField(max_length=100)
-    province_no = models.ForeignKey(Province, related_name='district_wise_province_no', on_delete= models.CASCADE)
+    province_no = models.ForeignKey(Province, related_name='district_wise_province_no', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.district
+
+
+class JobType(models.Model):
+    job_type = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.job_type
+
+
+class JobLevel(models.Model):
+    job_level = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.job_level

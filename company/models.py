@@ -38,13 +38,16 @@ class CompanyDetail(models.Model):
 
 class JobPost(models.Model):
     title = models.CharField(max_length=100)
-    job_level = models.CharField(max_length=15)
+    job_level = models.ForeignKey(JobLevel, related_name='job_post_job_level', on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name='job_post_category', on_delete=models.CASCADE)
     vacancy_no = models.IntegerField()
     experience = models.CharField(max_length=15)
     education = models.ForeignKey(Education, related_name='job_post_education', on_delete=models.CASCADE)
-    salary = models.IntegerField()
+    salary = models.IntegerField(blank=True)
+    negotiable = models.BooleanField(blank=True)
+    job_type = models.ForeignKey(JobType, related_name='job_post_job_type', on_delete=models.CASCADE)
     description = models.TextField()
+    job_requirement = models.TextField()
     pub_date = models.DateField(auto_now=True)
     deadline = models.DateField(validators=[deadline_validation])
     company = models.ForeignKey(CompanyDetail, related_name='job_post_company', on_delete=models.CASCADE)
@@ -70,7 +73,7 @@ class ReceivedResume(models.Model):
         return self.applicant_name
 
 
-class Notification(models.Model):
+class CompanyJobApplyNotification(models.Model):
     user = models.ForeignKey(SeekerDetail, related_name='notification_user', on_delete=models.CASCADE)
     job = models.ForeignKey(JobPost, related_name='notification_job', on_delete=models.CASCADE)
     notify_date = models.DateField(auto_now=True)

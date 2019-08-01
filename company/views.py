@@ -42,7 +42,8 @@ class CompanyDashboardIndexView(TemplateView):
 class JobPostView(LoginRequiredMixin, CreateView):
     template_name = 'jobpost.html'
     model = JobPost
-    fields = ['title', 'job_level', 'vacancy_no', 'experience', 'salary', 'description', 'deadline']
+    fields = ['title', 'vacancy_no', 'experience', 'salary', 'negotiable', 'description', 'job_requirement',
+              'deadline']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -51,6 +52,8 @@ class JobPostView(LoginRequiredMixin, CreateView):
         try:
             context['categories'] = Category.objects.all()
             context['education'] = Education.objects.all()
+            context['job_levels'] = JobLevel.objects.all()
+            context['job_types'] = JobType.objects.all()
             context['menu_option'] = CompanyDetail.objects.get(user_id=user)
         except Exception as e:
             print(e)
@@ -59,15 +62,22 @@ class JobPostView(LoginRequiredMixin, CreateView):
     def post(self, request, *args, **kwargs):
 
         form = self.get_form()
+        print("before form validation")
         if form.is_valid():
-
+            print("after form validation")
             job_post = form.save(commit=False)
             category = request.POST.get('cate')
             education = request.POST.get('ed')
+            joblevel = request.POST.get('jl')
+            jobtype = request.POST.get('jt')
             cat = Category.objects.get(category=category)
             edu = Education.objects.get(education=education)
+            job_level = JobLevel.objects.get(job_level=joblevel)
+            job_type = JobType.objects.get(job_type=jobtype)
             job_post.category_id = cat.id
             job_post.education_id = edu.id
+            job_post.job_level_id = job_level.id
+            job_post.job_type_id = job_type.id
             user = request.user
             company = CompanyDetail.objects.all()
             for i in company:
@@ -76,18 +86,23 @@ class JobPostView(LoginRequiredMixin, CreateView):
             job_post.save()
             return redirect('home:index')
 
+        else:
+            print(form.errors)
+
         return redirect('company:job_post')
 
 
 class CompanyDetailView(CreateView):
     template_name = 'company_detail.html'
     model = CompanyDetail
-    fields = ['company_name', 'address', 'company_type', 'phone_no', 'mobile_no', 'company_registration_date', 'company_image']
+    fields = ['company_name', 'address', 'company_type', 'phone_no', 'mobile_no', 'company_registration_date',
+              'company_image']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['provinces'] = Province.objects.all()
         context['districts'] = District.objects.all()
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -163,7 +178,7 @@ class JobPostListView(LoginRequiredMixin, ListView):
 
 class JobDetailUpdateView(UpdateView):
     model = JobPost
-    fields = ['title', 'job_level', 'category', 'vacancy_no', 'experience', 'education', 'salary', 'description',
+    fields = ['title', 'job_level', 'category', 'vacancy_no', 'experience', 'education', 'salary', 'negotiable', 'job_type', 'description', 'job_requirement',
               'deadline']
     template_name = 'jobpost_update_form.html'
     success_url = reverse_lazy('company:jobpost_list')
