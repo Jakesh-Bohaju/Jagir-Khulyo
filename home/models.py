@@ -59,3 +59,11 @@ class JobLevel(models.Model):
 
     def __str__(self):
         return self.job_level
+
+
+class Faq(models.Model):
+    question = models.CharField(max_length=200)
+    answer = models.CharField(max_length=600)
+
+    def __str__(self):
+        return str(self.id)

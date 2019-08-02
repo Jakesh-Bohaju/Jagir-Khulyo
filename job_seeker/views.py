@@ -91,10 +91,12 @@ class JobDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         slug = self.kwargs['slug']
-        context['job'] = JobPost.objects.get(slug=slug)
+        job = JobPost.objects.get(slug=slug)
+        context['job'] = job
         context['blogs'] = Blog.objects.all().order_by('?')[:3]
         context['job_by_locations'] = JobPost.objects.all()
         context['top_jobs'] = JobPost.objects.all().order_by('?')
+        context['company'] = CompanyDetail.objects.get(job_post_company=job)
         user = self.request.user
         try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)

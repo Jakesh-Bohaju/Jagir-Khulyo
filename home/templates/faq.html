@@ -1,0 +1,38 @@
+{% extends '_base.html' %}
+{% block content %}
+    <section class="blog-posts-area section-gap">
+        <div class="container">
+            <div class="row">
+                <h2 class="title"><b>Frequently Asked Questions</b></h2>
+                <hr>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <a data-toggle="collapse" data-target="#seeker">Seeker</a>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <a data-toggle="collapse" data-target="#company">Seeker</a>
+
+                </div>
+            </div>
+            <div class="tab-content">
+            <div class="row">
+                <div id="seeker" class="container tab-pane active">
+                    {% for faq in faqs %}
+                    <h5 data-toggle="collapse" data-target="#{{ faq.id }}">{{ faq.question }}></h5>
+                    <p id="{{ faq.id }}" class="collapse">{{ faq.answer }}</p>
+                  {% endfor %}
+                </div>
+                <div id="company" class="collapse">
+                    <h5>How are you company></h5>
+                    <p>Ans. I am find.</p>
+                    <h5>How are you></h5>
+                    <p>Ans. I am find.</p>
+                    <h5>How are you></h5>
+                    <p>Ans. I am find.</p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
