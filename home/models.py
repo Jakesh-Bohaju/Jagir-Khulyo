@@ -61,9 +61,17 @@ class JobLevel(models.Model):
         return self.job_level
 
 
-class Faq(models.Model):
-    question = models.CharField(max_length=200)
-    answer = models.CharField(max_length=600)
+class FaqCompany(models.Model):
+    company_question = models.CharField(max_length=200)
+    company_answer = models.TextField()
+
+    def __str__(self):
+        return str(self.id)
+
+
+class FaqSeeker(models.Model):
+    seeker_question = models.CharField(max_length=200)
+    seeker_answer = models.TextField()
 
     def __str__(self):
         return str(self.id)

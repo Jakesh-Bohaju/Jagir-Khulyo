@@ -7,5 +7,5 @@ urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('search', SearchView.as_view(), name='search_job'),
     path('pagenotfound', Error404.as_view(), name='error_page'),
-    path('faq', FaqView.as_view(), name="faq"),
+    path('faq', CompanyFaqView.as_view(), name="faq"),
 ]

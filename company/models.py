@@ -22,6 +22,7 @@ class CompanyDetail(models.Model):
     company_type = models.CharField(max_length=100)
     phone_no = models.CharField(blank=True, max_length=9, validators=[phone_no_validation])
     mobile_no = models.CharField(blank=True, null=True, max_length=10, validators=[mobile_no_validation])
+    company_description = models.TextField()
     company_registration_date = models.DateField(blank=True, null=True, validators=[registration_date_validation])
     company_image = ImageField(upload_to='company/', verbose_name="")
     user = models.ForeignKey(User, related_name='company_detail_user', on_delete=models.CASCADE)

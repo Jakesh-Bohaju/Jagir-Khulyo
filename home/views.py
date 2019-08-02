@@ -6,7 +6,7 @@ from django.views.generic import TemplateView, ListView
 from rest_framework import generics, serializers
 
 from blog.models import Blog, Comment
-from company.models import JobPost, Category, CompanyDetail, Faq
+from company.models import JobPost, Category, CompanyDetail, FaqSeeker, FaqCompany
 from custom_auth.models import User
 
 
@@ -70,9 +70,13 @@ class Error404(TemplateView):
     template_name = 'error_404.html'
 
 
-class FaqView(TemplateView):
+class SeekerFaqView:
+    model = FaqSeeker
+
+
+class CompanyFaqView(TemplateView, SeekerFaqView):
     template_name = 'faq.html'
-    model = Faq
+    model = FaqCompany
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
