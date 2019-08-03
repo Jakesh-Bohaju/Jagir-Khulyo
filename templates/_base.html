@@ -133,6 +133,8 @@
                         <li>
                             <a href="{% if request.user.role == 'job_seeker' %} {% url 'job_seeker:job_list' %} {% else %} {% url 'home:error_page' %} {% endif %}">Apply
                                 Job</a></li>
+                        <li><a href="{% url 'home:faq' %}">FAQ</a></li>
+
 
                     </ul>
                 </div>
@@ -150,6 +152,8 @@
                             <a href="{% if request.user.role == 'company' %} {% url 'company:apply' %} {% else %} {% url 'home:error_page' %} {% endif %}">Applied
                                 Job</a>
                         </li>
+                        <li><a href="{% url 'home:faq' %}">FAQ</a></li>
+
 
                     </ul>
                 </div>

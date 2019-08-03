@@ -4,6 +4,12 @@ from django.db import models
 from django.utils.text import slugify
 
 
+role = (
+    ('company', 'Company'),
+    ('job_seeker', 'Job Seeker')
+)
+
+
 class Education(models.Model):
     education = models.CharField(max_length=50)
 
@@ -61,17 +67,13 @@ class JobLevel(models.Model):
         return self.job_level
 
 
-class FaqCompany(models.Model):
-    company_question = models.CharField(max_length=200)
-    company_answer = models.TextField()
+class Faq(models.Model):
+    question = models.CharField(max_length=200)
+    answer = models.TextField()
+    role = models.CharField(choices=role, max_length=20)
 
     def __str__(self):
         return str(self.id)
 
 
-class FaqSeeker(models.Model):
-    seeker_question = models.CharField(max_length=200)
-    seeker_answer = models.TextField()
 
-    def __str__(self):
-        return str(self.id)

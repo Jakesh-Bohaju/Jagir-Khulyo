@@ -6,33 +6,38 @@
                 <h2 class="title"><b>Frequently Asked Questions</b></h2>
                 <hr>
             </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <a data-toggle="collapse" data-target="#seeker">Seeker</a>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <a data-toggle="collapse" data-target="#company">Seeker</a>
+            <br>
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#seeker">Seeker</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#company">Company</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="accordino">
+
+                <div id="company" class="container tab-pane active"><br>
+                        {% for f in cfaqs %}
+                            <div class="card-header"  data-toggle="collapse" href="#{{ f.id }}">{{ f.id }}<b>{{ f.question }}</b></div>
+                            <p id="{{ f.id }}" class="collapse card-body" data-parent="#accordino'">{{ f.answer }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div id="seeker" class="container tab-pane active"><br>
+                        {% for faq in sfaqs %}
+                            <div class="card-header" data-toggle="collapse" href="#{{ faq.id }}">{{ faq.id }}<b>{{ faq.question }}</b></div>
+                            <p  id="{{ faq.id }}" class="collapse card-body" data-parent="#accordino">{{ faq.answer }}</p>
+                        {% endfor %}
+                    </div>
+
+
 
                 </div>
             </div>
-            <div class="tab-content">
-            <div class="row">
-                <div id="seeker" class="container tab-pane active">
-                    {% for faq in faqs %}
-                    <h5 data-toggle="collapse" data-target="#{{ faq.id }}">{{ faq.question }}></h5>
-                    <p id="{{ faq.id }}" class="collapse">{{ faq.answer }}</p>
-                  {% endfor %}
-                </div>
-                <div id="company" class="collapse">
-                    <h5>How are you company></h5>
-                    <p>Ans. I am find.</p>
-                    <h5>How are you></h5>
-                    <p>Ans. I am find.</p>
-                    <h5>How are you></h5>
-                    <p>Ans. I am find.</p>
-                </div>
-            </div>
-            </div>
         </div>
     </section>
+
 {% endblock %}
