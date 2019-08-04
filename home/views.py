@@ -80,3 +80,4 @@ class FaqView(TemplateView):
         context['cfaqs'] = Faq.objects.filter(role='company')
 
         return context
+

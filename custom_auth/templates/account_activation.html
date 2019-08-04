@@ -1,0 +1,12 @@
+{% autoescape off %}
+    Hi {{ user.username }},
+
+    Welcome to Jagir Khulyo, You are just a step behind to access jagir khulyo. Please click on the link below to
+    confirm your registration:
+
+
+    http://{{ domain }}{% url 'job_seeker:seeker_detail' uidb64=uid token=token %}
+
+    Sincerely,
+    The Jagir Khulyo Team
+{% endautoescape %}
