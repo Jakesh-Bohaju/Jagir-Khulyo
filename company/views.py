@@ -118,6 +118,8 @@ class CompanyDetailView(CreateView):
             detail.district_id = dis.id
             detail.save()
             return redirect('company:job_post')
+        else:
+            print(form.errors)
 
         return redirect('company:company_detail')
 

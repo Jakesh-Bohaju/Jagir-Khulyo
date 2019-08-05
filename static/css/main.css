@@ -4154,6 +4154,12 @@ body.mobile-nav-active #mobile-nav-toggle {
   background: #f9f9ff;
 }
 
+.faq_hover:hover{
+  color: rgba(113, 65, 9, 0.54);
+
+  cursor: pointer;
+}
+
 /*
 ################
                End Blog Details  Page style

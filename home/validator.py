@@ -56,3 +56,5 @@ def deadline_validation(value, *args, **kwargs):
             _('Maximum deadline must be 30 days'),
             params={'value': value},
         )
+
+

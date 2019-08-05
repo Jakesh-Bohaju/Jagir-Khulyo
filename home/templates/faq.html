@@ -7,33 +7,38 @@
                 <hr>
             </div>
             <br>
-
-            <ul class="nav nav-tabs">
-                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#seeker">Seeker</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#company">Company</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-
-                <div id="seeker" class="container tab-pane active"><br>
-                    {% for faq in sfaqs %}
-                        <h5 class="card-header" data-toggle="collapse" href="#{{ faq.id }}">{{ faq.question }}</h5>
-                        <p id="{{ faq.id }}" class="collapse card-body">Ans. {{ faq.answer | linenumbers | linebreaksbr}}</p>
-                    {% endfor %}
-                </div>
+            <div id="#accordion">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#seeker">Seeker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#company">Company</a>
+                    </li>
+                </ul>
 
 
-                <div id="company" class="container tab-pane fade"><br>
-                    {% for f in cfaqs %}
-                        <h5 class="card-header" data-toggle="collapse" href="#{{ f.id }}">{{ f.question }}</h5>
-                        <p id="{{ f.id }}" class="collapse card-body" >Ans. {{ f.answer | linenumbers | linebreaksbr}}</p>
-                    {% endfor %}
+                <div class="tab-content" id="accordion">
+
+                    <div id="seeker" class="container tab-pane active"><br>
+                        {% for faq in sfaqs %}
+                            <div class="card">
+                            <h5 class="card-header mb-1 mr-1 faq_hover" data-toggle="collapse" href="#{{ faq.id }}"><span>{{ faq.question }}</span></h5>
+                            <p id="{{ faq.id }}" class="collapse card-body"
+                               data-parent="#accordion">{{ faq.answer | linenumbers | linebreaksbr }}</p></div><div class="mb-2"></div>
+                        {% endfor %}
+                    </div>
+
+
+                    <div id="company" class="container tab-pane fade"><br>
+                        {% for f in cfaqs %}
+                            <div class="card">
+                            <h5 class="card-header mb-1 mr-1 faq_hover" data-toggle="collapse" href="#{{ f.id }}">{{ f.question }}</h5>
+                            <p id="{{ f.id }}" class="collapse card-body"
+                               data-parent="#accordion">{{ f.answer | linenumbers | linebreaksbr }}</p></div><div class="mb-2"></div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
     </section>
 
 {% endblock %}

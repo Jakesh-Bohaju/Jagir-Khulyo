@@ -46,7 +46,7 @@ class Province(models.Model):
 
 
 class District(models.Model):
-    district = models.CharField(max_length=100)
+    district = models.CharField(max_length=100 )
     province_no = models.ForeignKey(Province, related_name='district_wise_province_no', on_delete=models.CASCADE)
 
     def __str__(self):
