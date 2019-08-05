@@ -106,9 +106,16 @@
                                                                 <i class="fa fa-reply"></i>
                                                                 <i class="fa fa-heart"></i>
                                                             </div>
-                                                            <div class="comment-content">
-                                                                {{ c.answer }}
+
+                                                            <div id="posts">
+                                                                {% include 'comment.html' %}
                                                             </div>
+                                                            <div><a id="lazyLoadLink" href="javascript:void(0);"
+                                                                    data-page="2">Load More Posts</a></div>
+
+                                                            {#                                                            <div class="comment-content">#}
+                                                            {#                                                                {{ c.answer }}#}
+                                                            {#                                                            </div>#}
                                                         </div>
                                                     </div>
                                                     <!-- Respuestas de los comentarios -->

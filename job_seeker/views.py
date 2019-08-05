@@ -108,15 +108,13 @@ class JobDetailView(DetailView):
 class SeekerDetailView(CreateView):
     template_name = 'seeker_detail.html'
     model = SeekerDetail
-    # fields = ['name', 'address', 'date_of_birth', 'phone_no','resume','image']
+    # fields = ['name', 'province', 'district', 'address', 'date_of_birth', 'phone_no','resume','image']
     form_class = ResumeForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['genders'] = Gender.objects.all()
         context['education'] = Education.objects.all()
-        context['provinces'] = Province.objects.all()
-        context['districts'] = District.objects.all()
         user = self.request.user
         try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)
@@ -133,16 +131,13 @@ class SeekerDetailView(CreateView):
             seeker_detail.user = request.user
             gender = request.POST.get('gend')
             education = request.POST.get('educ')
-            province = request.POST.get('province')
-            district = request.POST.get('district')
+
             gen = Gender.objects.get(gender=gender)
             edu = Education.objects.get(education=education)
-            prov = Province.objects.get(province_name=province)
-            dis = District.objects.get(district=district)
+
             seeker_detail.gender_id = gen.id
             seeker_detail.education_id = edu.id
-            seeker_detail.province_id = prov.id
-            seeker_detail.district_id = dis.id
+
             seeker_detail.save()
 
             return redirect('job_seeker:job_list')
@@ -196,3 +191,9 @@ class ChangePasswordView(PasswordChangeView):
         except Exception as e:
             print(e)
         return context
+
+
+def load_districts(request):
+    province_id = request.GET.get('province')
+    districts = District.objects.filter(province_no_id=province_id).order_by('district')
+    return render(request, 'dropdown_district.html', {'districts': districts})

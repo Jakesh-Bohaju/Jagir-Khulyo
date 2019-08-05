@@ -1,12 +1,12 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView, DetailView
-from rest_framework import serializers, generics
+from django.template import loader
+from django.views.generic import ListView, CreateView
+from rest_framework import generics
 
 from blog.models import *
-
-
 # Create your views here.
+from blog.serializer import CommentSerializer
 from company.models import JobPost
 
 
@@ -63,42 +63,25 @@ class BlogDetailView(CreateView):
         return HttpResponseRedirect(self.request.path_info)
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'username')
-
-
-class CommentChildSerializer(serializers.ModelSerializer):
-    comment_user = UserSerializer()
-
-    class Meta:
-        model = Comment
-        fields = (
-            'id',
-            'answer',
-            'comment_user'
-        )
-
-
-class CommentSerializer(serializers.ModelSerializer):
-    # creating new field
-    child_comments = serializers.SerializerMethodField()
-
-    def get_child_comments(self, obj):
-        return CommentChildSerializer(obj.sub_comments.all(), many=True).data
-
-    class Meta:
-        model = Comment
-        fields = (
-            'id',
-            'answer',
-            'child_comments',
-            'comment_date',
-            'comment_user'
-        )
-
-
 class CommentView(generics.ListAPIView):
     queryset = Comment.objects.filter(parent__isnull=True)
     serializer_class = CommentSerializer
+
+
+def lazy_load_posts(request):
+    page = request.POST.get('page')
+    posts = Comment.objects.all()
+
+    # use Django's pagination
+    # https://docs.djangoproject.com/en/dev/topics/pagination/
+    results_per_page = 5
+    paginator = Paginator(posts, results_per_page)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(2)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+    # build a html posts list with the paginated posts
+    posts_html = loader.render_to_string('comment.html', {'posts': posts})
