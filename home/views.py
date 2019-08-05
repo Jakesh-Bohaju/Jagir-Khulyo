@@ -18,7 +18,7 @@ class IndexView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         # context['jobs'] = JobPost.objects.all()
-        context['categories'] = Category.objects.all().order_by(?)[:6]
+        context['categories'] = Category.objects.all().order_by('?')[:6]
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['latest_jobs'] = JobPost.objects.all().order_by('-id')
         context['blogs'] = Blog.objects.all().order_by('?')[:3]
