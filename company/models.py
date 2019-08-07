@@ -66,16 +66,10 @@ class JobPost(models.Model):
 
 class ReceivedResume(models.Model):
     job_title = models.ForeignKey(JobPost, related_name='received_resume_job_title', on_delete=models.CASCADE)
-    applicant_name = models.ForeignKey(SeekerDetail, related_name='received_resume_applicant_name',
-                                       on_delete=models.CASCADE)
+    applicant_name = models.ForeignKey(SeekerDetail, related_name='received_resume_applicant_name', on_delete=models.CASCADE)
     applied_date = models.DateField(auto_now=True)
+    status = models.BooleanField(blank=True)
+    accepted = models.BooleanField(blank=True)
 
     def __str__(self):
         return self.applicant_name
-
-
-class CompanyJobApplyNotification(models.Model):
-    user = models.ForeignKey(SeekerDetail, related_name='notification_user', on_delete=models.CASCADE)
-    job = models.ForeignKey(JobPost, related_name='notification_job', on_delete=models.CASCADE)
-    notify_date = models.DateField(auto_now=True)
-    status = models.BooleanField()

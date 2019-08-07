@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for notification in notifications %}
+    {% if notification.status == False %}
+        <li>Name :
+            <form method="post" {% url 'company:notification_job_update' notification %} >
+                {% csrf_token %}
+                <input type="submit">{{ notification.applicant_name.name }}
+            </form>
+        </li>
+        <li>Title : {{ notification.job_title.title }}</li>
+        <hr>
+    {% endif %}
+{% endfor %}
+</body>
+</html>

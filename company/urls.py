@@ -19,5 +19,7 @@ urlpatterns = [
     path('jobpost/<slug:slug>/delete', JobPostDeleteView.as_view(), name='job_post_delete'),
     path('password_change', CompanyChangePasswordView.as_view(), name='password_change'),
     path('ajax/load-districts/', views.load_districts, name='ajax_load_districts'),
+    path('notification/', JobAppliedNotificationView.as_view(), name='notification_job'),
+    path('notification/<int:pk>', JobAppliedNotificationView.as_view(), name='notification_job_update')
 
 ]

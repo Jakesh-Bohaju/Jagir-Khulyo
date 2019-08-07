@@ -106,7 +106,7 @@ class CompanyDetailView(CreateView):
     #     context['provinces'] = Province.objects.all()
     #     context['districts'] = District.objects.all()
 
-        # return context
+    # return context
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -129,7 +129,7 @@ class CompanyDetailView(CreateView):
 
 class AppliedListView(LoginRequiredMixin, CreateView):
     model = ReceivedResume
-    fields = ['job_title']
+    fields = ['job_title', 'status', 'accepted']
     template_name = 'job_apply_list.html'
 
     def get_context_data(self, **kwargs):
@@ -249,3 +249,34 @@ def load_districts(request):
     province_id = request.GET.get('province')
     districts = District.objects.filter(province_no_id=province_id).order_by('district')
     return render(request, 'dropdown_district.html', {'districts': districts})
+
+
+class JobAppliedNotificationView(ListView):
+    template_name = 'notification.html'
+    model = ReceivedResume
+    success_url = reverse_lazy('company:notification_job_update')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['notifications'] = ReceivedResume.objects.all()
+        return context
+
+
+class JobAppliedNotificationUpdateView(UpdateView):
+    template_name = 'kk.html'
+    model = ReceivedResume
+    fields = ['status']
+
+    # def post(self, request, *args, **kwargs):
+    #     form = self.get_form()
+    #
+    #     if form.is_valid():
+    #         print("after form validation")
+    #         a = form.save(commit=False)
+    #         a.status = True
+    #
+    #         a.save()
+    #
+    #         return redirect('job_seeker:job_list')
+    #
+    #     return redirect('job_seeker:job_list')
