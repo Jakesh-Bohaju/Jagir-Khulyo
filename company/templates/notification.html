@@ -8,7 +8,7 @@
 {% for notification in notifications %}
     {% if notification.status == False %}
         <li>Name :
-            <form method="post" {% url 'company:notification_job_update' notification %} >
+            <form method="post"  >
                 {% csrf_token %}
                 <input type="submit">{{ notification.applicant_name.name }}
             </form>

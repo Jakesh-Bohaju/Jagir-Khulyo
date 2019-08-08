@@ -130,10 +130,11 @@
             <div class="row justify-content-center d-flex">
                 <div class="col-lg-8 post-list">
                     <ul class="cat-list">
-                        <li><a href="">Recent</a></li>
                         <li><a href="">Full Time</a></li>
                         <li><a href="">Intern</a></li>
-                        <li><a href="">part Time</a></li>
+                        <li><a href="">Part Time</a></li>
+                        <li><a href="">Trainee</a></li>
+
                     </ul>
                     {% for job in object_list %}
                         <div class="single-post d-flex flex-row">
@@ -148,14 +149,9 @@
 
                                     <ul class="tags">
                                         <li>
-                                            <a href="#">Art</a>
+                                            <a href="#">{{ job.category.category }}</a>
                                         </li>
-                                        <li>
-                                            <a href="#">Media</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Design</a>
-                                        </li>
+
 
                                     </ul>
                                 </div>
