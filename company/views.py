@@ -267,16 +267,3 @@ class JobAppliedNotificationUpdateView(UpdateView):
     model = ReceivedResume
     fields = ['status']
 
-    # def post(self, request, *args, **kwargs):
-    #     form = self.get_form()
-    #
-    #     if form.is_valid():
-    #         print("after form validation")
-    #         a = form.save(commit=False)
-    #         a.status = True
-    #
-    #         a.save()
-    #
-    #         return redirect('job_seeker:job_list')
-    #
-    #     return redirect('job_seeker:job_list')
