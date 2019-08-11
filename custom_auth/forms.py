@@ -20,3 +20,10 @@ class UserForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError(
+                'Please use another Email, that is already taken')
+        return email

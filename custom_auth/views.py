@@ -1,17 +1,19 @@
 from django.contrib.auth import login
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordResetView, \
+from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, \
     PasswordResetDoneView, PasswordResetConfirmView
 from django.contrib.sites.shortcuts import get_current_site
-from django.shortcuts import render, redirect
+from django.core.mail import EmailMessage
+from django.http import HttpResponse
+from django.http import request
+from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
-from django.utils.encoding import force_text, force_bytes
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.views import View
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.generic import CreateView
 
 from custom_auth.forms import *
-
 # Create your views here.
 from custom_auth.tokens import account_activation_token
 
@@ -23,30 +25,48 @@ class RegistrationView(CreateView):
     # success_url = '/custom/login'
     template_name = 'register.html'
 
-    def form_valid(self, form):
-        form.save()
-        return redirect('custom_auth:login')
+    # def form_valid(self, form):
+    #     user = form.save(commit=False)
+    #     user.is_active = False
+    #     user.save()
+    #     current_site = get_current_site(request)
+    #     mail_subject = 'Activate your blog account.'
+    #     message = render_to_string('account_activation.html', {
+    #         'user': user,
+    #         'domain': current_site.domain,
+    #         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+    #         'token': account_activation_token.make_token(user),
+    #     })
+    #     to_email = form.cleaned_data.get('email')
+    #     email = EmailMessage(
+    #         mail_subject, message, to=[to_email]
+    #     )
+    #     email.send()
+    #     return HttpResponse('Please confirm your email address to complete the registration')
+    #     # form.save()
+    #     # return redirect('custom_auth:login')
 
-    # def post(self, request, *args, **kwargs):
-    #     if request.method == 'POST':
-    #         form = UserForm(request.POST)
-    #         if form.is_valid():
-    #             user = form.save(commit=False)
-    #             user.is_active = False
-    #             user.save()
-    #             current_site = get_current_site(request)
-    #             subject = 'Activate Your MySite Account'
-    #             message = render_to_string('account_activation.html', {
-    #                 'user': user,
-    #                 'domain': current_site.domain,
-    #                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-    #                 'token': account_activation_token.make_token(user),
-    #             })
-    #             user.email_user(subject, message)
-    #             return redirect('account_activation_sent')
-    #     else:
-    #         form = UserForm()
-    #     return render(request, 'register.html', {'form': form})
+    def post(self, request, *args, **kwargs):
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            subject = 'Activate Your MySite Account'
+            message = render_to_string('account_activation.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            user.email_user(subject, message)
+            return redirect('custom_auth:activate')
+
+        else:
+            form = UserForm()
+
+        return render(request, 'register.html', {'form': form})
 
 
 class CustomLoginView(LoginView):
@@ -86,19 +106,18 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
     form_valid_message = "Your password was changed!"
 
 
-# class AccountActivationView(View):
-#     def activate(request, uidb64, token):
-#         try:
-#             uid = force_text(urlsafe_base64_decode(uidb64))
-#             user = User.objects.get(pk=uid)
-#         except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-#             user = None
-#
-#         if user is not None and account_activation_token.check_token(user, token):
-#             user.is_active = True
-#             user.profile.email_confirmed = True
-#             user.save()
-#             login(request, user)
-#             return redirect('home')
-#         else:
-#             return render(request, 'account_activation_invalid.html')
+def activate_account(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.profile.email_confirmed = True
+        user.save()
+        login(request, user)
+        return redirect('home')
+    else:
+        return render(request, 'account_activation_invalid.html')
