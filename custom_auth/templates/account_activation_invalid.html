@@ -1,6 +1,9 @@
 {% extends '_base.html' %}
 {% block content %}
-<section class="section-gap">
-<P> Invalid activation email. visit <a href="{% url 'custom_auth:register' %}">Enter valid email</a> </P>
-</section>
+    <section class="section-gap">
+        <div class="container">
+            <h4>Welcome to Jagir Khulyo</h4>
+            <P> Either Invalid activation email Or user already confirm the account. visit <a href="{% url 'custom_auth:register' %}">Enter valid email</a></P>
+        </div>
+    </section>
 {% endblock %}
