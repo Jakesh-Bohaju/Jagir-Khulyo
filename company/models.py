@@ -68,8 +68,8 @@ class ReceivedResume(models.Model):
     job_title = models.ForeignKey(JobPost, related_name='received_resume_job_title', on_delete=models.CASCADE)
     applicant_name = models.ForeignKey(SeekerDetail, related_name='received_resume_applicant_name', on_delete=models.CASCADE)
     applied_date = models.DateField(auto_now=True)
-    status = models.BooleanField(blank=True)
-    accepted = models.BooleanField(blank=True)
+    status = models.BooleanField(default=False)
+    accepted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.applicant_name
