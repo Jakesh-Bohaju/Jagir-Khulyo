@@ -251,19 +251,32 @@ def load_districts(request):
     return render(request, 'dropdown_district.html', {'districts': districts})
 
 
-class JobAppliedNotificationView(ListView):
+class JobAppliedNotificationView(CreateView):
     template_name = 'notification.html'
     model = ReceivedResume
+    fields = ['status']
     success_url = reverse_lazy('company:notification_job_update')
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['notifications'] = ReceivedResume.objects.all()
+        user = self.request.user
+
+        try:
+            context['apply_title'] = JobPost.objects.filter(company__user_id=user)
+            context['apply_list'] = ReceivedResume.objects.filter(job_title__company__user_id=user)
+            context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
 
+    def post(self, request, *args, **kwargs):
+        b = request.user.id
+        applied = ReceivedResume.objects.filter(job_title__company__user_id=b)
+        jtid = int(request.POST.get('jt'))
+        for i in applied:
 
-class JobAppliedNotificationUpdateView(UpdateView):
-    template_name = 'kk.html'
-    model = ReceivedResume
-    fields = ['status']
+            if i.job_title_id == jtid:
+                i.status = True
+                i.save()
 
+        return redirect('company:notification_job')
