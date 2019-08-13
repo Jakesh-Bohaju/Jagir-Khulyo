@@ -66,10 +66,20 @@ class JobPost(models.Model):
 
 class ReceivedResume(models.Model):
     job_title = models.ForeignKey(JobPost, related_name='received_resume_job_title', on_delete=models.CASCADE)
-    applicant_name = models.ForeignKey(SeekerDetail, related_name='received_resume_applicant_name', on_delete=models.CASCADE)
+    applicant_name = models.ForeignKey(SeekerDetail, related_name='received_resume_applicant_name',
+                                       on_delete=models.CASCADE)
     applied_date = models.DateField(auto_now=True)
     status = models.BooleanField(default=False)
     accepted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.applicant_name
+
+
+class IPTracker(models.Model):
+    user_ip = models.ForeignKey(User, related_name="iptracker_user_ip", null=True, blank=True, on_delete=models.CASCADE)
+    job_ip = models.ForeignKey(JobPost,related_name="iptracker_job_ip", on_delete=models.CASCADE)
+    ip_data = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.ip_data
