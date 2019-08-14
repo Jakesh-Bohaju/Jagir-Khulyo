@@ -1,13 +1,17 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 # Create your views here.
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView
 
 # from company.forms import CompanyDetailForm
+from ipware.ip import get_ip
+
 from company.models import *
 from home.models import Category, Education
+
 
 
 class CompanyDashboardBaseView(TemplateView):
@@ -251,19 +255,43 @@ def load_districts(request):
     return render(request, 'dropdown_district.html', {'districts': districts})
 
 
-class JobAppliedNotificationView(ListView):
+class JobAppliedNotificationView(CreateView):
     template_name = 'notification.html'
     model = ReceivedResume
+    fields = ['status']
     success_url = reverse_lazy('company:notification_job_update')
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['notifications'] = ReceivedResume.objects.all()
+        user = self.request.user
+
+        try:
+            context['apply_title'] = JobPost.objects.filter(company__user_id=user)
+            context['apply_list'] = ReceivedResume.objects.filter(job_title__company__user_id=user)
+            context['menu_option'] = CompanyDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
         return context
 
+    def post(self, request, *args, **kwargs):
+        b = request.user.id
+        applied = ReceivedResume.objects.filter(job_title__company__user_id=b)
+        jtid = int(request.POST.get('jt'))
+        for i in applied:
 
-class JobAppliedNotificationUpdateView(UpdateView):
-    template_name = 'kk.html'
-    model = ReceivedResume
-    fields = ['status']
+            if i.job_title_id == jtid:
+                i.status = True
+                i.save()
 
+        return redirect('company:notification_job')
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+        print(ip)
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+        print(ip)
+    return HttpResponse(str(ip))

@@ -1,21 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for notification in notifications %}
-    {% if notification.status == False %}
-        <li>Name :
-            <form method="post"  >
-                {% csrf_token %}
-                <input type="submit">{{ notification.applicant_name.name }}
-            </form>
+{% extends '_company_dashboard_base.html' %}
+
+{% block company_dashboard %}
+
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
         </li>
-        <li>Title : {{ notification.job_title.title }}</li>
-        <hr>
-    {% endif %}
-{% endfor %}
-</body>
-</html>
+        <li class="breadcrumb-item active">Notification</li>
+    </ol>
+
+
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-bell-o"></i>
+            Notification
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% for applied_job in apply_title %}
+
+
+                    {% for title_wise_application in apply_list %}
+                        {% if title_wise_application.job_title.title == applied_job.title %}
+                            <div class="col-lg-6 ">
+                                {% if title_wise_application.status == True %}
+                                    <button type="button"
+                                            class="btn btn-block btn-outline-light text-dark mb-2"><span>{{ title_wise_application.applicant_name.name }} applied for the
+                            job {{ title_wise_application.job_title.title }}</span><br><small>{{ title_wise_application.applied_date }}</small>
+                                    </button>
+
+                                {% endif %}
+                            </div>
+                            <div class="col-lg-6">
+                                {% if title_wise_application.status == False %}
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <button type="submit"
+                                                class="btn btn-block btn-outline-light text-dark mb-2"><span>{{ title_wise_application.applicant_name.name }} applied for the
+                                            job {{ title_wise_application.job_title.title }}</span><br><small>{{ title_wise_application.applied_date }}</small><input
+                                                type="hidden" name="jt"
+                                                value="{{ title_wise_application.job_title_id }}"></button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
