@@ -1,13 +1,10 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
 # Create your views here.
-from django.views import View
+from django.urls import reverse
 from django.views.generic import TemplateView, ListView
-from rest_framework import generics, serializers
 
-from blog.models import Blog, Comment
-from company.models import JobPost, Category, CompanyDetail, Faq
-from custom_auth.models import User
+from blog.models import Blog
+from company.models import JobPost, Category, CompanyDetail, Faq, IPTracker
 
 
 class IndexView(ListView):
@@ -26,6 +23,23 @@ class IndexView(ListView):
         context['companies'] = CompanyDetail.objects.all()
 
         return context
+
+    def post(self, request, *args, **kwargs):
+        x = request.POST.get('job')
+        a = JobPost.objects.get(id=x)
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip_data1 = x_forwarded_for.split(',')[0]
+        else:
+            ip_data1 = request.META.get('REMOTE_ADDR')
+
+        asd = IPTracker()
+        asd.ip_data = ip_data1
+        asd.job_ip_id = request.POST.get('job')
+        asd.user_ip_id = request.POST.get('user')
+        asd.save()
+
+        return redirect('/seeker/' + a.slug)
 
 
 class SearchView(ListView):
@@ -80,4 +94,3 @@ class FaqView(TemplateView):
         context['cfaqs'] = Faq.objects.filter(role='company')
 
         return context
-

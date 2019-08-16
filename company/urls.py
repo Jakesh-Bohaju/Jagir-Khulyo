@@ -20,6 +20,5 @@ urlpatterns = [
     path('password_change', CompanyChangePasswordView.as_view(), name='password_change'),
     path('ajax/load-districts/', views.load_districts, name='ajax_load_districts'),
     path('notification/', JobAppliedNotificationView.as_view(), name='notification_job'),
-    path('ip/', get_client_ip, name='ippp')
 
 ]

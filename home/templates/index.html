@@ -160,14 +160,36 @@
                                 <div class="title d-flex flex-row justify-content-between">
 
                                     <div class="titles">
-                                        <a href="{% url 'job_seeker:single_job_detail' job %}"><h4>{{ job.title }}</h4>
+                                        <a href="{% url 'job_seeker:single_job_detail' job %}"><h4>
+                                            {{ job.title }}{{ job.id }}{{ request.user.id }}</h4>
                                         </a>
                                         <h6>{{ job.company.company_name }}</h6>
+
                                     </div>
-                                    <ul class="btns">
-                                        <li><a href=""><span class="lnr lnr-heart"></span></a></li>
-                                        <li><a href="{% url 'job_seeker:single_job_detail' job %}">View Detail</a></li>
-                                    </ul>
+
+
+
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <ul class="btns">
+                                            <li><a href=""><span class="lnr lnr-heart"></span></a></li>
+
+
+                                            <li><a href="{% url 'job_seeker:single_job_detail' job %}"><input type="submit" value="View Detail"></a>
+                                                <input type="hidden" name="job" value="{{ job.id }}">
+{#                                                <input type="hidden" name="user" value="{{ request.user.id }}">#}
+
+
+
+                                                {% if request.user.is_authenticated %}
+                                                    <input type="hidden" name="user" value="{{ request.user.id }}">
+                                                {% else %}
+                                                    <input type="hidden" name="user" value="">
+                                                {% endif %}
+                                            </li>
+
+                                        </ul>
+                                    </form>
                                 </div>
                                 <p>
                                     {{ job.description | truncatewords:50 }}

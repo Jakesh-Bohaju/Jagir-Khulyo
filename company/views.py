@@ -1,17 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
 # Create your views here.
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView
 
-# from company.forms import CompanyDetailForm
-from ipware.ip import get_ip
-
 from company.models import *
 from home.models import Category, Education
 
+
+# from company.forms import CompanyDetailForm
 
 
 class CompanyDashboardBaseView(TemplateView):
@@ -150,10 +148,7 @@ class AppliedListView(LoginRequiredMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
-        print("before form validate")
-
         if form.is_valid():
-            print("after form validation")
             a = form.save(commit=False)
             b = request.user.id
             jobsek = SeekerDetail.objects.all()
@@ -284,14 +279,3 @@ class JobAppliedNotificationView(CreateView):
                 i.save()
 
         return redirect('company:notification_job')
-
-
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-        print(ip)
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-        print(ip)
-    return HttpResponse(str(ip))
