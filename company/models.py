@@ -80,6 +80,7 @@ class IPTracker(models.Model):
     user_ip = models.ForeignKey(User, related_name="iptracker_user_ip", null=True, blank=True, on_delete=models.CASCADE)
     job_ip = models.ForeignKey(JobPost, related_name="iptracker_job_ip", on_delete=models.CASCADE)
     ip_data = models.CharField(max_length=50)
+    date_time = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.ip_data

@@ -6,7 +6,8 @@
 
     <!-- start banner Area -->
     <section class="banner-area relative" id="home">
-        <div class="overlay overlay-bg"></div>
+
+        <div class=" overlay overlay-bg"></div>
         {#                            <div id="particles-js"><canvas class="particles-js-canvas-el" width="1409" height="319" style="width: 100%; height: 100%;"></canvas></div>#}
 
         <div class="container">
@@ -83,7 +84,7 @@
                                 {#                                <a class="btns text-uppercase" href="">view job post</a>#}
                             </div>
                             <div class="details">
-                                <a href="{% url 'job_seeker:single_job_detail' l_job %}"><h4>{{ l_job.title }}</h4></a>
+                                <a href="{% url 'home:single_job_detail' l_job %}"><h4>{{ l_job.title }}</h4></a>
                                 <h6>{{ l_job.company.address }}</h6>
                                 <p>
                                     {{ l_job.description | truncatewords:6 }}
@@ -105,6 +106,7 @@
                     <div class="title text-center">
                         <h1 class="mb-10">Featured Job Categories</h1>
                         <p>Who are in extremely love with eco friendly system.</p>
+                        <a href="{% url 'blog:blog_list' %}">Blog</a>
                     </div>
                 </div>
             </div>
@@ -130,19 +132,19 @@
             <div class="row justify-content-center d-flex">
                 <div class="col-lg-8 post-list">
                     <ul class="cat-list">
-                        <li><a href="">Full Time</a></li>
-                        <li><a href="">Intern</a></li>
-                        <li><a href="">Part Time</a></li>
-                        <li><a href="">Trainee</a></li>
+                        {% for jt in jobtype %}
+                            <li class="card bg-light"><a href="">{{ jt.job_type }}</a></li>
+                        {% endfor %}
+
 
                     </ul>
                     {% for job in object_list %}
                         <div class="single-post d-flex flex-row">
-                            <div class="col-2">
+                            <div class="col-3">
                                 <div class="thumb">
 
 
-                                    {% thumbnail job.company.company_image "80x120" as im %}
+                                    {% thumbnail job.company.company_image "130x240" as im %}
                                         <img class="rounded" src="{{ im.url }}" width="{{ im.width }}"
                                              height="{{ im.height }}">
                                     {% endthumbnail %}
@@ -160,13 +162,12 @@
                                 <div class="title d-flex flex-row justify-content-between">
 
                                     <div class="titles">
-                                        <a href="{% url 'job_seeker:single_job_detail' job %}"><h4>
-                                            {{ job.title }}{{ job.id }}{{ request.user.id }}</h4>
+                                        <a href="{% url 'home:single_job_detail' job %}"><h4>
+                                            {{ job.title }}</h4>
                                         </a>
                                         <h6>{{ job.company.company_name }}</h6>
 
                                     </div>
-
 
 
                                     <form method="post">
@@ -175,9 +176,9 @@
                                             <li><a href=""><span class="lnr lnr-heart"></span></a></li>
 
 
-                                            <li><a href="{% url 'job_seeker:single_job_detail' job %}"><input type="submit" value="View Detail"></a>
+                                            <li><input type="submit" value="View Detail">
                                                 <input type="hidden" name="job" value="{{ job.id }}">
-{#                                                <input type="hidden" name="user" value="{{ request.user.id }}">#}
+                                                {#                                                <input type="hidden" name="user" value="{{ request.user.id }}">#}
 
 
 
@@ -191,11 +192,11 @@
                                         </ul>
                                     </form>
                                 </div>
-                                <p>
-                                    {{ job.description | truncatewords:50 }}
-                                </p>
-                                <h5>{{ job.job_level }}</h5>
-                                <p class="address"><span class="lnr lnr-map"></span>{{ job.company.address }}</p>
+                                {#                                <p>#}
+                                {#                                    {{ job.description | truncatewords:50 }}#}
+                                {#                                </p>#}
+                                <h5 class="lnr lnr-layers"> {{ job.job_level }}</h5>
+                                <p class="address"><span class="lnr lnr-map"></span> {{ job.company.address }}</p>
                                 <p class="address"><span class="lnr lnr-database"></span> {{ job.salary }}</p>
                             </div>
                         </div>

@@ -1,17 +1,11 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
-from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
-
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView
 
-from blog.models import Blog
-from job_seeker.forms import ResumeForm
-from job_seeker.models import SeekerDetail
-from home.models import Gender, Education
 from company.models import *
+from job_seeker.forms import ResumeForm
 
 
 class SeekerDashboardBaseView(TemplateView):
@@ -38,67 +32,6 @@ class SeekerDashboardIndexView(TemplateView):
         user = self.request.user
         try:
             context['user'] = SeekerDetail.objects.get(user_id=user)
-            context['seeker'] = SeekerDetail.objects.get(user_id=user)
-        except Exception as e:
-            print(e)
-        return context
-
-
-class JobListView(ListView):
-    template_name = 'job_list.html'
-    model = JobPost
-    paginate_by = 2
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # context['jobs'] = JobPost.objects.all()
-        user = self.request.user
-        try:
-            context['seeker'] = SeekerDetail.objects.get(user_id=user)
-        except Exception as e:
-            print(e)
-
-        context['categories'] = Category.objects.all()
-        context['top_jobs'] = JobPost.objects.all().order_by('?')
-        context['latest_jobs'] = JobPost.objects.all().order_by('-id')
-        context['freq_categories'] = Category.objects.all().order_by('?')
-        context['blogs'] = Blog.objects.all().order_by('?')[:3]
-        context['job_by_locations'] = JobPost.objects.all()
-        return context
-
-
-class CategoryListView(ListView):
-    template_name = 'job_category.html'
-    model = Category
-    paginate_by = 1
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # context['categories'] = Category.objects.all()
-        user = self.request.user
-        context['seeker'] = SeekerDetail.objects.get(user_id=user)
-        context['freq_categories'] = Category.objects.all().order_by('?')
-        context['blogs'] = Blog.objects.all().order_by('?')[:3]
-        context['job_by_locations'] = JobPost.objects.all()
-        context['top_jobs'] = JobPost.objects.all().order_by('?')
-        return context
-
-
-class JobDetailView(DetailView):
-    model = JobPost
-    template_name = 'single_job.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        slug = self.kwargs['slug']
-        job = JobPost.objects.get(slug=slug)
-        context['job'] = job
-        context['blogs'] = Blog.objects.all().order_by('?')[:3]
-        context['job_by_locations'] = JobPost.objects.all()
-        context['top_jobs'] = JobPost.objects.all().order_by('?')
-        context['company'] = CompanyDetail.objects.get(job_post_company=job)
-        user = self.request.user
-        try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)
         except Exception as e:
             print(e)
@@ -150,7 +83,8 @@ class SeekerDetailView(CreateView):
 
 class SeekerUpdateView(UpdateView):
     model = SeekerDetail
-    fields = ['name', 'province', 'district', 'address', 'date_of_birth', 'gender', 'phone_no', 'mobile_no', 'education', 'resume', 'image']
+    fields = ['name', 'province', 'district', 'address', 'date_of_birth', 'gender', 'phone_no', 'mobile_no',
+              'education', 'resume', 'image']
     template_name = 'seeker_update_form.html'
     success_url = reverse_lazy('job_seeker:seeker_dashboard_index')
 

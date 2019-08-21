@@ -1,10 +1,15 @@
+import datetime
+
 from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse
-from django.views.generic import TemplateView, ListView
+from django.utils import timezone
+from django.views.generic import TemplateView, ListView, DetailView
 
 from blog.models import Blog
 from company.models import JobPost, Category, CompanyDetail, Faq, IPTracker
+from home.models import JobType
+from job_seeker.models import SeekerDetail
 
 
 class IndexView(ListView):
@@ -15,6 +20,7 @@ class IndexView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         # context['jobs'] = JobPost.objects.all()
+        context['jobtype'] = JobType.objects.all()
         context['categories'] = Category.objects.all().order_by('?')[:6]
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['latest_jobs'] = JobPost.objects.all().order_by('-id')
@@ -33,13 +39,65 @@ class IndexView(ListView):
         else:
             ip_data1 = request.META.get('REMOTE_ADDR')
 
+        aa = timezone.now()
+        now = timezone.now() - timezone.timedelta(hours=24)
+        now1 = now + timezone.timedelta(hours=24)
+        print(aa, now, now1)
         asd = IPTracker()
-        asd.ip_data = ip_data1
-        asd.job_ip_id = request.POST.get('job')
-        asd.user_ip_id = request.POST.get('user')
-        asd.save()
+        obj = IPTracker.objects.filter(job_ip_id=x)
+        temp = 0
+        try:
+            if obj.exists():
+                for i in obj:
+                    if i.ip_data == ip_data1:
+                        temp = 0
+                        break
+                    else:
+                        temp = 1
+                if temp == 1:
+                    asd.ip_data = ip_data1
+                    asd.job_ip_id = request.POST.get('job')
+                    asd.user_ip_id = request.POST.get('user')
+                    asd.save()
 
-        return redirect('/seeker/' + a.slug)
+            else:
+                asd.ip_data = ip_data1
+                asd.job_ip_id = request.POST.get('job')
+                asd.user_ip_id = request.POST.get('user')
+                asd.save()
+        except Exception as e:
+            print(e)
+
+        # try to save user ip with session 24 hours but not working
+        # try:
+        #     obj = IPTracker.objects.filter(job_ip_id=x)
+        #     print(obj.count())
+        #     if obj.exists():
+        #         print("Yes I have data")
+        #         for i in obj:
+        #             print("DB time: ", i.date_time, "\ntimedelta 24hrs time :", now, i.ip_data, ip_data1)
+        #
+        #             if i.date_time < now:
+        #                 print("I am gonna print")
+        #                 asd.ip_data = ip_data1
+        #                 asd.job_ip_id = request.POST.get('job')
+        #                 asd.user_ip_id = request.POST.get('user')
+        #                 asd.save()
+        #             # else:
+        #             # print(i.date_time, " is greater than ", now)
+        #
+        #
+        #     else:
+        #
+        #         asd.ip_data = ip_data1
+        #         asd.job_ip_id = request.POST.get('job')
+        #         asd.user_ip_id = request.POST.get('user')
+        #         asd.save()
+        #
+        # except Exception as e:
+        #     print(e)
+
+        return redirect('/job-detail/' + a.slug)
 
 
 class SearchView(ListView):
@@ -82,6 +140,70 @@ class SearchView(ListView):
 
 class Error404(TemplateView):
     template_name = 'error_404.html'
+
+
+class JobListView(ListView):
+    template_name = 'job_list.html'
+    model = JobPost
+    paginate_by = 1
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['jobs'] = JobPost.objects.all()
+        user = self.request.user
+        today = datetime.datetime.now()
+
+        try:
+            context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
+
+        context['categories'] = Category.objects.all()
+        context['top_jobs'] = JobPost.objects.all().order_by('?')
+        context['latest_jobs'] = JobPost.objects.all().order_by('-id')
+        context['freq_categories'] = Category.objects.all().order_by('?')
+        context['blogs'] = Blog.objects.all().order_by('?')[:3]
+        context['job_by_locations'] = JobPost.objects.all()
+        return context
+
+
+class CategoryListView(ListView):
+    template_name = 'job_category.html'
+    model = Category
+    paginate_by = 1
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['categories'] = Category.objects.all()
+        user = self.request.user
+        context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        context['freq_categories'] = Category.objects.all().order_by('?')
+        context['blogs'] = Blog.objects.all().order_by('?')[:3]
+        context['job_by_locations'] = JobPost.objects.all()
+        context['top_jobs'] = JobPost.objects.all().order_by('?')
+        return context
+
+
+class JobDetailView(DetailView):
+    model = JobPost
+    template_name = 'single_job.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs['slug']
+        job = JobPost.objects.get(slug=slug)
+        context['counts'] = IPTracker.objects.filter(job_ip__slug=slug).count()
+        context['job'] = job
+        context['blogs'] = Blog.objects.all().order_by('?')[:3]
+        context['job_by_locations'] = JobPost.objects.all()
+        context['top_jobs'] = JobPost.objects.all().order_by('?')
+        context['company'] = CompanyDetail.objects.get(job_post_company=job)
+        user = self.request.user
+        try:
+            context['seeker'] = SeekerDetail.objects.get(user_id=user)
+        except Exception as e:
+            print(e)
+        return context
 
 
 class FaqView(TemplateView):

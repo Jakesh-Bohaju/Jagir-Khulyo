@@ -67,8 +67,8 @@
                     {% if request.user.is_authenticated and request.user.role == 'job_seeker' %}
                         <li class="menu-has-children"><a href="">Job Seeker</a>
                             <ul>
-                                <li><a href="{% url 'job_seeker:job_list' %}">Browse Jobs</a></li>
-                                <li><a href="{% url 'job_seeker:category_list' %}">Browse Categories</a></li>
+                                <li><a href="{% url 'home:job_list' %}">Browse Jobs</a></li>
+                                <li><a href="{% url 'home:category_list' %}">Browse Categories</a></li>
 
                             </ul>
                         </li>
@@ -76,13 +76,13 @@
                         <li><a href="{% url 'cms:about_us' %}">About Us</a></li>
                         <li><a href="{% url 'cms:contact_us' %}">Contact</a></li>
 
-                        <li>
-                            {% thumbnail request.user.image "40x40" as im %}
-                                <img class="rounded-circle" src="{{ im.url }}" width="{{ im.width }}"
-                                     height="{{ im.height }}">
-                            {% endthumbnail %}
-                        </li>
-                        <li><a href="{% url 'job_seeker:seeker_dashboard_index' %}">Setting</a></li>
+{#                        <li>#}
+{#                            {% thumbnail request.user.image "40x40" as im %}#}
+{#                                <img class="rounded-circle" src="{{ im.url }}" width="{{ im.width }}"#}
+{#                                     height="{{ im.height }}">#}
+{#                            {% endthumbnail %}#}
+{#                        </li>#}
+                        <li><a href="{% url 'job_seeker:seeker_dashboard_index' %}">Account</a></li>
 
                         <li><a href="{% url 'custom_auth:logout' %}">Logout</a></li>
                     {% elif request.user.is_authenticated and request.user.role == 'company' %}
@@ -101,7 +101,7 @@
                                      height="{{ im.height }}">
                             {% endthumbnail %}
                         </li>
-                        <li><a href="{% url 'company:company_dashboard_index' %}">Setting</a></li>
+                        <li><a href="{% url 'company:company_dashboard_index' %}">Account</a></li>
                         <li><a href="{% url 'custom_auth:logout' %}">Logout</a></li>
                     {% else %}
                         <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
@@ -131,7 +131,7 @@
                         <li><a href="{% url 'custom_auth:login' %}">Login</a></li>
                         <li><a href="{% url 'home:index' %}">Search Job</a></li>
                         <li>
-                            <a href="{% if request.user.role == 'job_seeker' %} {% url 'job_seeker:job_list' %} {% else %} {% url 'home:error_page' %} {% endif %}">Apply
+                            <a href="{% if request.user.role == 'job_seeker' %} {% url 'home:job_list' %} {% else %} {% url 'home:error_page' %} {% endif %}">Apply
                                 Job</a></li>
                         <li><a href="{% url 'home:faq' %}">FAQ</a></li>
 

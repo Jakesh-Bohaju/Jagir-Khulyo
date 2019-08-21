@@ -67,21 +67,21 @@ class CommentView(generics.ListAPIView):
     queryset = Comment.objects.filter(parent__isnull=True)
     serializer_class = CommentSerializer
 
-
-def lazy_load_posts(request):
-    page = request.POST.get('page')
-    posts = Comment.objects.all()
-
-    # use Django's pagination
-    # https://docs.djangoproject.com/en/dev/topics/pagination/
-    results_per_page = 5
-    paginator = Paginator(posts, results_per_page)
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(2)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
-
-    # build a html posts list with the paginated posts
-    posts_html = loader.render_to_string('comment.html', {'posts': posts})
+#
+# def lazy_load_posts(request):
+#     page = request.POST.get('page')
+#     posts = Comment.objects.all()
+#
+#     # use Django's pagination
+#     # https://docs.djangoproject.com/en/dev/topics/pagination/
+#     results_per_page = 5
+#     paginator = Paginator(posts, results_per_page)
+#     try:
+#         posts = paginator.page(page)
+#     except PageNotAnInteger:
+#         posts = paginator.page(2)
+#     except EmptyPage:
+#         posts = paginator.page(paginator.num_pages)
+#
+#     # build a html posts list with the paginated posts
+#     posts_html = loader.render_to_string('comment.html', {'posts': posts})

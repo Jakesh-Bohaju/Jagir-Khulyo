@@ -63,6 +63,7 @@
                     </ul>
 
                     {% for job in object_list %}
+
                         <div class="single-post d-flex flex-row">
                             <div class="thumb">
                                 <img src="img/post.png" alt="">
@@ -81,13 +82,13 @@
                             <div class="details">
                                 <div class="title d-flex flex-row justify-content-between">
                                     <div class="titles">
-                                        <a href="{% url 'job_seeker:single_job_detail' job %}"><h4>{{ job.title }}</h4>
+                                        <a href="{% url 'home:single_job_detail' job %}"><h4>{{ job.title }}</h4>
                                         </a>
                                         <h6>{{ job.category }}</h6>
                                     </div>
                                     <ul class="btns">
                                         <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                                        <li><a href="{% url 'job_seeker:single_job_detail' job %}">View Detail</a></li>
+                                        <li><a href="{% url 'home:single_job_detail' job %}">View Detail</a></li>
                                     </ul>
                                 </div>
                                 <p>
