@@ -14,17 +14,29 @@
     <div class="active-relatedjob-carusel">
         {% for t_job in top_jobs %}
             <div class="single-rated">
-                <img class="img-fluid" src="img/r1.jpg" alt="">
-                <a href="{% url 'home:single_job_detail' t_job %}"><h4>{{ t_job.title }}</h4></a>
+{#                <img class="img-fluid" src="img/r1.jpg" alt="">#}
+                <h4>{{ t_job.title }}</h4>
                 <h6>{{ t_job.company.company_name }}</h6>
-                <p>
-                    {{ t_job.description |truncatewords:15 }}
-                </p>
-                <h5>{{ t_job.job_level }}</h5>
-                <p class="address"><span class="lnr lnr-map"></span> {{ t_job.company.address }}
-                </p>
-                <p class="address"><span class="lnr lnr-database"></span>{{ t_job.salary }}</p>
-                <a href="{% url 'home:single_job_detail' t_job %}" class="btns text-uppercase">View Detail</a>
+                <p class="lnr lnr-map"> Location : {{ t_job.company.address }}</p>
+                <p class="lnr lnr-layers"> Job Level : {{ t_job.job_level }}</p>
+                <p class="lnr lnr-database"> No of vacancy : {{ t_job.vacancy_no }}</p>
+                <p class="lnr lnr-database"> Salary : {{ t_job.salary }}</p>
+                {#                <a href="{% url 'home:single_job_detail' t_job %}" class="btns text-uppercase">View Detail</a>#}
+                <form method="post" action="{% url 'home:index' %}">
+                    {% csrf_token %}
+                    <input class="btn-outline-secondary rounded" type="submit"
+                           value="View Detail">
+                    <input type="hidden" name="job" value="{{ t_job.id }}">
+
+                    {% if request.user.is_authenticated %}
+                        <input type="hidden" name="user" value="{{ request.user.id }}">
+                    {% else %}
+                        <input type="hidden" name="user" value="">
+                    {% endif %}
+
+
+                    </ul>
+                </form>
             </div>
         {% endfor %}
 

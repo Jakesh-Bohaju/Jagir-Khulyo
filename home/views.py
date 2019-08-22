@@ -16,7 +16,7 @@ from job_seeker.models import SeekerDetail
 class IndexView(ListView):
     template_name = 'index.html'
     model = JobPost
-    paginate_by = 2
+    paginate_by = 1
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -151,6 +151,13 @@ class JobListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         # context['jobs'] = JobPost.objects.all()
+        context['jobtype'] = JobType.objects.all()
+        context['categories'] = Category.objects.all().order_by('?')[:6]
+        context['top_jobs'] = JobPost.objects.all().order_by('?')
+        context['latest_jobs'] = JobPost.objects.all().order_by('-id')
+        context['blogs'] = Blog.objects.all().order_by('?')[:3]
+        context['job_by_locations'] = JobPost.objects.all()
+        context['companies'] = CompanyDetail.objects.all()
         user = self.request.user
         today = datetime.datetime.now()
 
@@ -159,12 +166,6 @@ class JobListView(ListView):
         except Exception as e:
             print(e)
 
-        context['categories'] = Category.objects.all()
-        context['top_jobs'] = JobPost.objects.all().order_by('?')
-        context['latest_jobs'] = JobPost.objects.all().order_by('-id')
-        context['freq_categories'] = Category.objects.all().order_by('?')
-        context['blogs'] = Blog.objects.all().order_by('?')[:3]
-        context['job_by_locations'] = JobPost.objects.all()
         return context
 
 

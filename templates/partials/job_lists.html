@@ -1,0 +1,86 @@
+{% load thumbnail %}
+
+<section class="post-area section-gap">
+        <div class="container">
+            <div class="row justify-content-center d-flex">
+                <div class="col-lg-8 post-list">
+                    <ul class="cat-list">
+                        {% for jt in jobtype %}
+                            <li class="card bg-secondary"><a href="">{{ jt.job_type }}</a></li>
+                        {% endfor %}
+
+
+                    </ul>
+                    {% for job in object_list %}
+                        <div class="single-post d-flex flex-row">
+                            <div class="col-3">
+                                <div class="thumb">
+
+
+                                    {% thumbnail job.company.company_image "130x240" as im %}
+                                        <img class="rounded" src="{{ im.url }}" width="{{ im.width }}"
+                                             height="{{ im.height }}">
+                                    {% endthumbnail %}
+
+                                    <ul class="tags">
+                                        <li>
+                                            <a href="#">{{ job.category.category }}</a>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="row">
+                                    <div class="details">
+                                        <div class="col-9">
+                                            <div class="title d-flex flex-row justify-content-between">
+
+                                                <div class="titles">
+                                                    <h3>{{ job.title }}</h3>
+                                                    <h6>{{ job.company.company_name }}</h6>
+                                                    <hr>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <form method="post">
+                                                {% csrf_token %}
+                                                <input class="btn-outline-secondary rounded" type="submit"
+                                                       value="View Detail">
+                                                <input type="hidden" name="job" value="{{ job.id }}">
+
+                                                {% if request.user.is_authenticated %}
+                                                    <input type="hidden" name="user" value="{{ request.user.id }}">
+                                                {% else %}
+                                                    <input type="hidden" name="user" value="">
+                                                {% endif %}
+
+
+                                                </ul>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p class="lnr lnr-map"> Location : {{ job.company.address }}</p>
+                                <p class="lnr lnr-layers"> Job Level : {{ job.job_level }}</p>
+                                <p class="lnr lnr-database"> No of vacancy : {{ job.vacancy_no }}</p>
+                                <p class="lnr lnr-database"> Salary : {{ job.salary }}</p>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% include 'snippets/pagination.html' %}
+                    {#                    <a class="text-uppercase loadmore-btn mx-auto d-block" href="category.html">Load More job Posts</a>#}
+
+                </div>
+                <div class="col-lg-4 sidebar">
+                    {% include 'partials/sidebar.html' %}
+
+                </div>
+            </div>
+        </div>
+    </section>

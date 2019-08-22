@@ -1,4 +1,5 @@
 {% extends '_base.html' %}
+{% load thumbnail %}
 {% block content %}
 
 
@@ -50,71 +51,7 @@
     <!-- End features Area -->
 
 
-    <!-- Start post Area -->
-    <section class="post-area section-gap">
-        <div class="container">
-            <div class="row justify-content-center d-flex">
-                <div class="col-lg-8 post-list">
-                    <ul class="cat-list">
-                        <li><a href="#">Recent</a></li>
-                        <li><a href="#">Full Time</a></li>
-                        <li><a href="#">Intern</a></li>
-                        <li><a href="#">part Time</a></li>
-                    </ul>
-
-                    {% for job in object_list %}
-
-                        <div class="single-post d-flex flex-row">
-                            <div class="thumb">
-                                <img src="img/post.png" alt="">
-                                <ul class="tags">
-                                    <li>
-                                        <a href="#">Art</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Media</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Design</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="details">
-                                <div class="title d-flex flex-row justify-content-between">
-                                    <div class="titles">
-                                        <a href="{% url 'home:single_job_detail' job %}"><h4>{{ job.title }}</h4>
-                                        </a>
-                                        <h6>{{ job.category }}</h6>
-                                    </div>
-                                    <ul class="btns">
-                                        <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                                        <li><a href="{% url 'home:single_job_detail' job %}">View Detail</a></li>
-                                    </ul>
-                                </div>
-                                <p>
-                                    {{ job.description }}
-                                </p>
-                                <h5>Deadline : {{ job.deadline }}</h5>
-                                <p class="address"><span class="lnr lnr-map"></span>No of vacancy : {{ job.vacancy_no }}
-                                </p>
-                                <p class="address"><span class="lnr lnr-database"></span>Salary : {{ job.salary }}</p>
-                            </div>
-                        </div>
-                    {% endfor %}
-
-                    {% include 'snippets/pagination.html' %}
-                    {#                    <a class="text-uppercase loadmore-btn mx-auto d-block" href="category.html">Load More job Posts</a>#}
-
-                </div>
-                <div class="col-lg-4 sidebar">
-                    {% include 'partials/sidebar.html' %}
-
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End post Area -->
-
+   {% include 'partials/job_lists.html' %}
 
     <!-- Start feature-cat Area -->
     <section class="feature-cat-area pt-100" id="category">
