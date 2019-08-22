@@ -4,10 +4,11 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.datetime_safe import date
 from django.views.generic import TemplateView, ListView, DetailView
 
 from blog.models import Blog
-from company.models import JobPost, Category, CompanyDetail, Faq, IPTracker
+from company.models import JobPost, Category, CompanyDetail, Faq, IPTracker, ReceivedResume
 from home.models import JobType
 from job_seeker.models import SeekerDetail
 
@@ -193,7 +194,19 @@ class JobDetailView(DetailView):
         slug = self.kwargs['slug']
         job = JobPost.objects.get(slug=slug)
         context['counts'] = IPTracker.objects.filter(job_ip__slug=slug).count()
+        abc = ReceivedResume.objects.filter(job_title__slug=slug).count()
+        uvw = abc + 1
+        xyz = int(str(abc)[-1])
+        today = date.today()
+        dayss = job.deadline - today
+        weeks = int(dayss.days / 7)
+        days = dayss.days % 7
+        context['week'] = weeks
+        context['days'] = days
+        context['applicant'] = uvw
+        context['applicantsplit'] = xyz
         context['job'] = job
+        context['alljob'] = JobPost.objects.all()
         context['blogs'] = Blog.objects.all().order_by('?')[:3]
         context['job_by_locations'] = JobPost.objects.all()
         context['top_jobs'] = JobPost.objects.all().order_by('?')
