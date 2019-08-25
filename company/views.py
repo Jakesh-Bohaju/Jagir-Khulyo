@@ -158,9 +158,9 @@ class AppliedListView(LoginRequiredMixin, CreateView):
 
             a.save()
 
-            return redirect('job_seeker:job_list')
+            return redirect('home:job_list')
 
-        return redirect('job_seeker:job_list')
+        return redirect('home:job_list')
 
 
 class JobPostListView(LoginRequiredMixin, ListView):

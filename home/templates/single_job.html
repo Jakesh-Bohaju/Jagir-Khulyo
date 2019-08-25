@@ -15,7 +15,7 @@
                                 {% thumbnail company.company_image "290x200" as im %}
                                     <img class="rounded" src="{{ im.url }}">
                                 {% endthumbnail %}
-                                <label><br><h4 class="title"><a href="">{{ company.company_name }}</a> </h4></label><br>
+                                <label><br><h4 class="title"><a href="">{{ company.company_name }}</a></h4></label><br>
                                 <label>{{ company.province.province_name }}, {{ company.district.district }}</label><br>
                                 <label>{{ company.address }}</label><br>
                                 <label>{{ company.company_type }}</label>
@@ -42,12 +42,20 @@
                                         <div class="titles">
                                             <a href=""><h3>{{ job.title }}</h3></a>
                                             <p><span class="fa fa-eye" style="color:green"> <span
-                                                    class="text-primary"> {{ counts }} views</span></span>&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp
+                                                    class="text-primary"> {{ counts }} views</span></span>&nbsp&nbsp&nbsp
+                                                &nbsp&nbsp&nbsp
                                                 <span class="fa fa-group" style="color:green"> <span
-                                                        class="text-primary"> Become {{ applicant }}{% if applicantsplit == 0 %}<small>st</small>{% elif applicantsplit == 1 %}<small>nd</small>{% elif applicantsplit == 2 %}<small>rd</small>{% else %}<small>th</small>{% endif %}
+                                                        class="text-primary"> Become
+                                                    {{ applicant }}{% if applicantsplit == 0 %}
+                                                        <small>st</small>{% elif applicantsplit == 1 %}
+                                                        <small>nd</small>{% elif applicantsplit == 2 %}
+                                                        <small>rd</small>{% else %}<small>th</small>{% endif %}
                                                     applicant</span></span>&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp
                                                 <span class="fa fa-calendar" style="color:green"> <span
-                                                        class="text-primary">{% if week > 0 %}{{ week }} week{% if week > 1 %}s{% endif %} {% endif %} {% if days > 0 %}{{ days }} day{% if days > 1 %}s{% endif %}{% endif %}left</span></span></p>
+                                                        class="text-primary">{% if week > 0 %}{{ week }} week
+                                                    {% if week > 1 %}s{% endif %} {% endif %} {% if days > 0 %}
+                                                    {{ days }} day{% if days > 1 %}s
+                                                    {% endif %}{% endif %}left</span></span></p>
 
 
                                         </div>
@@ -58,8 +66,16 @@
                                                   action="{% if request.user.id == seeker.user.id %} {% url 'company:apply' %} {% endif %}">
                                                 {% csrf_token %}
                                                 <input name="job_title" value="{{ job.id }}" type="hidden">
-
-                                                <button class="btn-outline-secondary rounded" type="submit">Apply</button>
+                                                {% for applies in applied %}
+                                                    {{ applies.applicant_name.name }}
+                                                    {% if request.user.id == applies.applicant_name.user.id %}
+                                                        <p>Already applied</p>
+                                                    {% else %}
+                                                        <button class="btn-outline-secondary rounded" type="submit">
+                                                            Apply
+                                                        </button>
+                                                    {% endif %}
+                                                {% endfor %}
 
                                             </form>
                                         </div>

@@ -2,56 +2,18 @@
 {% load thumbnail %}
 {% block content %}
 
-
-
-
-
-
-
-    <!-- Start features Area -->
-    <section class="features-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="single-feature">
-                        <h4>Searching</h4>
-                        <p>
-                            Search the jobs on the basis of job title, location and job type.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="single-feature">
-                        <h4>Applying</h4>
-                        <p>
-                            Simple and easy to apply for job. You are a bit away just click on the apply for applying.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="single-feature">
-                        <h4>Security</h4>
-                        <p>
-                            We are not sharing your private data to public. Agree with our privacy policy.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="single-feature">
-                        <h4>Notifications</h4>
-                        <p>
-                            We will notify you whenever new job posted as per your interest and all detail on applied
-                            jobs.
-                        </p>
-                    </div>
-                </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-5">
+            </div>
+            <div class="col-6 mt-5 pt-30">
+                {% include 'partials/search.html' %}
             </div>
         </div>
-    </section>
-    <!-- End features Area -->
+    </div>
 
 
-   {% include 'partials/job_lists.html' %}
+    {% include 'partials/job_lists.html' %}
 
     <!-- Start feature-cat Area -->
     <section class="feature-cat-area pt-100" id="category">

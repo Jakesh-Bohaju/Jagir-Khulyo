@@ -1,5 +1,6 @@
 import datetime
 
+from django.db.models import Count
 from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse
@@ -9,7 +10,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 
 from blog.models import Blog
 from company.models import JobPost, Category, CompanyDetail, Faq, IPTracker, ReceivedResume
-from home.models import JobType
+from home.models import JobType, District
 from job_seeker.models import SeekerDetail
 
 
@@ -20,7 +21,7 @@ class IndexView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['jobs'] = JobPost.objects.all()
+        # context['jobsss'] = JobPost.objects.all()
         context['jobtype'] = JobType.objects.all()
         context['categories'] = Category.objects.all().order_by('?')[:6]
         context['top_jobs'] = JobPost.objects.all().order_by('?')
@@ -28,6 +29,19 @@ class IndexView(ListView):
         context['blogs'] = Blog.objects.all().order_by('?')[:3]
         context['job_by_locations'] = JobPost.objects.all()
         context['companies'] = CompanyDetail.objects.all()
+        # ll = JobPost.objects.annotate()
+        # for kk in ll:
+        #     print(kk.company.district)
+        # ax = JobPost.objects.all().values_list('company__district__district', flat=True).distinct()
+        # d = []
+        # for b in ax:
+        #     c = JobPost.objects.filter(company__district__district=b).count()
+        #     lo = d.append({'district': b, 'job_count': int(c)})
+        # print(d)
+        # for k in d:
+        #     print(k['district'])
+        #     print(k['job_count'])
+
 
         return context
 
@@ -42,61 +56,57 @@ class IndexView(ListView):
 
         aa = timezone.now()
         now = timezone.now() - timezone.timedelta(hours=24)
-        now1 = now + timezone.timedelta(hours=24)
-        print(aa, now, now1)
+        print(aa, now)
         asd = IPTracker()
         obj = IPTracker.objects.filter(job_ip_id=x)
         temp = 0
+
+        # try to save user ip with respect to ip address only
+        # try:
+        #     if obj.exists():
+        #         for i in obj:
+        #             if i.ip_data == ip_data1:
+        #                 temp = 0
+        #                 break
+        #             else:
+        #                 temp = 1
+        #         if temp == 1:
+        #             asd.ip_data = ip_data1
+        #             asd.job_ip_id = request.POST.get('job')
+        #             asd.user_ip_id = request.POST.get('user')
+        #             asd.save()
+        #
+        #     else:
+        #         asd.ip_data = ip_data1
+        #         asd.job_ip_id = request.POST.get('job')
+        #         asd.user_ip_id = request.POST.get('user')
+        #         asd.save()
+        # except Exception as e:
+        #     print(e)
+
+        # try to save user ip with respect to ip address and view the job 24 hours ago
         try:
             if obj.exists():
                 for i in obj:
-                    if i.ip_data == ip_data1:
+                    if i.date_time > now and i.ip_data == ip_data1:
                         temp = 0
                         break
                     else:
                         temp = 1
+
                 if temp == 1:
                     asd.ip_data = ip_data1
                     asd.job_ip_id = request.POST.get('job')
                     asd.user_ip_id = request.POST.get('user')
                     asd.save()
-
             else:
                 asd.ip_data = ip_data1
                 asd.job_ip_id = request.POST.get('job')
                 asd.user_ip_id = request.POST.get('user')
                 asd.save()
+
         except Exception as e:
             print(e)
-
-        # try to save user ip with session 24 hours but not working
-        # try:
-        #     obj = IPTracker.objects.filter(job_ip_id=x)
-        #     print(obj.count())
-        #     if obj.exists():
-        #         print("Yes I have data")
-        #         for i in obj:
-        #             print("DB time: ", i.date_time, "\ntimedelta 24hrs time :", now, i.ip_data, ip_data1)
-        #
-        #             if i.date_time < now:
-        #                 print("I am gonna print")
-        #                 asd.ip_data = ip_data1
-        #                 asd.job_ip_id = request.POST.get('job')
-        #                 asd.user_ip_id = request.POST.get('user')
-        #                 asd.save()
-        #             # else:
-        #             # print(i.date_time, " is greater than ", now)
-        #
-        #
-        #     else:
-        #
-        #         asd.ip_data = ip_data1
-        #         asd.job_ip_id = request.POST.get('job')
-        #         asd.user_ip_id = request.POST.get('user')
-        #         asd.save()
-        #
-        # except Exception as e:
-        #     print(e)
 
         return redirect('/job-detail/' + a.slug)
 
@@ -113,18 +123,18 @@ class SearchView(ListView):
         search_set = JobPost.objects.filter()
         # b = []
         if request.GET.get('title') and request.GET.get('location') and request.GET.get('category'):
-            search_set = search_set.filter(title__icontains=title, company__address__icontains=location,
+            search_set = search_set.filter(title__icontains=title, company__district__district__icontains=location,
                                            category__category__icontains=category)
 
         elif request.GET.get('title') and request.GET.get('location') or request.GET.get('category'):
-            search_set = search_set.filter(title__icontains=title, company__address__icontains=location,
+            search_set = search_set.filter(title__icontains=title, company__district__district__icontains=location,
                                            category__category__icontains=category)
 
         elif request.GET.get('title') or request.GET.get('location') and request.GET.get('category'):
-            search_set = search_set.filter(title__icontains=title, company__address__icontains=location,
+            search_set = search_set.filter(title__icontains=title, company__district__district__icontains=location,
                                            category__category__icontains=category)
         elif request.GET.get('title') or request.GET.get('location') or request.GET.get('category'):
-            search_set = search_set.filter(title__icontains=title, company__address__icontains=location,
+            search_set = search_set.filter(title__icontains=title, company__district__district__icontains=location,
                                            category__category__icontains=category)
 
         # print(b)
@@ -135,6 +145,7 @@ class SearchView(ListView):
             'freq_categories': Category.objects.all().order_by('?')[:6],
             'blogs': Blog.objects.all().order_by('?')[:3],
             'job_by_locations': JobPost.objects.all(),
+            'jobtype': JobType.objects.all(),
         }
         return render(request, 'search_result.html', template_context)
 
@@ -160,7 +171,18 @@ class JobListView(ListView):
         context['companies'] = CompanyDetail.objects.all()
         user = self.request.user
         today = datetime.datetime.now()
-
+        # aa = self.object_list.all()
+        # for i in aa:
+        #     if i.deadline.year >= today.year and i.deadline.month >= today.month and i.deadline.day >= today.day:
+        #         print("You can still apply for job", i.deadline)
+        #         self.object_list = i
+        #         print(self.object_list)
+        #
+        #     else:
+        #         print("Expired job")
+        #         self.object_list = None
+        #         print(self.object_list)
+        # context['object_list'] = self.object_list
         try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)
         except Exception as e:
@@ -212,7 +234,14 @@ class JobDetailView(DetailView):
         context['job_by_locations'] = JobPost.objects.all()
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['company'] = CompanyDetail.objects.get(job_post_company=job)
+        asd = ReceivedResume.objects.all()
         user = self.request.user
+        # for i in asd:
+        #     print(i.applicant_name.user_id, user.id)
+        #     if user.id == i.applicant_name.user_id:
+        #         print("Job already applied")
+        #     else:
+        #         print("Apply for job")
         try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)
         except Exception as e:

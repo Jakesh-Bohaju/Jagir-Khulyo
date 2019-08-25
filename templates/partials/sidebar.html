@@ -1,3 +1,5 @@
+{% load thumbnail %}
+
 <div class="single-slidebar">
     <h4>Jobs by Location</h4>
     <ul class="cat-list">
@@ -14,9 +16,15 @@
     <div class="active-relatedjob-carusel">
         {% for t_job in top_jobs %}
             <div class="single-rated">
-{#                <img class="img-fluid" src="img/r1.jpg" alt="">#}
+                {% thumbnail t_job.company.company_image "130x240" as im %}
+                    <img class="rounded" src="{{ im.url }}" width="{{ im.width }}"
+                         height="{{ im.height }}">
+                {% endthumbnail %}
+                {#                <img class="img-fluid" src="img/r1.jpg" alt="">#}
+
                 <h4>{{ t_job.title }}</h4>
                 <h6>{{ t_job.company.company_name }}</h6>
+            <hr>
                 <p class="lnr lnr-map"> Location : {{ t_job.company.address }}</p>
                 <p class="lnr lnr-layers"> Job Level : {{ t_job.job_level }}</p>
                 <p class="lnr lnr-database"> No of vacancy : {{ t_job.vacancy_no }}</p>

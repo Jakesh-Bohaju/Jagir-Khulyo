@@ -1,53 +1,18 @@
 {% extends '_base.html' %}
+{% load thumbnail %}
 {% block content %}
 
 
 
-    <!-- start banner Area -->
-    <section class="banner-area relative" id="home">
-        <div class="overlay overlay-bg"></div>
-        <div class="container">
-            <div class="row fullscreen d-flex align-items-center justify-content-center">
-                <div class="banner-content col-lg-12">
-                    <h1 class="text-white">
-                        <span>1500+</span> Jobs posted last week
-                    </h1>
-                   {% include 'partials/search.html' %}
-                <p class="text-white"><span>Search by tags:</span> Tecnology, Business, Consulting, IT Company, Design,
-                    Development</p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-5">
+            </div>
+            <div class="col-6 mt-5 pt-30">
+                {% include 'partials/search.html' %}
             </div>
         </div>
-        </div>
-    </section>
-    <!-- End banner Area -->
-
-
-
-    <!-- Start popular-post Area -->
-    <section class="popular-post-area pt-100">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="active-popular-post-carusel">
-                    {% for job in latest_jobs %}
-                        <div class="single-popular-post d-flex flex-row">
-                            <div class="thumb">
-                                <img class="img-fluid" src="img/p1.png" alt="">
-                                <a class="btns text-uppercase" href="#">view job post</a>
-                            </div>
-                            <div class="details">
-                                <a href="#"><h4>{{ job.title }}</h4></a>
-                                <h6>{{ job.category }}</h6>
-                                <p>
-                                    {{ job.description }}</p>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End popular-post Area -->
-
+    </div>
 
     <!-- Start post Area -->
     <section class="post-area section-gap">
@@ -55,52 +20,81 @@
             <div class="row justify-content-center d-flex">
                 <div class="col-lg-8 post-list">
                     <ul class="cat-list">
-                        <li><a href="#">Recent</a></li>
-                        <li><a href="#">Full Time</a></li>
-                        <li><a href="#">Intern</a></li>
-                        <li><a href="#">part Time</a></li>
+                        {% for jt in jobtype %}
+                            <li class="card bg-secondary"><a href="">{{ jt.job_type }}</a></li>
+                        {% endfor %}
+
+
                     </ul>
 
                     {% for job in filtered_jobs %}
                         <div class="single-post d-flex flex-row">
-                            <div class="thumb">
-                                <img src="img/post.png" alt="">
-                                <ul class="tags">
-                                    <li>
-                                        <a href="#">Art</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Media</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Design</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="details">
-                                <div class="title d-flex flex-row justify-content-between">
-                                    <div class="titles">
-                                        <a href="{% url 'job_seeker:single_job_detail' job %}"><h4>{{ job.title }}</h4></a>
-                                        <h6>{{ job.category }}</h6>
-                                    </div>
-                                    <ul class="btns">
-                                        <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                                        <li><a href="{% url 'job_seeker:single_job_detail' job %}">View Detail</a></li>
+                            <div class="col-3">
+                                <div class="thumb">
+
+
+                                    {% thumbnail job.company.company_image "130x240" as im %}
+                                        <img class="rounded" src="{{ im.url }}" width="{{ im.width }}"
+                                             height="{{ im.height }}">
+                                    {% endthumbnail %}
+
+                                    <ul class="tags">
+                                        <li>
+                                            <a href="#">{{ job.category.category }}</a>
+                                        </li>
+
+
                                     </ul>
                                 </div>
-                                <p>
-                                    {{ job.description }}
-                                </p>
-                                <h5>Deadline : {{ job.deadline }}</h5>
-                                <p class="address"><span class="lnr lnr-map"></span>No of vacancy : {{ job.vacancy_no }}
-                                </p>
-                                <p class="address"><span class="lnr lnr-database"></span>Salary : {{ job.salary }}</p>
+                            </div>
+                            <div class="col-8">
+
+                                <div class="details">
+                                    <div class="row">
+                                        <div class="col-11">
+                                            <div class="title d-flex flex-row justify-content-between">
+
+                                                <div class="titles">
+                                                    <h3>{{ job.title }}</h3>
+                                                    <h6>{{ job.company.company_name }}</h6>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                            <form method="post" action="{% url 'home:index' %}">
+                                                {% csrf_token %}
+                                                <input class="btn-outline-secondary rounded" type="submit"
+                                                       value="View Detail">
+                                                <input type="hidden" name="job" value="{{ job.id }}">
+
+                                                {% if request.user.is_authenticated %}
+                                                    <input type="hidden" name="user" value="{{ request.user.id }}">
+                                                {% else %}
+                                                    <input type="hidden" name="user" value="">
+                                                {% endif %}
+
+
+                                                </ul>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <hr class="mt-1 mb-1">
+                                <hr class="mt-0">
+                                <p class="lnr lnr-map"> Location : {{ job.company.address }}</p>
+                                <p class="lnr lnr-layers"> Job Level : {{ job.job_level }}</p>
+                                <p class="lnr lnr-database"> No of vacancy : {{ job.vacancy_no }}</p>
+                                <p class="lnr lnr-database"> Salary : {{ job.salary }}</p>
+
                             </div>
                         </div>
                     {% endfor %}
 
-                {% include 'snippets/pagination.html' %}
-{#                    <a class="text-uppercase loadmore-btn mx-auto d-block" href="category.html">Load More job Posts</a>#}
+                    {% include 'snippets/pagination.html' %}
+                    {#                    <a class="text-uppercase loadmore-btn mx-auto d-block" href="category.html">Load More job Posts</a>#}
 
                 </div>
                 <div class="col-lg-4 sidebar">
@@ -126,14 +120,14 @@
             </div>
             <div class="row">
                 {% for category in freq_categories %}
-                <div class="col-lg-2 col-md-4 col-sm-6">
-                    <div class="single-fcat">
-                        <a href="category.html">
-                            <img src="img/o1.png" alt="">
-                        </a>
-                        <p>{{ category.category }}</p>
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="single-fcat">
+                            <a href="category.html">
+                                <img src="img/o1.png" alt="">
+                            </a>
+                            <p>{{ category.category }}</p>
+                        </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
         </div>
