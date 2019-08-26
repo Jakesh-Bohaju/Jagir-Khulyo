@@ -27,22 +27,17 @@ class IndexView(ListView):
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['latest_jobs'] = JobPost.objects.all().order_by('-id')
         context['blogs'] = Blog.objects.all().order_by('?')[:3]
-        context['job_by_locations'] = JobPost.objects.all()
         context['companies'] = CompanyDetail.objects.all()
-        # ll = JobPost.objects.annotate()
-        # for kk in ll:
-        #     print(kk.company.district)
-        # ax = JobPost.objects.all().values_list('company__district__district', flat=True).distinct()
-        # d = []
-        # for b in ax:
-        #     c = JobPost.objects.filter(company__district__district=b).count()
-        #     lo = d.append({'district': b, 'job_count': int(c)})
-        # print(d)
-        # for k in d:
-        #     print(k['district'])
-        #     print(k['job_count'])
 
-
+        sss = District.objects.annotate(Count('company_detail_district__job_post_company')).order_by(
+            '-company_detail_district__job_post_company__count')[:5]
+        afd = []
+        for i in sss:
+            a = str(JobPost.objects.filter(company__district__district=i).count())
+            aa = {'district': i.district, 'count': a}
+            afd.append(aa)
+        context['jbl'] = afd
+        print(afd)
         return context
 
     def post(self, request, *args, **kwargs):
