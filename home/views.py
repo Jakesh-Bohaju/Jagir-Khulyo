@@ -29,6 +29,7 @@ class IndexView(ListView):
         context['blogs'] = Blog.objects.all().order_by('?')[:3]
         context['companies'] = CompanyDetail.objects.all()
 
+
         sss = District.objects.annotate(Count('company_detail_district__job_post_company')).order_by(
             '-company_detail_district__job_post_company__count')[:5]
         afd = []
@@ -166,18 +167,16 @@ class JobListView(ListView):
         context['companies'] = CompanyDetail.objects.all()
         user = self.request.user
         today = datetime.datetime.now()
-        # aa = self.object_list.all()
-        # for i in aa:
-        #     if i.deadline.year >= today.year and i.deadline.month >= today.month and i.deadline.day >= today.day:
-        #         print("You can still apply for job", i.deadline)
-        #         self.object_list = i
-        #         print(self.object_list)
-        #
-        #     else:
-        #         print("Expired job")
-        #         self.object_list = None
-        #         print(self.object_list)
-        # context['object_list'] = self.object_list
+        aa = self.object_list.all()
+        obj_list=[]
+        for i in aa:
+            if i.deadline.year >= today.year and i.deadline.month >= today.month and i.deadline.day >= today.day:
+                print("You can still apply for job", i.deadline)
+                self.object_list = i
+                obj_list.append(self.object_list)
+
+        context['object_list'] = obj_list
+
         try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)
         except Exception as e:
@@ -231,12 +230,6 @@ class JobDetailView(DetailView):
         context['company'] = CompanyDetail.objects.get(job_post_company=job)
         asd = ReceivedResume.objects.all()
         user = self.request.user
-        # for i in asd:
-        #     print(i.applicant_name.user_id, user.id)
-        #     if user.id == i.applicant_name.user_id:
-        #         print("Job already applied")
-        #     else:
-        #         print("Apply for job")
         try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)
         except Exception as e:
