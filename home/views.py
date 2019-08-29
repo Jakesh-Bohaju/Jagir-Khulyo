@@ -1,5 +1,6 @@
 import datetime
 
+from django.core.paginator import Paginator
 from django.db.models import Count
 from django.shortcuts import render, redirect
 # Create your views here.
@@ -46,6 +47,8 @@ class IndexView(ListView):
             aa = {'district': i.district, 'count': a}
             afd.append(aa)
         context['jbl'] = afd
+
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -161,7 +164,6 @@ class JobListView(ListView):
     model = JobPost
     paginate_by = 1
 
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         # context['jobs'] = JobPost.objects.all()
@@ -190,7 +192,6 @@ class JobListView(ListView):
             aa = {'district': i.district, 'count': a}
             afd.append(aa)
         context['jbl'] = afd
-
 
         try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)
@@ -254,7 +255,8 @@ class JobDetailView(DetailView):
         context['company'] = CompanyDetail.objects.get(job_post_company=job)
         asd = ReceivedResume.objects.all()
         user = self.request.user
-        context['already_applied'] = ReceivedResume.objects.filter(job_title__slug=slug,applicant_name__user_id=user.id).exists()
+        context['already_applied'] = ReceivedResume.objects.filter(job_title__slug=slug,
+                                                                   applicant_name__user_id=user.id).exists()
         sss = District.objects.annotate(Count('company_detail_district__job_post_company')).order_by(
             '-company_detail_district__job_post_company__count')[:5]
         afd = []
@@ -263,6 +265,18 @@ class JobDetailView(DetailView):
             aa = {'district': i.district, 'count': a}
             afd.append(aa)
         context['jbl'] = afd
+
+        count = 0
+        popost = []
+        for i in JobPost.objects.all():
+            for j in IPTracker.objects.all():
+                if i.id == j.job_ip_id:
+                    count = count + 1
+            # print('Job: ', i.title, '\ni.id:', i.id, '\ncount: ', count)
+            popost.append({'job': i.title, 'jid': i.id, 'count': count})
+            count = 0
+        context['popular_job'] = sorted(popost, key=lambda x: (x['count'], x['jid']), reverse=True)[:10]
+
         try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)
         except Exception as e:
@@ -278,5 +292,23 @@ class FaqView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['sfaqs'] = Faq.objects.filter(role='job_seeker')
         context['cfaqs'] = Faq.objects.filter(role='company')
+
+        return context
+
+
+class LocationListView(ListView):
+    model = JobPost
+    template_name = 'job_list.html'
+
+    # paginate_by = 1
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        district = self.kwargs.get('slug')
+        queryset = self.model.objects.filter(company__district__district__iexact=district)
+        context['object_list'] = queryset
+        a = Paginator(queryset, 1)
+        for i in a.page_range:
+            print(i)
 
         return context

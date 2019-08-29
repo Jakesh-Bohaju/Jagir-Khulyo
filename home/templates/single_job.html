@@ -33,6 +33,49 @@
                                 {% endfor %}
                             </div>
                         </div>
+                        <div class="single-slidebar">
+                            <h4 class="mb-3">Popular Jobs</h4>
+                            <div class="active-relatedjob-carusel">
+                                {% for p_job in popular_job %}
+                                    {% for t_job in alljob %}
+                                        {% if p_job.jid == t_job.id %}
+                                            <div class="single-rated">
+                                                {% thumbnail t_job.company.company_image "240x130" as im %}
+                                                    <img class="rounded" src="{{ im.url }}" width="{{ im.width }}"
+                                                         height="{{ im.height }}">
+                                                {% endthumbnail %}
+
+
+                                                <h4 class="mt-2">{{ t_job.title }}</h4>
+                                                <h6><small>{{ t_job.company.company_name }}</small></h6>
+                                                <hr>
+                                                <p class="lnr lnr-map"> Location : {{ t_job.company.address }}</p>
+                                                <p class="lnr lnr-layers"> Job Level : {{ t_job.job_level }}</p>
+                                                <p class="lnr lnr-database"> No of vacancy
+                                                    : {{ t_job.vacancy_no }}</p>
+                                                <p class="lnr lnr-database"> Salary : {{ t_job.salary }}</p>
+                                                <form method="post" action="{% url 'home:index' %}">
+                                                    {% csrf_token %}
+                                                    <input class="btn-outline-secondary rounded" type="submit"
+                                                           value="View Detail">
+                                                    <input type="hidden" name="job" value="{{ t_job.id }}">
+
+                                                    {% if request.user.is_authenticated %}
+                                                        <input type="hidden" name="user"
+                                                               value="{{ request.user.id }}">
+                                                    {% else %}
+                                                        <input type="hidden" name="user" value="">
+                                                    {% endif %}
+
+
+                                                </form>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-8 col-md-7">
                         <div class="row">
@@ -46,13 +89,14 @@
                                                 &nbsp&nbsp&nbsp
                                                 <span class="fa fa-group" style="color:green"> <span
                                                         class="text-primary"> Become
-                                                    {{ applicant }}{% if applicantsplit == 0 %}<small>st</small>{% elif applicantsplit == 1 %}<small>nd</small>{% elif applicantsplit == 2 %}<small>rd</small>{% else %}<small>th</small>{% endif %}
-                                                    applicant</span></span>&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp
+                                                    {{ applicant }}{% if applicantsplit == 0 %}<small>st</small>{% elif applicantsplit == 1 %}<small>nd</small>{% elif applicantsplit == 2 %}<small>rd</small>{% else %}<small>th</small>{% endif %} applicant</span></span>&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp
                                                 <span class="fa fa-calendar" style="color:green"> <span
-                                                        class="text-primary">{% if dayssss > 0 %}{% if week > 0 %}{{ week }} week
+                                                        class="text-primary">{% if dayssss > 0 %}{% if week > 0 %}
+                                                    {{ week }} week
                                                     {% if week > 1 %}s{% endif %}{% endif %} {% if days > 0 %}
                                                     {{ days }} day{% if days > 1 %}s
-                                                    {% endif %}{% endif %}left{% else  %}Job expired{% endif %}</span></span></p>
+                                                    {% endif %}{% endif %}left{% else %}Job
+                                                    expired{% endif %}</span></span></p>
 
 
                                         </div>
@@ -65,12 +109,12 @@
                                                 {% if request.user.role == 'company' or already_applied == True  or dayssss <= 0 %}
 
                                                 {% else %}
-                                                <input name="job_title" value="{{ job.id }}" type="hidden">
+                                                    <input name="job_title" value="{{ job.id }}" type="hidden">
 
-                                                        <button class="btn-outline-secondary rounded" type="submit">
-                                                            Apply
-                                                        </button>
-                                            {% endif %}
+                                                    <button class="btn-outline-secondary rounded" type="submit">
+                                                        Apply
+                                                    </button>
+                                                {% endif %}
 
 
                                             </form>

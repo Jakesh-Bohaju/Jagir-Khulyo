@@ -4,7 +4,7 @@
     <h4>Jobs by Location</h4>
     <ul class="cat-list">
         {% for i in jbl %}
-            <li><a class="justify-content-between d-flex" href="">
+            <li><a class="justify-content-between d-flex" href="{% url 'home:jbl' i.district %}" >
                 <p>{{ i.district }}</p>
                 <span>{{ i.count }}</span></a></li>
 

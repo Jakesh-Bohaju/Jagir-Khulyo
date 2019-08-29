@@ -11,4 +11,6 @@ urlpatterns = [
     path('job-detail/<slug:slug>/', JobDetailView.as_view(), name='single_job_detail'),
     path('pagenotfound', Error404.as_view(), name='error_page'),
     path('faq', FaqView.as_view(), name="faq"),
+    path('job_by/<slug:slug>/', LocationListView.as_view(), name="jbl"),
+
 ]
