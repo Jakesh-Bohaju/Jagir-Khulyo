@@ -3,81 +3,81 @@
 {% block company_dashboard %}
 
 
-     <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
-          </li>
-          <li class="breadcrumb-item active">Job Applications</li>
-        </ol>
+        </li>
+        <li class="breadcrumb-item active">Job Applications</li>
+    </ol>
 
-<!-- Icon Cards-->
-        <div class="row">
-          <div class="col-xl-3 col-sm-6 mb-3">
+    <!-- Icon Cards-->
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-3">
             <div class="card text-white bg-primary o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fa fa-fw fa-comments"></i>
+                <div class="card-body">
+                    <div class="card-body-icon">
+                        <i class="fa fa-fw fa-comments"></i>
+                    </div>
+                    <div class="mr-5">26 New Messages!</div>
                 </div>
-                <div class="mr-5">26 New Messages!</div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
+                <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">View Details</span>
+                    <span class="float-right">
                   <i class="fa fa-angle-right"></i>
                 </span>
-              </a>
+                </a>
             </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-warning o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fa fa-fw fa-list"></i>
-                </div>
-                <div class="mr-5">11 New Tasks!</div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                  <i class="fa fa-angle-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-success o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fa fa-fw fa-shopping-cart"></i>
-                </div>
-                <div class="mr-5">123 New Orders!</div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                  <i class="fa fa-angle-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-danger o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fa fa-fw fa-life-ring"></i>
-                </div>
-                <div class="mr-5">13 New Tickets!</div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                  <i class="fa fa-angle-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
         </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-warning o-hidden h-100">
+                <div class="card-body">
+                    <div class="card-body-icon">
+                        <i class="fa fa-fw fa-list"></i>
+                    </div>
+                    <div class="mr-5">11 New Tasks!</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">View Details</span>
+                    <span class="float-right">
+                  <i class="fa fa-angle-right"></i>
+                </span>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-success o-hidden h-100">
+                <div class="card-body">
+                    <div class="card-body-icon">
+                        <i class="fa fa-fw fa-shopping-cart"></i>
+                    </div>
+                    <div class="mr-5">123 New Orders!</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">View Details</span>
+                    <span class="float-right">
+                  <i class="fa fa-angle-right"></i>
+                </span>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-danger o-hidden h-100">
+                <div class="card-body">
+                    <div class="card-body-icon">
+                        <i class="fa fa-fw fa-life-ring"></i>
+                    </div>
+                    <div class="mr-5">13 New Tickets!</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left">View Details</span>
+                    <span class="float-right">
+                  <i class="fa fa-angle-right"></i>
+                </span>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- DataTables Example -->
     <div class="card mb-3">
@@ -107,8 +107,11 @@
                             <th style="text-align: center">Name</th>
                             <th style="text-align: center">Address</th>
                             <th style="text-align: center">Gender</th>
+                            <th style="text-align: center">Email</th>
                             <th style="text-align: center">Phone No</th>
                             <th colspan="2" style="text-align: center">Resume</th>
+                            <th style="text-align: center">Selection</th>
+
 
                         </tr>
                         </thead>
@@ -119,9 +122,26 @@
                                     <td>{{ title_wise_application.applicant_name.name }}</td>
                                     <td>{{ title_wise_application.applicant_name.address }}</td>
                                     <td>{{ title_wise_application.applicant_name.gender }}</td>
+                                    <td>{{ title_wise_application.applicant_name.user.email }}</td>
+
                                     <td>{{ title_wise_application.applicant_name.phone_no }}</td>
-                                    <td><a href="{{ title_wise_application.applicant_name.resume.url }}">{{ title_wise_application.applicant_name.resume }}</a></td>
-                                <td><a href="{{ title_wise_application.applicant_name.resume.url }}"><i class="fa fa-download"></i></a></td>
+                                    <td>
+                                        <a href="{{ title_wise_application.applicant_name.resume.url }}">{{ title_wise_application.applicant_name.resume }}</a>
+                                    </td>
+                                    <td><a href="{{ title_wise_application.applicant_name.resume.url }}"><i
+                                            class="fa fa-download"></i></a></td>
+                                    <td>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="ap_name"
+                                                   value="{{ title_wise_application.applicant_name.name }}">
+
+                                            <input type="hidden" name="ap_email"
+                                                   value="{{ title_wise_application.applicant_name.user.email }}">
+                                            <input class="btn-outline-secondary" type="submit" value="Hire">
+                                        </form>
+                                    </td>
+
                                 </tr>
 
                             {% endif %}
@@ -130,11 +150,12 @@
 
                         </tbody>
                     </table>
-                </div>
+                    <br>
+                    <br>
+                </div>{{ title_wise_application.applicant_name.gender }}
             {% endfor %}
 
         </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
 
 

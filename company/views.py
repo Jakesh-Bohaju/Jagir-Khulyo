@@ -1,7 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
+from django.core.mail import send_mail, EmailMessage
 from django.shortcuts import redirect, render
 # Create your views here.
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView
 
@@ -148,6 +150,15 @@ class AppliedListView(LoginRequiredMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
+        applied_email = request.POST.get('ap_email')
+        applied_name = request.POST.get('ap_name')
+        subject = 'Hiring for Job'
+        message = render_to_string('hiring_job.html', {
+            'user': applied_name
+        })
+        msg = EmailMessage(subject, message, to=[applied_email])
+        msg.send()
+
         if form.is_valid():
             a = form.save(commit=False)
             b = request.user.id

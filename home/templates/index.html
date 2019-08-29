@@ -98,33 +98,7 @@
     </section>
     <!-- End popular-post Area -->
 
-    <!-- Start feature-cat Area -->
-    <section class="feature-cat-area pt-100" id="category">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="menu-content pb-60 col-lg-10">
-                    <div class="title text-center">
-                        <h1 class="mb-10">Featured Job Categories</h1>
-                        <p>Who are in extremely love with eco friendly system.</p>
 
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                {% for category in categories %}
-                    <div class="col-lg-2 col-md-4 col-sm-6">
-                        <div class="single-fcat">
-                            {#                            <a href="category.html">#}
-                            {#                                <img src="img/o1.png" alt="">#}
-                            {#                            </a>#}
-                            <p>{{ category.category }}</p>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-    <!-- End feature-cat Area -->
 
     <!-- Start post Area -->
     {% include 'partials/job_lists.html' %}
@@ -165,6 +139,35 @@
         </div>
     </section>
     <!-- End download Area -->
+
+
+     <!-- Start feature-cat Area -->
+    <section class="feature-cat-area pt-100 mb-5" id="category">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="menu-content pb-60 col-lg-10">
+                    <div class="title text-center">
+                        <h1 class="mb-10">Featured Job Categories</h1>
+                        <p>Who are in extremely love with eco friendly system.</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for category in categories %}
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="single-fcat">
+                            {#                            <a href="category.html">#}
+                            {#                                <img src="img/o1.png" alt="">#}
+                            {#                            </a>#}
+                            <p>{{ category.category }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- End feature-cat Area -->
 
 
 

@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Count
 from django.http import HttpResponseRedirect
 from django.template import loader
 from django.views.generic import ListView, CreateView
@@ -8,6 +9,7 @@ from blog.models import *
 # Create your views here.
 from blog.serializer import CommentSerializer
 from company.models import JobPost
+from home.models import District
 
 
 class BlogListView(ListView):
@@ -21,6 +23,14 @@ class BlogListView(ListView):
         context['blogs'] = Blog.objects.all().order_by('?')[:3]
         context['job_by_locations'] = JobPost.objects.all()
         context['top_jobs'] = JobPost.objects.all().order_by('?')
+        sss = District.objects.annotate(Count('company_detail_district__job_post_company')).order_by(
+            '-company_detail_district__job_post_company__count')[:5]
+        afd = []
+        for i in sss:
+            a = str(JobPost.objects.filter(company__district__district=i).count())
+            aa = {'district': i.district, 'count': a}
+            afd.append(aa)
+        context['jbl'] = afd
 
         return context
 
@@ -40,7 +50,14 @@ class BlogDetailView(CreateView):
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['comments'] = Comment.objects.filter(parent_id=None, blog_id=aaa.id)
         context['reply'] = Comment.objects.filter(blog_id=aaa.id)
-
+        sss = District.objects.annotate(Count('company_detail_district__job_post_company')).order_by(
+            '-company_detail_district__job_post_company__count')[:5]
+        afd = []
+        for i in sss:
+            a = str(JobPost.objects.filter(company__district__district=i).count())
+            aa = {'district': i.district, 'count': a}
+            afd.append(aa)
+        context['jbl'] = afd
         return context
 
     def post(self, request, *args, **kwargs):

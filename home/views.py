@@ -23,12 +23,20 @@ class IndexView(ListView):
         context = super().get_context_data(**kwargs)
         # context['jobsss'] = JobPost.objects.all()
         context['jobtype'] = JobType.objects.all()
-        context['categories'] = Category.objects.all().order_by('?')[:6]
+        context['categories'] = Category.objects.all().order_by('?')
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['latest_jobs'] = JobPost.objects.all().order_by('-id')
         context['blogs'] = Blog.objects.all().order_by('?')[:3]
         context['companies'] = CompanyDetail.objects.all()
+        aa = self.object_list.all()
+        today = datetime.datetime.now()
+        obj_list = []
+        for i in aa:
+            if i.deadline.year >= today.year and i.deadline.month >= today.month and i.deadline.day >= today.day:
+                self.object_list = i
+                obj_list.append(self.object_list)
 
+        context['object_list'] = obj_list
 
         sss = District.objects.annotate(Count('company_detail_district__job_post_company')).order_by(
             '-company_detail_district__job_post_company__count')[:5]
@@ -38,7 +46,6 @@ class IndexView(ListView):
             aa = {'district': i.district, 'count': a}
             afd.append(aa)
         context['jbl'] = afd
-        print(afd)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -52,7 +59,6 @@ class IndexView(ListView):
 
         aa = timezone.now()
         now = timezone.now() - timezone.timedelta(hours=24)
-        print(aa, now)
         asd = IPTracker()
         obj = IPTracker.objects.filter(job_ip_id=x)
         temp = 0
@@ -138,7 +144,7 @@ class SearchView(ListView):
             'filtered_jobs': search_set,
             'top_jobs': JobPost.objects.all().order_by('?'),
             'latest_jobs': JobPost.objects.all().order_by('-id')[:6],
-            'freq_categories': Category.objects.all().order_by('?')[:6],
+            'freq_categories': Category.objects.all().order_by('?'),
             'blogs': Blog.objects.all().order_by('?')[:3],
             'job_by_locations': JobPost.objects.all(),
             'jobtype': JobType.objects.all(),
@@ -155,11 +161,12 @@ class JobListView(ListView):
     model = JobPost
     paginate_by = 1
 
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         # context['jobs'] = JobPost.objects.all()
         context['jobtype'] = JobType.objects.all()
-        context['categories'] = Category.objects.all().order_by('?')[:6]
+        context['categories'] = Category.objects.all().order_by('?')
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['latest_jobs'] = JobPost.objects.all().order_by('-id')
         context['blogs'] = Blog.objects.all().order_by('?')[:3]
@@ -168,14 +175,22 @@ class JobListView(ListView):
         user = self.request.user
         today = datetime.datetime.now()
         aa = self.object_list.all()
-        obj_list=[]
+        obj_list = []
         for i in aa:
             if i.deadline.year >= today.year and i.deadline.month >= today.month and i.deadline.day >= today.day:
-                print("You can still apply for job", i.deadline)
                 self.object_list = i
                 obj_list.append(self.object_list)
 
         context['object_list'] = obj_list
+        sss = District.objects.annotate(Count('company_detail_district__job_post_company')).order_by(
+            '-company_detail_district__job_post_company__count')[:5]
+        afd = []
+        for i in sss:
+            a = str(JobPost.objects.filter(company__district__district=i).count())
+            aa = {'district': i.district, 'count': a}
+            afd.append(aa)
+        context['jbl'] = afd
+
 
         try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)
@@ -199,6 +214,14 @@ class CategoryListView(ListView):
         context['blogs'] = Blog.objects.all().order_by('?')[:3]
         context['job_by_locations'] = JobPost.objects.all()
         context['top_jobs'] = JobPost.objects.all().order_by('?')
+        sss = District.objects.annotate(Count('company_detail_district__job_post_company')).order_by(
+            '-company_detail_district__job_post_company__count')[:5]
+        afd = []
+        for i in sss:
+            a = str(JobPost.objects.filter(company__district__district=i).count())
+            aa = {'district': i.district, 'count': a}
+            afd.append(aa)
+        context['jbl'] = afd
         return context
 
 
@@ -218,6 +241,7 @@ class JobDetailView(DetailView):
         dayss = job.deadline - today
         weeks = int(dayss.days / 7)
         days = dayss.days % 7
+        context['dayssss'] = dayss.days
         context['week'] = weeks
         context['days'] = days
         context['applicant'] = uvw
@@ -230,6 +254,15 @@ class JobDetailView(DetailView):
         context['company'] = CompanyDetail.objects.get(job_post_company=job)
         asd = ReceivedResume.objects.all()
         user = self.request.user
+        context['already_applied'] = ReceivedResume.objects.filter(job_title__slug=slug,applicant_name__user_id=user.id).exists()
+        sss = District.objects.annotate(Count('company_detail_district__job_post_company')).order_by(
+            '-company_detail_district__job_post_company__count')[:5]
+        afd = []
+        for i in sss:
+            a = str(JobPost.objects.filter(company__district__district=i).count())
+            aa = {'district': i.district, 'count': a}
+            afd.append(aa)
+        context['jbl'] = afd
         try:
             context['seeker'] = SeekerDetail.objects.get(user_id=user)
         except Exception as e:
