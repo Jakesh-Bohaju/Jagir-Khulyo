@@ -25,6 +25,8 @@ class IndexView(ListView):
         # context['jobsss'] = JobPost.objects.all()
         context['jobtype'] = JobType.objects.all()
         context['categories'] = Category.objects.all().order_by('?')
+        context['catlist'] = Category.objects.all().order_by('?')[:5]
+
         context['top_jobs'] = JobPost.objects.all().order_by('?')
         context['latest_jobs'] = JobPost.objects.all().order_by('-id')
         context['blogs'] = Blog.objects.all().order_by('?')[:3]
@@ -363,7 +365,6 @@ class JobTypeView(ListView):
         except Exception as e:
             print(e)
         context['freq_categories'] = Category.objects.all().order_by('?')
-        context['catlist'] = Category.objects.all().order_by('?')[:5]
 
         context['blogs'] = Blog.objects.all().order_by('?')[:3]
         context['job_by_locations'] = JobPost.objects.all()

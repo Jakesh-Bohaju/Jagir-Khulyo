@@ -17,7 +17,7 @@
 
 
                     {% include 'partials/search.html' %}
-                    <p class="text-white"><span>{{alljobcount}}</span> Total Jobs | <span>Search by tags:</span> {{catlist}}</p>
+                    <p class="text-white"><span>{{alljobcount}}</span> Total Jobs | <span>Search by tags:</span> {% for i in catlist %}{{ i.category }}{% endfor %}</p>
                 </div>
             </div>
         </div>
