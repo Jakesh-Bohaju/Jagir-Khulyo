@@ -46,7 +46,7 @@ class Province(models.Model):
 
 
 class District(models.Model):
-    district = models.CharField(max_length=100 )
+    district = models.CharField(max_length=100)
     province_no = models.ForeignKey(Province, related_name='district_wise_province_no', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -55,9 +55,15 @@ class District(models.Model):
 
 class JobType(models.Model):
     job_type = models.CharField(max_length=20)
+    slug = models.SlugField()
 
     def __str__(self):
         return self.job_type
+
+    def save(self, *args, **kwargs):
+        value = self.job_type
+        self.slug = slugify(value, allow_unicode=True)
+        super().save(*args, **kwargs)
 
 
 class JobLevel(models.Model):
@@ -74,6 +80,3 @@ class Faq(models.Model):
 
     def __str__(self):
         return str(self.id)
-
-
-

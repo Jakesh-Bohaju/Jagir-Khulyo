@@ -14,11 +14,10 @@
 
             <div class="row fullscreen d-flex align-items-center justify-content-center">
                 <div class="banner-content col-lg-12">
-                    <h1 class="text-white">
-                        <span>1500+</span> Jobs posted last week
-                    </h1>
+
+
                     {% include 'partials/search.html' %}
-                    <p class="text-white"><span>Search by tags:</span> Tecnology, Business, Consulting, IT Company,
+                    <p class="text-white"><span>{{alljobcount}}</span> Total Jobs | <span>Search by tags:</span> Tecnology, Business, Consulting, IT Company,
                         Design,
                         Development</p>
                 </div>
@@ -157,10 +156,10 @@
                 {% for category in categories %}
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="single-fcat">
-                            {#                            <a href="category.html">#}
-                            {#                                <img src="img/o1.png" alt="">#}
-                            {#                            </a>#}
-                            <p>{{ category.category }}</p>
+                            <a href="{% url 'home:category_list' category %}">
+                                <p>{{ category.category }}</p>
+                            </a>
+
                         </div>
                     </div>
                 {% endfor %}
