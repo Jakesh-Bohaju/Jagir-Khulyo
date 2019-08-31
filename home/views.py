@@ -18,7 +18,7 @@ from job_seeker.models import SeekerDetail
 class IndexView(ListView):
     template_name = 'index.html'
     model = JobPost
-    paginate_by = 1
+    paginate_by = 15
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -123,7 +123,7 @@ class IndexView(ListView):
 class SearchView(ListView):
     template_name = 'search_result.html'
     model = JobPost
-    paginate_by = 2
+    paginate_by = 10
 
     def get(self, request, *args, **kwargs):
         title = request.GET.get('title')
@@ -166,7 +166,7 @@ class Error404(TemplateView):
 class JobListView(ListView):
     template_name = 'job_list.html'
     model = JobPost
-    paginate_by = 1
+    paginate_by = 15
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -208,7 +208,7 @@ class JobListView(ListView):
 class CategoryListView(ListView):
     template_name = 'job_list.html'
     model = JobPost
-    paginate_by = 1
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -314,7 +314,7 @@ class FaqView(TemplateView):
 class LocationListView(ListView):
     model = JobPost
     template_name = 'job_list.html'
-    paginate_by = 1
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
@@ -355,7 +355,7 @@ class LocationListView(ListView):
 class JobTypeView(ListView):
     model = JobPost
     template_name = 'job_list.html'
-    paginate_by = 1
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
