@@ -92,9 +92,7 @@
                                                     {{ applicant }}{% if applicantsplit == 0 %}<small>st</small>{% elif applicantsplit == 1 %}<small>nd</small>{% elif applicantsplit == 2 %}<small>rd</small>{% else %}<small>th</small>{% endif %} applicant</span></span>&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp
                                                 <span class="fa fa-calendar" style="color:green"> <span
                                                         class="text-primary">{% if dayssss > 0 %}{% if week > 0 %}
-                                                    {{ week }} week
-                                                    {% if week > 1 %}s{% endif %}{% endif %} {% if days > 0 %}
-                                                    {{ days }} day{% if days > 1 %}s
+                                                    {{ week }} week{% if week > 1 %}s{% endif %}{% endif %} {% if days > 0 %}{{ days }} day{% if days > 1 %}s
                                                     {% endif %}{% endif %}left{% else %}Job
                                                     expired{% endif %}</span></span></p>
 

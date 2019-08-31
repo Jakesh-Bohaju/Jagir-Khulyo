@@ -71,7 +71,11 @@
                             <p class="lnr lnr-map"> Location : {{ job.company.address }}</p>
                             <p class="lnr lnr-layers"> Job Level : {{ job.job_level }}</p>
                             <p class="lnr lnr-database"> No of vacancy : {{ job.vacancy_no }}</p>
-                            <p class="lnr lnr-database"> Salary : {{ job.salary }}</p>
+                            <p class="lnr lnr-database"> Salary : {% if job.negotiable == True %}
+                                                Negotiable
+                                            {% else %}
+                                                Rs. {{ job.salary }}
+                                            {% endif %}</p>
 
                         </div>
                     </div>
