@@ -32,7 +32,7 @@
                 <p class="lnr lnr-database"> Salary : {% if t_job.negotiable == True %}
                                                 Negotiable
                                             {% else %}
-                                                Rs. {{ job.salary }}
+                                                Rs. {{ t_job.salary }}
                                             {% endif %}</p>
                 {#                <a href="{% url 'home:single_job_detail' t_job %}" class="btns text-uppercase">View Detail</a>#}
                 <form method="post" action="{% url 'home:index' %}">

@@ -56,7 +56,7 @@
                                                 <p class="lnr lnr-database"> Salary : {% if t_job.negotiable == True %}
                                                 Negotiable
                                             {% else %}
-                                                Rs. {{ job.salary }}
+                                                Rs. {{ t_job.salary }}
                                             {% endif %}</p>
                                                 <form method="post" action="{% url 'home:index' %}">
                                                     {% csrf_token %}
