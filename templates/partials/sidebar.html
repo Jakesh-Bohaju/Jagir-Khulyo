@@ -29,7 +29,11 @@
                 <p class="lnr lnr-map"> Location : {{ t_job.company.address }}</p>
                 <p class="lnr lnr-layers"> Job Level : {{ t_job.job_level }}</p>
                 <p class="lnr lnr-database"> No of vacancy : {{ t_job.vacancy_no }}</p>
-                <p class="lnr lnr-database"> Salary : {{ t_job.salary }}</p>
+                <p class="lnr lnr-database"> Salary : {% if t_job.negotiable == True %}
+                                                Negotiable
+                                            {% else %}
+                                                Rs. {{ job.salary }}
+                                            {% endif %}</p>
                 {#                <a href="{% url 'home:single_job_detail' t_job %}" class="btns text-uppercase">View Detail</a>#}
                 <form method="post" action="{% url 'home:index' %}">
                     {% csrf_token %}
@@ -65,9 +69,9 @@
                     </p>
                     <p>
                         <span class="lnr lnr-heart"></span>
-                        06
+
                         <span class="lnr lnr-bubble"></span>
-                        02
+
                     </p>
                 </div>
             </div>

@@ -13,7 +13,7 @@
                 </ul>
                 {% for job in object_list %}
                     <div class="single-post d-flex flex-row">
-                        <div class="col-3">
+                        <div class="col-lg-3 col-md-3 col-sm-4">
                             <div class="thumb">
 
 
@@ -24,14 +24,14 @@
 
                                 <ul class="tags">
                                     <li>
-                                        <a href="#">{{ job.category.category }}</a>
+                                        <a href="{% url 'home:category_list' job %}">{{ job.category.category }}</a>
                                     </li>
 
 
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-lg-8 col-md-8 col-sm-7">
 
                             <div class="details">
                                 <div class="row">
