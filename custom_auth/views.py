@@ -45,7 +45,7 @@ class RegistrationView(CreateView):
         else:
             form = UserForm()
 
-        return render(request, 'register.html', {'form': form})
+            return render(request, 'register.html', {'form': form})
 
 
 class CustomLoginView(LoginView):
